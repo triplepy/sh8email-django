@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import smtpd
+from email.parser import Parser
 import asyncore
+
+from front.models import Mail
 
 
 class CustomSMTPServer(smtpd.SMTPServer):
@@ -11,8 +14,14 @@ class CustomSMTPServer(smtpd.SMTPServer):
         print('Message addressed from:', mailfrom)
         print('Message addressed to  :', rcpttos)
         print('Message length        :', len(data))
+
+
+
+        body = Parser().parsestr(data)
+        Mail(recepient=body['to'], sender=body['from'], subject=body['subject'])
+
         return
 
-server = CustomSMTPServer(('127.0.0.1', 1025), None)
+server = CustomSMTPServer(('localhost', 25), None)
 
 asyncore.loop()
