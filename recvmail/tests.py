@@ -3,23 +3,17 @@ import smtplib
 import email.utils
 from email.mime.text import MIMEText
 from front.models import Mail
-from recvmail.recv_server import Sh8MailThread
+from .recv_server import Sh8MailProcess
 import threading
-
-t = Sh8MailThread()
-
-
-def server_start():
-    t.start()
-
-
-t_start = threading.Thread(target=server_start())
+from multiprocessing import Process
 
 
 class RecvMailTest(TestCase):
 
     def setUp(self):
-        t_start.start()
+        self.p = Sh8MailProcess()
+        self.p.daemon = True
+        self.p.start()
         # Create the message
         msg = MIMEText('This is the body of the message.')
         msg['To'] = email.utils.formataddr(('Recipient',
@@ -29,16 +23,13 @@ class RecvMailTest(TestCase):
 
         server = smtplib.SMTP('127.0.0.1', 25)
         # show communication with the server
-        server.set_debuglevel(True) 
+        server.set_debuglevel(True)
         try:
             server.sendmail('author@example.com',
                             ['recipient@example.com'],
                             msg.as_string())
         finally:
             server.quit()
-        
-    def tearDown(self):
-        t.stop()
 
     def test_get_a_mail(self):
         mail = Mail.objects.all()

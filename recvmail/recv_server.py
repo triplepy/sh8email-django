@@ -4,6 +4,7 @@ from email.parser import Parser
 from front.models import Mail
 import threading
 import asyncore
+import multiprocessing
 
 
 class CustomSMTPServer(smtpd.SMTPServer):
@@ -23,6 +24,12 @@ class CustomSMTPServer(smtpd.SMTPServer):
         return
 
 
+class Sh8MailProcess(multiprocessing.Process):
+    def run(self):
+        self.server = CustomSMTPServer(('0.0.0.0', 25), None)
+        asyncore.loop()
+
+ 
 class Sh8MailThread(object):
     def start(self):
         self.smtp = CustomSMTPServer(('0.0.0.0', 25), None)
