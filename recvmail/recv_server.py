@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-import django
 import smtpd
 from email.parser import Parser
-import asyncore
 from front.models import Mail
+import threading
+import asyncore
 
-django.setup()
 
 class CustomSMTPServer(smtpd.SMTPServer):
 
     def process_message(self, peer, mailfrom, rcpttos, data):
         print('Receiving message from:', peer)
-        print('Message addressed from:', mailfrom)
+        # print('Message addressed from:', mailfrom)
         print('Message addressed to  :', rcpttos)
         print('Message length        :', len(data))
 
@@ -19,10 +18,21 @@ class CustomSMTPServer(smtpd.SMTPServer):
         Mail(recepient=body['to'], sender=body['from'],
              subject=body['subject']).save()
 
-        print(body)
-
+        print("================= \n ", body)
+        print("=================")
         return
 
-server = CustomSMTPServer(('localhost', 25), None)
 
-asyncore.loop()
+class Sh8MailThread(object):
+    def start(self):
+        self.smtp = CustomSMTPServer(('0.0.0.0', 25), None)
+        # time out parameter is important,
+        # otherwise code will block 30 seconds after smtp has been close
+        self.thread = threading.Thread(target=asyncore.loop,
+                                       kwargs={'timeout': 1})
+
+    def stop(self):
+        self.smtp.close()
+        # now it is save to wait for the thread to finish,
+        # i.e. for asyncore.loop() to exit
+        self.thread.join()

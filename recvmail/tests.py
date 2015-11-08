@@ -3,11 +3,23 @@ import smtplib
 import email.utils
 from email.mime.text import MIMEText
 from front.models import Mail
+from recvmail.recv_server import Sh8MailThread
+import threading
+
+t = Sh8MailThread()
+
+
+def server_start():
+    t.start()
+
+
+t_start = threading.Thread(target=server_start())
 
 
 class RecvMailTest(TestCase):
 
     def setUp(self):
+        t_start.start()
         # Create the message
         msg = MIMEText('This is the body of the message.')
         msg['To'] = email.utils.formataddr(('Recipient',
@@ -24,6 +36,9 @@ class RecvMailTest(TestCase):
                             msg.as_string())
         finally:
             server.quit()
+        
+    def tearDown(self):
+        t.stop()
 
     def test_get_a_mail(self):
         mail = Mail.objects.all()
