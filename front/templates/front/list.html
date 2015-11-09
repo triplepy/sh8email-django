@@ -39,7 +39,7 @@
                 {{ mail.contents | linebreaks }}
             </div>
             <div class="col-md-3">
-                {{ mail.date | date }}
+                {{ mail.date | date:'Y/m/d P' }}
             </div>
         </div>
     {% endfor %}
