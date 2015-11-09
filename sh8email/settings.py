@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'sh8email',
         'USER': 'sh8email',
         'PASSWORD': 'djangoUg0G!rls',
-        'HOST': '52.192.36.142',
+        'HOST': '127.0.0.1',
         'PORT': '5432'
     }
 }
@@ -93,7 +93,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
