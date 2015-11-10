@@ -23,7 +23,7 @@
     <div class="row">
         <h1>sh8email</h1>
     </div>
-{% if not mail_lists %}
+{% if not mail_list %}
     <div class="row">
         <div class="col-md-12">
             수신한 메일이 없습니다.
@@ -35,8 +35,11 @@
             <div class="col-md-3">
                 {{ mail.sender }}
             </div>
-            <div class="col-md-6">
-                {{ mail.contents | linebreaks }}
+            <div class="col-md-3">
+                 <a href="{% url 'detail' pk=mail.pk %}"> {{ mail.subject }}</a>
+            </div>
+            <div class="col-md-3">
+               {{ mail.contents | linebreaks }}
             </div>
             <div class="col-md-3">
                 {{ mail.date | date:'Y/m/d P' }}

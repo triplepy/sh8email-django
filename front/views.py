@@ -1,6 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from front.models import Mail
+from .models import Mail
+
+
+def detail(request, pk):
+    mail = get_object_or_404(Mail, pk=pk)
+    return render(request, 'front/detail.html', {'mail': mail})
 
 
 class ListView(generic.ListView):
@@ -8,3 +13,5 @@ class ListView(generic.ListView):
 
     def get_queryset(self):
         return Mail.objects.all()
+
+
