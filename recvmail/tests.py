@@ -11,10 +11,10 @@ class RecvMailTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super(RecvMailTest, cls).setUpClass()
-        RecvMailTest.start_mail_server()
+        RecvMailTest.start_mail_server(cls)
         # for wait running server
         time.sleep(0.5)
-        RecvMailTest.send_test_mail()
+        RecvMailTest.send_test_mail(cls)
 
     def send_test_mail(self):
         # Create the message
