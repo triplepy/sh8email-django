@@ -2,7 +2,7 @@
 import smtpd
 from email.parser import Parser
 from front.models import Mail
-from django.db import connection
+
 import threading
 import asyncore
 import multiprocessing
@@ -11,24 +11,14 @@ import multiprocessing
 class CustomSMTPServer(smtpd.SMTPServer):
 
     def process_message(self, peer, mailfrom, rcpttos, data):
-        print('Receiving message from:', peer)
-        print('Message addressed from:', mailfrom)
-        print('Message addressed to  :', rcpttos)
-        print('Message length        :', len(data))
-        
         body = Parser().parsestr(data)
-        print("-----------------------")
+        self.save_email(body)
+        pass
+    
+    def save_email(self, body):
         m = Mail(recepient=body['to'], sender=body['from'],
                  subject=body['subject'])
-        print("++++++++++++++++++++++++++")
         m.save()
-        print("++++++++++++++++++++++++++")
-        mail = Mail.objects.all()
-        print("-----------------------")
-        print(mail[0].subject)
-        print("================= \n ", body['to'])
-        print("=================")
-        return
 
 
 class Sh8MailProcess(multiprocessing.Process):
