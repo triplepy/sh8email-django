@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+import sys
+import os
+sys.path.append('..' + os.sep)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings")
+
 import smtpd
 from email.parser import Parser
 from front.models import Mail
@@ -24,3 +29,8 @@ class Sh8MailProcess(multiprocessing.Process):
     def run(self):
         self.server = CustomSMTPServer(('0.0.0.0', 25), None)
         asyncore.loop()
+
+
+if __name__ == "__main__":
+    p = Sh8MailProcess()
+    p.start()
