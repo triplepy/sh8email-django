@@ -84,6 +84,14 @@ DATABASES = {
         'PASSWORD': 'djangoUg0G!rls',
         'HOST': '127.0.0.1',
         'PORT': '5432'
+    },
+    'receive_mail': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'sh8email',
+        'USER': 'receive',
+        'PASSWORD': 'Resh8em@!l',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
