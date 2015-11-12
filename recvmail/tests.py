@@ -43,7 +43,6 @@ class RecvMailTest(TestCase):
     def test_exist_a_mail(self):
         time.sleep(1)
         mail = Mail.objects.all()
-        print(mail)
         self.assertTrue(mail)
 
 
