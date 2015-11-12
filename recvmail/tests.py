@@ -60,6 +60,10 @@ class MailUtil(TestCase):
         param_email = "Recipient : <recipient@example.com>"
         result = nomalize_recip(param_email)
         self.assertEquals("recipient", result)
+
+        param_email = "Recipient : < recipient@example.com >"
+        result = nomalize_recip(param_email)
+        self.assertEquals("recipient", result)
         
     
 class Sh8MailProcessForTest(Sh8MailProcess):
