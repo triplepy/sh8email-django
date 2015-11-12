@@ -84,7 +84,7 @@ DATABASES = {
         'PASSWORD': 'djangoUg0G!rls',
         'HOST': '127.0.0.1',
         'PORT': '5432'
-    },
+    }
 }
 
 
