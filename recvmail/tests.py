@@ -51,7 +51,11 @@ class MailUtil(TestCase):
         param_email = "recpient@example.com"
         result = nomalize_recip(param_email)
         self.assertEquals("recpient", result)
-        
+
+        param_email = "recip@ent@example.com"
+        result = nomalize_recip(param_email)
+        self.assertEquals("recip@ent", result)
+
     
 class Sh8MailProcessForTest(Sh8MailProcess):
     def run(self):
