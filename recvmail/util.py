@@ -2,7 +2,11 @@
 
 
 def nomalize_recip(recip):
-    real = recip[:recip.rfind('@')]
-    return real
+    before_at_sign = recip[:recip.rfind('@')]
+    if before_at_sign.find('<') >= 0:
+        return before_at_sign[before_at_sign.find('<') + 1:]
+    else:
+        return before_at_sign
+        
         
     
