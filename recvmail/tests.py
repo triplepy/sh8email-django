@@ -43,19 +43,24 @@ class RecvMailTest(TestCase):
     def test_exist_a_mail(self):
         time.sleep(1)
         mail = Mail.objects.all()
+        print(mail)
         self.assertTrue(mail)
 
 
 class MailUtil(TestCase):
     def test_nomalize_reciepent(self):
-        param_email = "recpient@example.com"
+        param_email = "recipient@example.com"
         result = nomalize_recip(param_email)
-        self.assertEquals("recpient", result)
+        self.assertEquals("recipient", result)
 
         param_email = "recip@ent@example.com"
         result = nomalize_recip(param_email)
         self.assertEquals("recip@ent", result)
 
+        param_email = "Recipient : <recipient@example.com>"
+        result = nomalize_recip(param_email)
+        self.assertEquals("recipient", result)
+        
     
 class Sh8MailProcessForTest(Sh8MailProcess):
     def run(self):
