@@ -6,6 +6,7 @@ from email.mime.text import MIMEText
 from front.models import Mail
 from .recv_server import Sh8MailProcess
 import time
+from .util import nomalize_recip
 
 
 class RecvMailTest(TestCase):
@@ -44,6 +45,13 @@ class RecvMailTest(TestCase):
         mail = Mail.objects.all()
         self.assertTrue(mail)
 
+
+class MailUtil(TestCase):
+    def test_nomalize_reciepent(self):
+        param_email = "recpient@example.com"
+        result = nomalize_recip(param_email)
+        self.assertEquals("recpient", result)
+        
     
 class Sh8MailProcessForTest(Sh8MailProcess):
     def run(self):
