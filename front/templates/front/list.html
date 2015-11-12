@@ -20,34 +20,89 @@
 
 <body>
 <div class="container">
-    <div class="row">
-        <h1>sh8email</h1>
+    <div class="row common__nav">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">sh8email</a>
+            </div>
+        </nav>
     </div>
-{% if not mail_list %}
-    <div class="row">
-        <div class="col-md-12">
-            수신한 메일이 없습니다.
-        </div>
-    </div>
-{% else %}
-    {% for mail in mail_list %}
-        <div class="row">
-            <div class="col-md-3">
-                {{ mail.sender }}
-            </div>
-            <div class="col-md-3">
-                 <a href="{% url 'detail' pk=mail.pk %}"> {{ mail.subject }}</a>
-            </div>
-            <div class="col-md-3">
-               {{ mail.contents | linebreaks }}
-            </div>
-            <div class="col-md-3">
-                {{ mail.date | date:'Y/m/d P' }}
-            </div>
-        </div>
-    {% endfor %}
-{% endif %}
 
+    <div class="row text-center list__paging_bar">
+        <nav>
+            <ul class="pagination pagination-lg">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="row">
+        <div class="list-group">
+        {% if not mail_list %}
+            <div class="row">
+                <div class="col-md-12">
+                    수신한 메일이 없습니다.
+                </div>
+            </div>
+        {% else %}
+            {% for mail in mail_list %}
+                <a href="#" class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-2">{{ mail.sender }}</div>
+                        <div class="col-md-8">{{ mail.subject }}</div>
+                        <div class="col-md-2">{{ mail.date | date:'Y/m/d P' }}</div>
+                    </div>
+                </a>
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+
+    <div class="row text-center list__paging_bar">
+        <nav>
+            <ul class="pagination pagination-lg">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li><a href="#">8</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">10</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
 </body>
 
