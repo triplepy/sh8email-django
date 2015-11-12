@@ -2,4 +2,13 @@
 
 
 def nomalize_recip(recip):
-    return "recpient"
+    splits = recip.split('@')
+    if not len(splits) == 1:
+        splits.pop()
+    real = ''
+    for s in splits:
+        real += s
+
+    return real
+        
+    
