@@ -75,11 +75,15 @@ class MailUtil(TestCase):
         self.assertEquals("recipient", result_body['to'])
 
         p_mailfrom = "mailfrom@example.com"
+        p_body['from'] = "From <from@example.com>"
+        p_body['to'] = "recipient@exam.com"
         result_body = nomalize_body(p_body, p_mailfrom, p_peer)
         self.assertEquals("mailfrom@example.com", result_body['from'])
         self.assertEquals("recipient", result_body['to'])
 
         p_peer = "peer@example.com"
+        p_body['from'] = "From <from@example.com>"
+        p_body['to'] = "recipient@exam.com"
         result_body = nomalize_body(p_body, p_mailfrom, p_peer)
         self.assertEquals("mailfrom@example.com", result_body['from'])
         self.assertEquals("peer", result_body['to'])
