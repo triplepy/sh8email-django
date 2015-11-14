@@ -15,7 +15,7 @@ class RecvMailTest(TestCase):
         super(RecvMailTest, cls).setUpClass()
         RecvMailTest.start_mail_server(cls)
         # for wait running server
-        time.sleep(0.5)
+        time.sleep(0.2)
         RecvMailTest.send_test_mail(cls)
 
     def send_test_mail(self):
@@ -41,7 +41,7 @@ class RecvMailTest(TestCase):
         p.start()
 
     def test_exist_a_mail(self):
-        time.sleep(1)
+        time.sleep(0.2)
         mail = Mail.objects.all()
         self.assertTrue(mail)
 
