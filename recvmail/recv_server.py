@@ -28,8 +28,6 @@ class CustomSMTPServer(smtpd.SMTPServer):
         pass
 
 
-
-
 class Sh8MailProcess(multiprocessing.Process):
     def run(self):
         self.server = CustomSMTPServer(('0.0.0.0', 25), None)
