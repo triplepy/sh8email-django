@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 from front.models import Mail
 from .recv_server import Sh8MailProcess
 import time
-from .util import nomalize_recip
+from .util import nomalize_recip, nomalize_body
 
 
 class RecvMailTest(TestCase):
@@ -63,8 +63,28 @@ class MailUtil(TestCase):
         param_email = "Recipient : < recipient@example.com >"
         result = nomalize_recip(param_email)
         self.assertEquals("recipient", result)
-        
-    
+
+    def test_nomalize_body(self):
+        p_body = {}
+        p_body['from'] = "From <from@example.com>"
+        p_body['to'] = "recipient@exam.com"
+        p_mailfrom = ""
+        p_peer = ""
+        result_body = nomalize_body(p_body, p_mailfrom, p_peer)
+        self.assertEquals("From <from@example.com>", result_body['from'])
+        self.assertEquals("recipient", result_body['to'])
+
+        p_mailfrom = "mailfrom@example.com"
+        result_body = nomalize_body(p_body, p_mailfrom, p_peer)
+        self.assertEquals("mailfrom@example.com", result_body['from'])
+        self.assertEquals("recipient", result_body['to'])
+
+        p_peer = "peer@example.com"
+        result_body = nomalize_body(p_body, p_mailfrom, p_peer)
+        self.assertEquals("mailfrom@example.com", result_body['from'])
+        self.assertEquals("peer", result_body['to'])
+
+
 class Sh8MailProcessForTest(Sh8MailProcess):
     def run(self):
         super(Sh8MailProcessForTest, self).run()
