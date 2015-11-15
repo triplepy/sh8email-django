@@ -11,3 +11,12 @@ def nomalize_recip(recip):
     return real.strip()
         
     
+def nomalize_body(body, mailfrom, peer):
+    if mailfrom:
+        body['from'] = mailfrom
+    if peer:
+        body['to'] = peer
+
+    body['to'] = nomalize_recip(body['to'])
+
+    return body
