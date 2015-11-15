@@ -10,40 +10,53 @@ from .util import nomalize_recip, nomalize_body
 
 
 class RecvMailTest(TestCase):
+    msg = MIMEText('This is the body of the message.')
+    frommail = 'author@example.com'
+    peer = 'recipient@example.com'
+    
     @classmethod
     def setUpClass(cls):
         super(RecvMailTest, cls).setUpClass()
         RecvMailTest.start_mail_server(cls)
         # for wait running server
-        time.sleep(0.2)
+        time.sleep(0.1)
         RecvMailTest.send_test_mail(cls)
 
     def send_test_mail(self):
-        # Create the message
-        msg = MIMEText('This is the body of the message.')
-        msg['To'] = email.utils.formataddr(('Recipient',
-                                            'recipient@example.com'))
-        msg['From'] = email.utils.formataddr(('Author', 'author@example.com'))
-        msg['Subject'] = 'Simple test message'
+        self.set_self_msg(self)
 
         server = smtplib.SMTP('127.0.0.1', 25)
         # show communication with the server
         try:
-            server.sendmail('author@example.com',
-                            ['recipient@example.com'],
-                            msg.as_string())
+            server.sendmail(self.frommail,
+                            [self.peer],
+                            self.msg.as_string())
         finally:
             server.quit()
+        # for wait to process mail    
+        time.sleep(0.1)
 
+    def set_self_msg(self):
+        self.msg['To'] = email.utils.formataddr(('Recipient',
+                                            'recipient@example.com'))
+        self.msg['From'] = email.utils.formataddr(('Author', 'author@example.com'))
+        self.msg['Subject'] = 'Simple test message'
+        
     def start_mail_server(self):
         p = Sh8MailProcessForTest()
         p.daemon = True
         p.start()
 
     def test_exist_a_mail(self):
-        time.sleep(0.2)
         mail = Mail.objects.all()
         self.assertTrue(mail)
+
+    def test_check_mail_value(self):
+        mail = Mail.objects.first()
+        self.assertEquals(self.msg['From'], mail.sender)
+        self.assertEquals(self.peer, mail.recipient)
+        self.assertEquals(self.msg['Subject'], mail.subject)
+        self.assertEquals(self.msg.as_string(), mail.content)
 
 
 class MailUtil(TestCase):
