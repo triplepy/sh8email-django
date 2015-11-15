@@ -20,7 +20,7 @@ class CustomSMTPServer(smtpd.SMTPServer):
         body = nomalize_body(body, mailfrom)
 
         m = Mail.objects.create(recipient=body['To'], sender=body['From'],
-                 subject=body['Subject'])
+                 subject=body['Subject'], contents=body.get_payload())
         pass
 
 
