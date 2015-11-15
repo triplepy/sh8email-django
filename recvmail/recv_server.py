@@ -18,14 +18,9 @@ class CustomSMTPServer(smtpd.SMTPServer):
     def process_message(self, peer, mailfrom, rcpttos, data):
         body = Parser().parsestr(data)
         body = nomalize_body(body, mailfrom, peer)
-        self.save_email(body)
-        pass
-    
-    def save_email(self, body):
         m = Mail.objects.create(recipient=body['to'], sender=body['from'],
                  subject=body['subject'])
         pass
-
 
 
 class Sh8MailProcess(multiprocessing.Process):
