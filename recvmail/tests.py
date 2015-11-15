@@ -10,12 +10,13 @@ from .util import nomalize_recip, nomalize_body
 
 
 class RecvMailTest(TestCase):
-    msg = MIMEText('This is the body of the message.')
-    frommail = 'author@example.com'
-    peer = 'recipient@example.com'
-    peernickname = 'recipient'
+
     @classmethod
     def setUpClass(cls):
+        cls.msg = MIMEText('This is the body of the message.')
+        cls.frommail = 'author@example.com'
+        cls.peer = 'recipient@example.com'
+        cls.peernickname = 'recipient'
         super(RecvMailTest, cls).setUpClass()
         RecvMailTest.start_mail_server(cls)
         # for wait running server
@@ -38,8 +39,8 @@ class RecvMailTest(TestCase):
 
     def set_self_msg(self):
         self.msg['To'] = email.utils.formataddr(('Recipient',
-                                            'recipient@example.com'))
-        self.msg['From'] = email.utils.formataddr(('Author', 'author@example.com'))
+                                            self.peer))
+        self.msg['From'] = email.utils.formataddr(('Author', self.frommail))
         self.msg['Subject'] = 'Simple test message'
         
     def start_mail_server(self):
