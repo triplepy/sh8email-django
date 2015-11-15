@@ -47,22 +47,19 @@ class RecvMailTest(TestCase):
 
 
 class MailUtil(TestCase):
+    def assert_after_nomalize_recipent(self, param_email, expected):
+        result = nomalize_recip(param_email)
+        self.assertEquals(expected, result)
+    
     def test_nomalize_reciepent(self):
-        param_email = "recipient@example.com"
-        result = nomalize_recip(param_email)
-        self.assertEquals("recipient", result)
-
-        param_email = "recip@ent@example.com"
-        result = nomalize_recip(param_email)
-        self.assertEquals("recip@ent", result)
-
-        param_email = "Recipient : <recipient@example.com>"
-        result = nomalize_recip(param_email)
-        self.assertEquals("recipient", result)
-
-        param_email = "Recipient : < recipient@example.com >"
-        result = nomalize_recip(param_email)
-        self.assertEquals("recipient", result)
+        self.assert_after_nomalize_recipent(
+                            "recipient@example.com", "recipient")
+        self.assert_after_nomalize_recipent(
+                            "recip@ent@example.com", "recip@ent")
+        self.assert_after_nomalize_recipent(
+                            "Recipient : <recipient@example.com>", "recipient")
+        self.assert_after_nomalize_recipent(
+                            "Recipient : < recipient@example.com >", "recipient")
 
     def test_nomalize_body(self):
         p_body = {}
