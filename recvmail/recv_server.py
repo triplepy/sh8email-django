@@ -22,10 +22,10 @@ class CustomSMTPServer(smtpd.SMTPServer):
         pass
     
     def save_email(self, body):
-        m = Mail(recipient=body['to'], sender=body['from'],
+        m = Mail.objects.create(recipient=body['to'], sender=body['from'],
                  subject=body['subject'])
-        m.save()
         pass
+
 
 
 class Sh8MailProcess(multiprocessing.Process):
