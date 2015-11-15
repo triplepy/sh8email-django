@@ -47,10 +47,19 @@ class RecvMailTest(TestCase):
 
 
 class MailUtil(TestCase):
+    empty_mailfrom = ""
+    empty_peer = ""
+    
     def assert_after_nomalize_recipent(self, param_email, expected):
         result = nomalize_recip(param_email)
         self.assertEquals(expected, result)
-    
+
+    def make_default_parameter_body(self):
+        body = {}
+        body['from'] = "From <from@example.com>"
+        body['to'] = "recipient@exam.com"
+        return body
+
     def test_nomalize_reciepent(self):
         self.assert_after_nomalize_recipent(
                             "recipient@example.com", "recipient")
@@ -61,27 +70,30 @@ class MailUtil(TestCase):
         self.assert_after_nomalize_recipent(
                             "Recipient : < recipient@example.com >", "recipient")
 
-    def test_nomalize_body(self):
-        p_body = {}
-        p_body['from'] = "From <from@example.com>"
-        p_body['to'] = "recipient@exam.com"
-        p_mailfrom = ""
-        p_peer = ""
-        result_body = nomalize_body(p_body, p_mailfrom, p_peer)
+    def test_nomalize_body_case_with_only_body(self):
+        p_body = self.make_default_parameter_body()
+
+        result_body = nomalize_body(p_body, self.empty_mailfrom, self.empty_peer)
+
         self.assertEquals("From <from@example.com>", result_body['from'])
         self.assertEquals("recipient", result_body['to'])
 
+    def test_nomalize_body_case_with_mailfrom(self):
+        p_body = self.make_default_parameter_body()
         p_mailfrom = "mailfrom@example.com"
-        p_body['from'] = "From <from@example.com>"
-        p_body['to'] = "recipient@exam.com"
-        result_body = nomalize_body(p_body, p_mailfrom, p_peer)
+        
+        result_body = nomalize_body(p_body, p_mailfrom, self.empty_peer)
+        
         self.assertEquals("mailfrom@example.com", result_body['from'])
         self.assertEquals("recipient", result_body['to'])
-
+        
+    def test_nomalize_reciepent_with_mailfrom_and_peer(self):
+        p_body = self.make_default_parameter_body()        
+        p_mailfrom = "mailfrom@example.com"
         p_peer = "peer@example.com"
-        p_body['from'] = "From <from@example.com>"
-        p_body['to'] = "recipient@exam.com"
+        
         result_body = nomalize_body(p_body, p_mailfrom, p_peer)
+        
         self.assertEquals("mailfrom@example.com", result_body['from'])
         self.assertEquals("peer", result_body['to'])
 
