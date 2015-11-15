@@ -17,9 +17,10 @@ class CustomSMTPServer(smtpd.SMTPServer):
 
     def process_message(self, peer, mailfrom, rcpttos, data):
         body = Parser().parsestr(data)
-        body = nomalize_body(body, mailfrom, peer)
-        m = Mail.objects.create(recipient=body['to'], sender=body['from'],
-                 subject=body['subject'])
+        body = nomalize_body(body, mailfrom)
+
+        m = Mail.objects.create(recipient=body['To'], sender=body['From'],
+                 subject=body['Subject'])
         pass
 
 

@@ -13,7 +13,7 @@ class RecvMailTest(TestCase):
     msg = MIMEText('This is the body of the message.')
     frommail = 'author@example.com'
     peer = 'recipient@example.com'
-    
+    peernickname = 'recipient'
     @classmethod
     def setUpClass(cls):
         super(RecvMailTest, cls).setUpClass()
@@ -54,9 +54,9 @@ class RecvMailTest(TestCase):
     def test_check_mail_value(self):
         mail = Mail.objects.first()
         self.assertEquals(self.msg['From'], mail.sender)
-        self.assertEquals(self.peer, mail.recipient)
+        self.assertEquals(self.peernickname, mail.recipient)
         self.assertEquals(self.msg['Subject'], mail.subject)
-        self.assertEquals(self.msg.as_string(), mail.content)
+        self.assertEquals(self.msg.get_payload(), mail.contents)
 
 
 class MailUtil(TestCase):
@@ -69,8 +69,8 @@ class MailUtil(TestCase):
 
     def make_default_parameter_body(self):
         body = {}
-        body['from'] = "From <from@example.com>"
-        body['to'] = "recipient@exam.com"
+        body['From'] = "From <from@example.com>"
+        body['To'] = "recipient@exam.com"
         return body
 
     def test_nomalize_reciepent(self):
@@ -86,29 +86,21 @@ class MailUtil(TestCase):
     def test_nomalize_body_case_with_only_body(self):
         p_body = self.make_default_parameter_body()
 
-        result_body = nomalize_body(p_body, self.empty_mailfrom, self.empty_peer)
+        result_body = nomalize_body(p_body, self.empty_mailfrom)
 
-        self.assertEquals("From <from@example.com>", result_body['from'])
-        self.assertEquals("recipient", result_body['to'])
+        self.assertEquals("From <from@example.com>", result_body['From'])
+        self.assertEquals("recipient", result_body['To'])
 
     def test_nomalize_body_case_with_mailfrom(self):
         p_body = self.make_default_parameter_body()
         p_mailfrom = "mailfrom@example.com"
         
-        result_body = nomalize_body(p_body, p_mailfrom, self.empty_peer)
+        result_body = nomalize_body(p_body, p_mailfrom)
         
-        self.assertEquals("mailfrom@example.com", result_body['from'])
-        self.assertEquals("recipient", result_body['to'])
+        self.assertEquals("From <from@example.com>", result_body['From'])
+        self.assertEquals("recipient", result_body['To'])
         
-    def test_nomalize_reciepent_with_mailfrom_and_peer(self):
-        p_body = self.make_default_parameter_body()        
-        p_mailfrom = "mailfrom@example.com"
-        p_peer = "peer@example.com"
         
-        result_body = nomalize_body(p_body, p_mailfrom, p_peer)
-        
-        self.assertEquals("mailfrom@example.com", result_body['from'])
-        self.assertEquals("peer", result_body['to'])
 
 
 class Sh8MailProcessForTest(Sh8MailProcess):
