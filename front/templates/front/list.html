@@ -65,7 +65,7 @@
             </div>
         {% else %}
             {% for mail in mail_list %}
-                <a href="#" class="list-group-item">
+                <a href="{% url 'front:detail' mail.id %}" class="list-group-item">
                     <div class="row">
                         <div class="col-md-2">{{ mail.sender }}</div>
                         <div class="col-md-8">{{ mail.subject }}</div>
