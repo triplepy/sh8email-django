@@ -55,9 +55,15 @@ class FunctionalTest(unittest.TestCase):
         
         # (주)원영으로 부터 온 메일을 클릭하자 메일 내용이 보인다.
 
+
+        
         # 메일을 인증 한 다운이는 주식왕 답게 혹시 메일이 남아있는지,
         # 다시 확인하기 위해 접속을 시도한다.
-
+        ## 새로운 브라우저 세실을 이용해서 접속해보기 위한 코드
+        self.browser.quit()
+        self.browser = webdriver.FireFox()
+        
         # 하지만 역시 무한대로 조용한 sh8.email 답게
         # 자동으로 메일이 삭제되어 있는 것을 확인한뒤,
         # 안심하고 (주)원영사의 주식을 사러 간다
+        self.browser.quit()
