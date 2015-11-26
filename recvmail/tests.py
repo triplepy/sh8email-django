@@ -15,7 +15,9 @@ class RecvMailTest(TestCase):
     def setUpClass(cls):
         cls.msg = MIMEText('This is the body of the message.')
         cls.frommail = 'author@example.com'
-        cls.peers = 'recipient@example.com'
+        cls.peers = ['recipient@example.com',
+                     'recp2@example.com',
+                     'recp3@example.com']
         cls.peernickname = 'recipient'
         super(RecvMailTest, cls).setUpClass()
         RecvMailTest.start_mail_server(cls)
@@ -43,20 +45,18 @@ class RecvMailTest(TestCase):
 
     def set_self_msg(self):
         self.msg['To'] = email.utils.formataddr(
-            ('Recipient', self.peers))
+            ('Recipient', self.peers[0]))
         self.msg['From'] = email.utils.formataddr(('Author', self.frommail))
         self.msg['Subject'] = 'Simple test message'
-
-        
 
     def start_mail_server(self):
         self.p = Sh8MailProcessForTest()
         self.p.daemon = True
         self.p.start()
 
-    def test_exist_a_mail(self):
-        mail = Mail.objects.all()
-        self.assertTrue(mail)
+    def test_count_mails(self):
+        mails = Mail.objects.all()
+        self.assertEquals(len(mails), len(self.peers))
 
     def test_check_mail_value(self):
         mail = Mail.objects.first()
