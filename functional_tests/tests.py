@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 import smtplib
-import email.mime.text import MIMEText
+from email.mime.text import MIMEText
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
