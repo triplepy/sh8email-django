@@ -55,11 +55,10 @@ class FunctionalTest(unittest.TestCase):
         
         # (주)원영으로 부터 온 메일을 클릭하자 메일 내용이 보인다.
 
-
         
         # 메일을 인증 한 다운이는 주식왕 답게 혹시 메일이 남아있는지,
         # 다시 확인하기 위해 접속을 시도한다.
-        ## 새로운 브라우저 세실을 이용해서 접속해보기 위한 코드
+        ## 새로운 브라우저 세션을 이용해서 접속해보기 위한 코드
         self.browser.quit()
         self.browser = webdriver.FireFox()
         
