@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 import smtplib
+import email
 from email.mime.text import MIMEText
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -13,15 +14,15 @@ from selenium.webdriver.common.keys import Keys
 class FunctionalTest(unittest.TestCase):
     def send_cert_mail(self):
         msg = MIMEText('우리가 바로 그 원영주식회사 입니다.')
-        msg['To'] = email.utils.formataddr(('Downy'
+        msg['To'] = email.utils.formataddr(('Downy',
                                             'downy@sh8.email'))
         msg['From'] = email.utils.formataddr(('Wonyoung Ju',
                                               'Ju@wonyoung.com'))
-        msg.['Subject'] = '인증해주시면 감사감사'
+        msg['Subject'] = '인증해주시면 감사감사'
         server = smtplib.SMTP('127.0.0.1', 25)
         try:
             server.sendmail('Ju@wonyoung.com',['downy@sh8.email'],
-                            self.msg_as_string())
+                            msg.as_string())
         finally:
             server.quit()
             
