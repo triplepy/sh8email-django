@@ -15,7 +15,7 @@ class RecvMailTest(TestCase):
     def setUpClass(cls):
         cls.msg = MIMEText('This is the body of the message.')
         cls.frommail = 'author@example.com'
-        cls.peer = 'recipient@example.com'
+        cls.peers = 'recipient@example.com'
         cls.peernickname = 'recipient'
         super(RecvMailTest, cls).setUpClass()
         RecvMailTest.start_mail_server(cls)
@@ -23,57 +23,10 @@ class RecvMailTest(TestCase):
         time.sleep(0.1)
         RecvMailTest.send_test_mail(cls)
 
-    def send_test_mail(self):
-        self.set_self_msg(self)
-
-        server = smtplib.SMTP('127.0.0.1', 25)
-        # show communication with the server
-        try:
-            server.sendmail(self.frommail,
-                            [self.peer],
-                            self.msg.as_string())
-        finally:
-            server.quit()
-        # for wait to process mail
-        time.sleep(0.1)
-
-    def set_self_msg(self):
-        self.msg['To'] = email.utils.formataddr(
-            ('Recipient', self.peer))
-        self.msg['From'] = email.utils.formataddr(('Author', self.frommail))
-        self.msg['Subject'] = 'Simple test message'
-
-    def start_mail_server(self):
-        p = Sh8MailProcessForTest()
-        p.daemon = True
-        p.start()
-
-    def test_exist_a_mail(self):
-        mail = Mail.objects.all()
-        self.assertTrue(mail)
-
-    def test_check_mail_value(self):
-        mail = Mail.objects.first()
-        self.assertEquals(self.msg['From'], mail.sender)
-        self.assertEquals(self.peernickname, mail.recipient)
-        self.assertEquals(self.msg['Subject'], mail.subject)
-        self.assertEquals(self.msg.get_payload(), mail.contents)
-
-
-class MultiRecvMailTest(TestCase):
     @classmethod
-    def setUpClass(cls):
-        cls.msg = MIMEText('This is the body of the message.')
-        cls.frommail = 'author@example.com'
-        cls.peers = ['recipient@example.com',
-                     'recp2@example.com', 'recp3@example.com']
-        cls.peernickname = 'recipient'
-        super(MultiRecvMailTest, cls).setUpClass()
-        MultiRecvMailTest.start_mail_server(cls)
-        # for wait running server
-        time.sleep(0.1)
-        MultiRecvMailTest.send_test_mail(cls)
-
+    def tearDownClass(cls):
+        cls.p.terminate()
+        
     def send_test_mail(self):
         self.set_self_msg(self)
 
@@ -94,14 +47,24 @@ class MultiRecvMailTest(TestCase):
         self.msg['From'] = email.utils.formataddr(('Author', self.frommail))
         self.msg['Subject'] = 'Simple test message'
 
-    def test_get_mail_count(self):
-        mails = Mail.objects.all()
-        self.assertEquals(len(mails), len(self.peers))
+        
 
     def start_mail_server(self):
-        p = Sh8MailProcessForTest()
-        p.daemon = True
-        p.start()
+        self.p = Sh8MailProcessForTest()
+        self.p.daemon = True
+        self.p.start()
+
+    def test_exist_a_mail(self):
+        mail = Mail.objects.all()
+        self.assertTrue(mail)
+
+    def test_check_mail_value(self):
+        mail = Mail.objects.first()
+        self.assertEquals(self.msg['From'], mail.sender)
+        self.assertEquals(self.peernickname, mail.recipient)
+        self.assertEquals(self.msg['Subject'], mail.subject)
+        self.assertEquals(self.msg.get_payload(), mail.contents)
+
 
 
 class MailUtil(TestCase):
