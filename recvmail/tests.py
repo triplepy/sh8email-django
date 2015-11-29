@@ -63,6 +63,15 @@ class RecvMailTest(TestCase):
         self.assertEquals(self.msg['Subject'], mail.subject)
         self.assertEquals(self.msg.get_payload(), mail.contents)
 
+    def test_multi_recip(self):
+        self.check_mail_is_exist_with_recipient("recipient")
+        self.check_mail_is_exist_with_recipient("recp2")
+        self.check_mail_is_exist_with_recipient("recp3")
+        
+    def check_mail_is_exist_with_recipient(self, recipient):
+        mail = Mail.objects.get(recipient=recipient)
+        self.assertTrue(mail)
+
 
 class MailUtil(TestCase):
     empty_mailfrom = ""
