@@ -18,7 +18,6 @@ class RecvMailTest(TestCase):
         cls.peers = ['recipient@example.com',
                      'recp2@example.com',
                      'recp3@example.com']
-        cls.peernickname = 'recipient'
         super(RecvMailTest, cls).setUpClass()
         RecvMailTest.start_mail_server(cls)
         # for wait running server
@@ -61,10 +60,8 @@ class RecvMailTest(TestCase):
     def test_check_mail_value(self):
         mail = Mail.objects.first()
         self.assertEquals(self.msg['From'], mail.sender)
-        self.assertEquals(self.peernickname, mail.recipient)
         self.assertEquals(self.msg['Subject'], mail.subject)
         self.assertEquals(self.msg.get_payload(), mail.contents)
-
 
 
 class MailUtil(TestCase):
