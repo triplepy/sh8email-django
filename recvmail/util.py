@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from email.parser import Parser
 
 
 def nomalize_recip(recip):
@@ -9,8 +10,8 @@ def nomalize_recip(recip):
     else:
         real = before_at_sign
     return real.strip()
-        
-    
+
+
 def nomalize_body(body, mailfrom):
     if not body['From']:
         del body['From']
@@ -21,3 +22,9 @@ def nomalize_body(body, mailfrom):
     body['To'] = nomalize_recip(recipient)
 
     return body
+
+
+def mail_template_to_save(data, mailfrom):
+    body = Parser().parsestr(data)
+    return nomalize_body(body, mailfrom)
+        

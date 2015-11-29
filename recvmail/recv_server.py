@@ -7,17 +7,16 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings")
 import asyncore
 import multiprocessing
 import smtpd
-from email.parser import Parser
 
 from front.models import Mail
-from recvmail.util import nomalize_body, nomalize_recip
+from recvmail.util import mail_template_to_save, nomalize_recip
 
 
 class CustomSMTPServer(smtpd.SMTPServer):
 
     def process_message(self, peer, mailfrom, rcpttos, data):
-        self.save_mail(
-            nomalize_body(Parser().parsestr(data)), rcpttos)
+        mail = mail_template_to_save(data, mailfrom)
+        self.save_mail(mail, rcpttos)
 
     def save_mail(self, body, rcpttos):
         while(rcpttos):
