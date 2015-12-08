@@ -7,3 +7,4 @@ class Mail(models.Model):
     subject = models.CharField(max_length=400)
     contents = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
