@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+{%  load staticfiles  %}
 <html lang="en">
 <head>
     <div class="mail">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 
     <title>sh8email-{{ mail.subject }} </title>
     </div>
@@ -18,18 +20,26 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static "detail/detail.css" %}">
 </head>
 
 <body>
+    <a class="navbar-brand" href="">sh8.email</a>
+    <br><br>
 
-{% block content %}
-    <div class="mail">
-        <h1>{{ mail.sender }}</h1>
-        {{ mail.date | date:'Y/m/d P' }}
-        {{ mail.contents | linebreaks }}
+    <div style="background-color:#ff9400;" >
+        <div class="container">
+            <h1 class="text-primary">{{ mail.subject }} <small>{{ mail.sender }}</small></h1>
+            <div style="text-align: right">
+                {{ mail.date | date:'Y/m/d P' }}
+            </div>
+        </div>
     </div>
 
-{% endblock %}
+    <div class="container">
+        <p class="navbar-text">{{ mail.contents | linebreaks }}
+        </p>
+    </div>
 
 
 </body>
