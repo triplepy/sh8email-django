@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
 import smtplib
-import email.mime.text import MIMEText
+import email
+from email.mime.text import MIMEText
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -13,15 +14,15 @@ from selenium.webdriver.common.keys import Keys
 class FunctionalTest(unittest.TestCase):
     def send_cert_mail(self):
         msg = MIMEText('우리가 바로 그 원영주식회사 입니다.')
-        msg['To'] = email.utils.formataddr(('Downy'
+        msg['To'] = email.utils.formataddr(('Downy',
                                             'downy@sh8.email'))
         msg['From'] = email.utils.formataddr(('Wonyoung Ju',
                                               'Ju@wonyoung.com'))
-        msg.['Subject'] = '인증해주시면 감사감사'
+        msg['Subject'] = '인증해주시면 감사감사'
         server = smtplib.SMTP('127.0.0.1', 25)
         try:
             server.sendmail('Ju@wonyoung.com',['downy@sh8.email'],
-                            self.msg_as_string())
+                            msg.as_string())
         finally:
             server.quit()
             
@@ -55,11 +56,10 @@ class FunctionalTest(unittest.TestCase):
         
         # (주)원영으로 부터 온 메일을 클릭하자 메일 내용이 보인다.
 
-
         
         # 메일을 인증 한 다운이는 주식왕 답게 혹시 메일이 남아있는지,
         # 다시 확인하기 위해 접속을 시도한다.
-        ## 새로운 브라우저 세실을 이용해서 접속해보기 위한 코드
+        ## 새로운 브라우저 세션을 이용해서 접속해보기 위한 코드
         self.browser.quit()
         self.browser = webdriver.FireFox()
         
