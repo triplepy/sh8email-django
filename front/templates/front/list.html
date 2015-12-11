@@ -1,14 +1,17 @@
 {% extends "front/base.html" %}
 
+
 {% block content %}
-<div class="container">
+  <div class="container sh8email-content">
     <div class="row">
         <div class="list-group">
         {% if not mail_list %}
             <div class="row">
+              <div class="nomail">
                 <div class="col-md-12">
                     수신한 메일이 없습니다.
                 </div>
+              </div>
             </div>
         {% else %}
             {% for mail in mail_list %}
@@ -23,6 +26,5 @@
         {% endif %}
         </div>
     </div>
-</div>
-
+  </div>
 {% endblock %}
