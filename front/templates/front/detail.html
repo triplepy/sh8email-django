@@ -2,12 +2,13 @@
 
 
 {% block content %}
-<div style="background-color:whitesmoke; text-align:center; align-items: center" >
+<div class="title">
 <div class="container">
         <h1 class="text-primary">{{ mail.subject }} <small>{{ mail.recipient }}</small></h1>
         <div style="text-align: center">
             {{ mail.date | date:'Y/m/d P' }}
         </div>
+        <div class="padding"></div>
 </div>
 </div>
 
@@ -18,7 +19,7 @@
             <p style="align-items: center">{{ mail.contents | linebreaks }}
             </p>
     </fieldset>
-    <div style="padding: 10px"></div>
+    <div class="padding"></div>
     <a class="btn btn-primary" href="{% url 'front:list' %}" role="button" style="float:right">← BACK</a>
 </div>
 

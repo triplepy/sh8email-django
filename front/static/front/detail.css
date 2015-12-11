@@ -11,6 +11,12 @@ legend{
     font-family:'Nyala', 'Malgun Gothic';
 }
 
-.panel-default {
+.title {
+    background-color:whitesmoke;
+    text-align:center;
+    align-items: center;
+}
 
+.padding{
+    padding:10px;
 }
