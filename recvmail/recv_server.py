@@ -10,6 +10,8 @@ import smtpd
 import schedule
 import time
 
+import django
+
 from front.models import Mail
 from recvmail.util import mail_template_to_save, nomalize_recip
 
@@ -37,9 +39,11 @@ class Sh8MailProcess(multiprocessing.Process):
 class BatchJobSchedule(multiprocessing.Process):
     def run(self):
         def delete_job():
+            django.setup()
             return Mail.delete_one_day_ago(Mail)
 
         schedule.every().hour.do(delete_job)
+        
         while True:
             schedule.run_pending()
             time.sleep(1)
