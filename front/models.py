@@ -14,9 +14,6 @@ class Mail(models.Model):
         yesterday = timezone.now() - timedelta(days=1)
         mail_to_delete = self.objects.filter(
             recip_date__lte=yesterday)
-        print(mail_to_delete)
         mails = Mail.objects.all()
-        print("==============", mails[0].recip_date)
-        print("==============", mails[1].recip_date)
         mail_to_delete.delete()
 
