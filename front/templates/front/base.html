@@ -1,0 +1,63 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>sh8email list</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap.min.css' %}">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap-theme.min.css' %}">
+     <!-- detail.css -->
+    <link rel="stylesheet" href="{% static 'front/detail.css' %}">
+
+    <!-- jquery -->
+    <script src="{% static 'front/jquery/jquery-2.1.4.min.js' %}"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="{% static 'front/bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+
+<body>
+  <!-- Custom bootstrap -->
+  <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap-custom.css' %}">
+
+  <!-- jquery -->
+  <script src="{% static 'front/jquery/jquery-2.1.4.min.js' %}"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="{% static 'front/bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+
+<body>
+<div class="navigation-wrapper">
+  <div class="container navigation">
+    <div class="row">
+      <div class="col-xs-1"></div>
+      <div class="col-xs-5">
+        <form class>
+          <div class="input-group mail-form">
+            <div class="mail-input-box">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="nickname" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-envelope"></span></span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-xs-2"></div>
+      <div class="col-xs-3 sh8email-title"><h3>sh8email</h3></div>
+      <div class="col-xs-1"></div>
+    </div>
+  </div>
+</div>
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>

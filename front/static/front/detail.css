@@ -1,0 +1,22 @@
+h1{
+    font-family: 'MoolBoran', 'Nanum Gothic', '나눔 고딕';
+    font-weight: bolder;
+}
+
+legend{
+    border-color: lightslategray;
+}
+
+.btn{
+    font-family:'Nyala', 'Malgun Gothic';
+}
+
+.title {
+    background-color:whitesmoke;
+    text-align:center;
+    align-items: center;
+}
+
+.padding{
+    padding:10px;
+}

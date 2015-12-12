@@ -1,0 +1,47 @@
+body {
+  background-color: #EEEEEE;
+}
+
+
+div.navigation-wrapper{
+  height: 200px;
+  background-color: #1976D2;
+  position: relative;
+}
+
+div.mail-form{
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+div.sh8email-title {
+  padding-right: 10px;
+  text-align: right;
+
+}
+
+div.mail-input-box {
+  text-align: right;
+  float: center;
+  min-width: 160px;
+  max-width: 200px;
+}
+
+div.navigation {
+  color: #FFFFFF;
+  background-color: #1976D2;
+}
+
+div.sh8email-content{
+  position: relative;
+  top: -120px;
+  background-color: #E3F2FD;
+  border-radius: 15px 50px;
+}
+
+div.nomail {
+  padding-top: 30px;
+  padding-left: 30px;
+  font-size: 30px;
+  min-height: 300px;
+}
