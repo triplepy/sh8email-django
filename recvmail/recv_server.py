@@ -7,6 +7,8 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings")
 import asyncore
 import multiprocessing
 import smtpd
+import schedule
+import time
 
 from front.models import Mail
 from recvmail.util import mail_template_to_save, nomalize_recip
@@ -32,6 +34,20 @@ class Sh8MailProcess(multiprocessing.Process):
         asyncore.loop()
 
 
+class BatchJobSchedule(multiprocessing.Process):
+    def run(self):
+        def delete_job():
+            return Mail.delete_one_day_ago(Mail)
+
+        schedule.every().hour.do(delete_job)
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+            
+
+        
 if __name__ == "__main__":
     p = Sh8MailProcess()
+    b = BatchJobSchedule()
     p.start()
+    b.start()
