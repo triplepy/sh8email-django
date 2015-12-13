@@ -34,12 +34,3 @@ def list_(request):
         'recipient': recipient,
     })
 
-
-class ListView(generic.ListView):
-    template_name = 'front/list.html'
-
-
-    def get_queryset(self):
-        return Mail.objects.all()
-
-
