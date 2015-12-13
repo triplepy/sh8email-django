@@ -43,7 +43,7 @@
           <div class="input-group mail-form">
             <div class="mail-input-box">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="{{ recipient | default_if_none:'plz input username' }}" name="recipient" aria-describedby="basic-addon2">
+                <input type="text" class="form-control" placeholder="{{ recipient | default:'수신 이름을 입력하세요.' }}" name="recipient" aria-describedby="basic-addon2">
                 {% csrf_token %}
                 <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-envelope"></span></span>
               </div>

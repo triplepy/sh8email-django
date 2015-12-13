@@ -5,7 +5,15 @@
   <div class="container sh8email-content">
     <div class="row">
         <div class="list-group">
-        {% if not mail_list %}
+        {% if not recipient %}
+            <div class="row">
+              <div class="nomail">
+                <div class="col-md-12">
+                    수신 이름을 입력하여 체크인을 해주세요.
+                </div>
+              </div>
+            </div>
+        {% elif not mail_list %}
             <div class="row">
               <div class="nomail">
                 <div class="col-md-12">
