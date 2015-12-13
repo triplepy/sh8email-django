@@ -22,7 +22,7 @@ def checkin(request):
     return HttpResponseRedirect(reverse('front:list'))
 
 
-def list(request):
+def list_(request):
     recipient = request.session.get('recipient')
     if recipient is None:
         mail_list = []
