@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.http import HttpResponseRedirect
+from django.http.response import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from django.core.urlresolvers import reverse
@@ -8,7 +9,11 @@ from .models import Mail
 
 def detail(request, pk):
     mail = get_object_or_404(Mail, pk=pk)
-    return render(request, 'front/detail.html', {'mail': mail})
+
+    if mail.recipient == request.session['recipient']:
+        return render(request, 'front/detail.html', {'mail': mail})
+    else :
+        return HttpResponseForbidden()
 
 
 def checkin(request):
