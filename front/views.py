@@ -8,7 +8,6 @@ from .checkin import current_recipient, set_current_recipient
 
 def detail(request, pk):
     mail = get_object_or_404(Mail, pk=pk)
-
     if mail.is_own(request):
         mail.read()
         return render(request, 'front/detail.html', {'mail': mail})
