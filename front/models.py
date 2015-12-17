@@ -14,14 +14,16 @@ class Mail(models.Model):
 
     @classmethod
     def delete_read(cls, request):
-        print(current_recipient(request))
         to_delete = cls.objects.filter(
                 is_read=True, recipient=current_recipient(request))
-        print(to_delete)
         to_delete.delete()
 
     def is_own(self, request):
         return current_recipient(request) == self.recipient
+
+    def read(self):
+        self.is_read = True
+        self.save()
 
     def delete_one_day_ago(self):
         # for delete batch job

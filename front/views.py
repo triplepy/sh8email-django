@@ -3,15 +3,14 @@ from django.http.response import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from .models import Mail
-from .checkin import current_recipient
+from .checkin import current_recipient, set_current_recipient
 
 
 def detail(request, pk):
     mail = get_object_or_404(Mail, pk=pk)
 
     if mail.is_own(request):
-        mail.is_read = True
-        mail.save()
+        mail.read()
         return render(request, 'front/detail.html', {'mail': mail})
     else:
         return HttpResponseForbidden()
@@ -24,7 +23,7 @@ def checkin(request):
         recipient = None
 
     Mail.delete_read(request)
-    request.session['recipient'] = recipient
+    set_current_recipient(request, recipient)
 
     return HttpResponseRedirect(reverse('front:list'))
 
