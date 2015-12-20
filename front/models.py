@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta, MINYEAR
 from django.utils import timezone
 from django.db import models
-from .checkin import current_recipient
 
 
 class Mail(models.Model):
@@ -13,13 +12,13 @@ class Mail(models.Model):
     is_read = models.BooleanField(default=False)
 
     @classmethod
-    def delete_read(cls, request):
+    def delete_read(cls, checkin_manager):
         to_delete = cls.objects.filter(
-                is_read=True, recipient=current_recipient(request))
+                is_read=True, recipient=checkin_manager.current_recipient())
         to_delete.delete()
 
-    def is_own(self, request):
-        return current_recipient(request) == self.recipient
+    def is_own(self, checkin_manager):
+        return checkin_manager.current_recipient() == self.recipient
 
     def read(self):
         self.is_read = True
