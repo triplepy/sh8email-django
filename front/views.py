@@ -12,7 +12,7 @@ def detail(request, pk):
     mail = get_object_or_404(Mail, pk=pk)
     if mail.is_own(checkin_manager):
         mail.read()
-        return render(request, 'front/detail.html', {'mail': mail})
+        return render(request, 'front/detail.html', {'mail': mail, 'recipient': checkin_manager.current_recipient()})
     else:
         return HttpResponseForbidden()
 
