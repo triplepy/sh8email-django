@@ -5,6 +5,7 @@ from django.db import models
 
 class Mail(models.Model):
     recipient = models.CharField(max_length=50)
+    secret_code = models.CharField(max_length=16, null=True, blank=True)
     sender = models.CharField(max_length=200)
     subject = models.CharField(max_length=400)
     contents = models.TextField()
@@ -30,3 +31,6 @@ class Mail(models.Model):
         to_delete = self.objects.filter(
                 recip_date__lte=yesterday)
         to_delete.delete()
+
+    def check_secret_code(self, secret_code):
+        return self.secret_code is secret_code
