@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, MINYEAR
+from datetime import timedelta
 from django.utils import timezone
 from django.db import models
 
@@ -18,19 +18,19 @@ class Mail(models.Model):
                 is_read=True, recipient=checkin_manager.current_recipient())
         to_delete.delete()
 
+    @classmethod
+    def delete_one_day_ago(cls):
+        yesterday = timezone.now() - timedelta(days=1)
+        to_delete = cls.objects.filter(
+                recip_date__lte=yesterday)
+        to_delete.delete()
+
     def is_own(self, checkin_manager):
         return checkin_manager.current_recipient() == self.recipient
 
     def read(self):
         self.is_read = True
         self.save()
-
-    def delete_one_day_ago(self):
-        # for delete batch job
-        yesterday = timezone.now() - timedelta(days=1)
-        to_delete = self.objects.filter(
-                recip_date__lte=yesterday)
-        to_delete.delete()
 
     def check_secret_code(self, secret_code):
         return self.secret_code is secret_code
