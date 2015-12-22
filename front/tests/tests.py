@@ -4,7 +4,7 @@ from datetime import timedelta
 from django.utils import timezone
 from front.checkin import MockCheckinManager
 
-from .models import Mail
+from front.models import Mail
 
 
 class MailTest(TestCase):
