@@ -106,3 +106,14 @@ class DetailViewTest(TestCase):
                 reverse('front:detail', args=(notexistsmail_pk,)))
 
         self.assertEqual(self.response.status_code, 404)
+
+    def test_secret_code_check(self):
+        # 암호가 걸린 메일을 클릭했다. 암호 입력창이 뜬다.
+        # 암호를 입력한 뒤에 메일이 보인다.
+        mail = Mail.objects.create(recipient="recp11", secret_code="code11", sender="sender11", subject="subject11", contents="contents11")
+        correct_code = "code11"
+        wrong_code = "code22"
+        is_valid = Mail.check_secret_code(mail, correct_code)
+        is_not_valid = Mail.check_secret_code(mail, wrong_code)
+        self.assertTrue(is_valid)
+        self.assertFalse(is_not_valid)

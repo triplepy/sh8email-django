@@ -5,6 +5,7 @@ from django.db import models
 
 class Mail(models.Model):
     recipient = models.CharField(max_length=50)
+    secret_code = models.CharField(max_length=16, null=True, blank=True)
     sender = models.CharField(max_length=200)
     subject = models.CharField(max_length=400)
     contents = models.TextField()
@@ -31,3 +32,5 @@ class Mail(models.Model):
         self.is_read = True
         self.save()
 
+    def check_secret_code(self, secret_code):
+        return self.secret_code is secret_code
