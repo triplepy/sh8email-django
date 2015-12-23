@@ -32,5 +32,6 @@ class Mail(models.Model):
         self.is_read = True
         self.save()
 
+    # TODO refactor required
     def check_secret_code(self, secret_code):
-        return self.secret_code is secret_code
+        return self.secret_code == secret_code
