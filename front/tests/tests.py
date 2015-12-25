@@ -59,6 +59,19 @@ class MailTest(TestCase):
         # then
         self.assertEquals(1, Mail.objects.all().count())
 
+    # TODO refactor required
+    def test_secret_code_check(self):
+        # 암호가 걸린 메일을 클릭했다. 암호 입력창이 뜬다.
+        # 암호를 입력한 뒤에 메일이 보인다.
+        mail = Mail.objects.create(recipient="recp11", secret_code="code11", sender="sender11", subject="subject11",
+                                   contents="contents11")
+        correct_code = "code11"
+        wrong_code = "code22"
+        is_valid = mail.check_secret_code(correct_code)
+        is_not_valid = mail.check_secret_code(wrong_code)
+        self.assertTrue(is_valid)
+        self.assertFalse(is_not_valid)
+
     def _create_mail(self, recipient="recp1", sender="sender1", subject="subject1",
                      contents="contents1", is_read=False):
         return Mail.objects.create(recipient=recipient, sender=sender, subject=subject,
@@ -107,14 +120,15 @@ class DetailViewTest(TestCase):
 
         self.assertEqual(self.response.status_code, 404)
 
-    # TODO refactor required
-    def test_secret_code_check(self):
-        # 암호가 걸린 메일을 클릭했다. 암호 입력창이 뜬다.
-        # 암호를 입력한 뒤에 메일이 보인다.
-        mail = Mail.objects.create(recipient="recp11", secret_code="code11", sender="sender11", subject="subject11", contents="contents11")
-        correct_code = "code11"
-        wrong_code = "code22"
-        is_valid = mail.check_secret_code(mail, correct_code)
-        is_not_valid = mail.check_secret_code(mail, wrong_code)
-        self.assertTrue(is_valid)
-        self.assertFalse(is_not_valid)
+
+class DetailViewWithSecretcodeTest(TestCase):
+    def test_detail_with_secretcode(self):
+        client = Client()
+        mail = Mail.objects.create(recipient='ggone', sender='jong@google.com',
+                                   subject='secret mail.', contents='iloveyou',
+                                   secret_code='christmas_dream')
+        add_recip_to_session(client, 'ggone')
+        response = client.post(reverse('front:detail', args=(mail.pk,)),
+                               data={'secret_code': 'christmas_dream'})
+
+        self.assertContains(response, mail.contents)
