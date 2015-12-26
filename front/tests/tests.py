@@ -3,11 +3,13 @@ from datetime import timedelta
 
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseForbidden
+from django.http.request import HttpRequest
 from django.test import TestCase, Client
 from django.utils import timezone
 from front.checkin import MockCheckinManager
 from front.models import Mail
 from front.tests.utils import add_recip_to_session
+from front.readauth import ReadAuthorityChecker
 
 
 class MailTest(TestCase):
@@ -59,19 +61,35 @@ class MailTest(TestCase):
         # then
         self.assertEquals(1, Mail.objects.all().count())
 
-    # TODO refactor required
-    def test_secret_code_check(self):
-        mail = Mail.objects.create(recipient="recp11", secret_code="code11",
-                                   sender="sender11", subject="subject11",
-                                   contents="contents11")
-        correct_code = "code11"
-        wrong_code = "code22"
+    def test_can_read__can(self):
+        recipient = 'ggone'
+        secret_code = 'ssong'
+        mail = Mail.objects.create(recipient=recipient, secret_code=secret_code,
+                                   sender='james@google.com',
+                                   subject='hello girls!',
+                                   contents='Hello, nice to meet you secretly.')
+        request = HttpRequest()
+        request.session = {
+            'recipient': recipient
+        }
+        request.POST['secret_code'] = secret_code
 
-        is_valid = mail.check_secret_code(correct_code)
-        is_not_valid = mail.check_secret_code(wrong_code)
+        self.assertTrue(mail.can_read(request))
 
-        self.assertTrue(is_valid)
-        self.assertFalse(is_not_valid)
+    def test_can_read__cannot(self):
+        recipient = 'ggone'
+        secret_code = 'ssong'
+        mail = Mail.objects.create(recipient=recipient, secret_code=secret_code,
+                                   sender='james@google.com',
+                                   subject='hello girls!',
+                                   contents='Hello, nice to meet you secretly.')
+        request = HttpRequest()
+        request.session = {
+            'recipient': recipient
+        }
+        request.POST['secret_code'] = 'wrong_secret_code'
+
+        self.assertFalse(mail.can_read(request))
 
     def _create_mail(self, recipient="recp1", sender="sender1", subject="subject1",
                      contents="contents1", is_read=False):
@@ -140,3 +158,17 @@ class DetailViewWithSecretcodeTest(TestCase):
 
         # then
         self.assertContains(response, mail.contents)
+
+
+class ReadAuthorityCheckerTest(TestCase):
+    def test_can_read(self):
+        request = HttpRequest()
+        request.session = {
+            'recipient': 'ggone'
+        }
+        request.POST['secret_code'] = 'chinatown'
+        mail = Mail.objects.create(recipient='ggone', sender='gil@wtf.com',
+                                   contents='hello sidney..',
+                                   secret_code='chinatown')
+        checker = ReadAuthorityChecker(request, mail)
+        self.assertTrue(checker.check())

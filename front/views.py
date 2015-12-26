@@ -10,8 +10,7 @@ def detail(request, pk):
     checkin_manager = CheckinManager(request)
 
     mail = get_object_or_404(Mail, pk=pk)
-    if mail.is_own(checkin_manager) and \
-            mail.check_secret_code(request.POST.get('secret_code')):
+    if mail.can_read(request):
         mail.read()
         return render(request, 'front/detail.html', {
             'mail': mail, 'recipient': checkin_manager.current_recipient()

@@ -1,6 +1,7 @@
 from datetime import timedelta
 from django.utils import timezone
 from django.db import models
+from front.readauth import ReadAuthorityChecker
 
 
 class Mail(models.Model):
@@ -32,6 +33,6 @@ class Mail(models.Model):
         self.is_read = True
         self.save()
 
-    # TODO refactor required
-    def check_secret_code(self, secret_code):
-        return self.secret_code == secret_code
+    def can_read(self, request):
+        checker = ReadAuthorityChecker(request, self)
+        return checker.check()
