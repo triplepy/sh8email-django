@@ -61,21 +61,23 @@ class MailTest(TestCase):
 
     # TODO refactor required
     def test_secret_code_check(self):
-        # 암호가 걸린 메일을 클릭했다. 암호 입력창이 뜬다.
-        # 암호를 입력한 뒤에 메일이 보인다.
-        mail = Mail.objects.create(recipient="recp11", secret_code="code11", sender="sender11", subject="subject11",
+        mail = Mail.objects.create(recipient="recp11", secret_code="code11",
+                                   sender="sender11", subject="subject11",
                                    contents="contents11")
         correct_code = "code11"
         wrong_code = "code22"
+
         is_valid = mail.check_secret_code(correct_code)
         is_not_valid = mail.check_secret_code(wrong_code)
+
         self.assertTrue(is_valid)
         self.assertFalse(is_not_valid)
 
     def _create_mail(self, recipient="recp1", sender="sender1", subject="subject1",
                      contents="contents1", is_read=False):
-        return Mail.objects.create(recipient=recipient, sender=sender, subject=subject,
-                                   contents=contents, is_read=is_read)
+        return Mail.objects.create(recipient=recipient, sender=sender,
+                                   subject=subject, contents=contents,
+                                   is_read=is_read)
 
 
 class DetailViewTest(TestCase):
