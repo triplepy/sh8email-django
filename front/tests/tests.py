@@ -123,12 +123,18 @@ class DetailViewTest(TestCase):
 
 class DetailViewWithSecretcodeTest(TestCase):
     def test_detail_with_secretcode(self):
+        # given
         client = Client()
-        mail = Mail.objects.create(recipient='ggone', sender='jong@google.com',
-                                   subject='secret mail.', contents='iloveyou',
-                                   secret_code='christmas_dream')
-        add_recip_to_session(client, 'ggone')
-        response = client.post(reverse('front:detail', args=(mail.pk,)),
-                               data={'secret_code': 'christmas_dream'})
+        recipient = 'ggone'
+        secrect_code = 'christmas_dream'
 
+        # when
+        mail = Mail.objects.create(recipient=recipient, sender='jong@google.com',
+                                   subject='secret mail.', contents='iloveyou',
+                                   secret_code=secrect_code)
+        add_recip_to_session(client, recipient)
+        response = client.post(reverse('front:detail', args=(mail.pk,)),
+                               data={'secret_code': secrect_code})
+
+        # then
         self.assertContains(response, mail.contents)
