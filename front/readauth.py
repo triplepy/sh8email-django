@@ -28,6 +28,8 @@ class ReadAuthorityChecker(object):
             return False, {CannotReadReasons.recipient}
         elif not is_own and not secret_code_match:
             return False, {CannotReadReasons.secret_code, CannotReadReasons.recipient}
+        else:
+            raise AssertionError('Happen which is cannot!')
 
     def _check_secretcode_equality(self, secret_code):
         return secret_code == self.mail.secret_code

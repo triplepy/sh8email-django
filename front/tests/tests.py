@@ -179,16 +179,27 @@ class DetailViewWithSecretcodeTest(TestCase):
 
 
 class ReadAuthorityCheckerTest(TestCase):
-    def test_can_read(self):
-        request = HttpRequest()
-        request.session = {
+    def setUp(self):
+        self.request = HttpRequest()
+        self.request.session = {
             'recipient': 'ggone'
         }
-        request.POST['secret_code'] = 'chinatown'
+        self.secret_code = 'chinatown'
+
+    def test_can_read(self):
+        self.request.POST['secret_code'] = self.secret_code
         mail = Mail.objects.create(recipient='ggone', sender='gil@wtf.com',
                                    contents='hello sidney..',
-                                   secret_code='chinatown')
-        checker = ReadAuthorityChecker(request, mail)
+                                   secret_code=self.secret_code)
+        checker = ReadAuthorityChecker(self.request, mail)
 
-        expected = (True, None)
-        self.assertEqual(checker.check(), expected)
+        self.assertEqual(checker.check(), (True, None))
+
+    def test_cannot_read__secretcode(self):
+        self.request.POST['secret_code'] = 'wrong_secret_code'
+        mail = Mail.objects.create(recipient='ggone', sender='gil@wtf.com',
+                                   contents='hello sidney..',
+                                   secret_code=self.secret_code)
+        checker = ReadAuthorityChecker(self.request, mail)
+
+        self.assertEqual(checker.check(), (False, {CannotReadReasons.secret_code}))
