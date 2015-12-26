@@ -1,4 +1,11 @@
+from enum import Enum
+
 from front.checkin import CheckinManager
+
+
+class CannotReadReasons(Enum):
+    secret_code = 1
+    recipient = 2
 
 
 class ReadAuthorityChecker(object):
@@ -10,8 +17,17 @@ class ReadAuthorityChecker(object):
         checkin_manager = CheckinManager(self.request)
         secret_code = self.request.POST.get('secret_code')
 
-        return self.mail.is_own(checkin_manager) and \
-               self._check_secretcode_equality(secret_code)
+        is_own = self.mail.is_own(checkin_manager)
+        secret_code_match = self._check_secretcode_equality(secret_code)
+
+        if is_own and secret_code_match:
+            return True, None
+        elif is_own and not secret_code_match:
+            return False, {CannotReadReasons.secret_code}
+        elif not is_own and secret_code_match:
+            return False, {CannotReadReasons.recipient}
+        elif not is_own and not secret_code_match:
+            return False, {CannotReadReasons.secret_code, CannotReadReasons.recipient}
 
     def _check_secretcode_equality(self, secret_code):
         return secret_code == self.mail.secret_code

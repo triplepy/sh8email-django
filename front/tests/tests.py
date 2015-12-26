@@ -9,7 +9,7 @@ from django.utils import timezone
 from front.checkin import MockCheckinManager
 from front.models import Mail
 from front.tests.utils import add_recip_to_session
-from front.readauth import ReadAuthorityChecker
+from front.readauth import ReadAuthorityChecker, CannotReadReasons
 
 
 class MailTest(TestCase):
@@ -74,7 +74,7 @@ class MailTest(TestCase):
         }
         request.POST['secret_code'] = secret_code
 
-        self.assertTrue(mail.can_read(request))
+        self.assertEqual(mail.can_read(request), (True, None))
 
     def test_can_read__cannot(self):
         recipient = 'ggone'
@@ -89,7 +89,8 @@ class MailTest(TestCase):
         }
         request.POST['secret_code'] = 'wrong_secret_code'
 
-        self.assertFalse(mail.can_read(request))
+        self.assertEqual(mail.can_read(request),
+                         (False, {CannotReadReasons.secret_code}))
 
     def _create_mail(self, recipient="recp1", sender="sender1", subject="subject1",
                      contents="contents1", is_read=False):
@@ -142,22 +143,39 @@ class DetailViewTest(TestCase):
 
 
 class DetailViewWithSecretcodeTest(TestCase):
-    def test_detail_with_secretcode(self):
+    def test_success_case(self):
         # given
         client = Client()
         recipient = 'ggone'
-        secrect_code = 'christmas_dream'
+        secret_code = 'christmas_dream'
 
         # when
         mail = Mail.objects.create(recipient=recipient, sender='jong@google.com',
                                    subject='secret mail.', contents='iloveyou',
-                                   secret_code=secrect_code)
+                                   secret_code=secret_code)
         add_recip_to_session(client, recipient)
         response = client.post(reverse('front:detail', args=(mail.pk,)),
-                               data={'secret_code': secrect_code})
+                               data={'secret_code': secret_code})
 
         # then
         self.assertContains(response, mail.contents)
+
+    def test_secretcode_notmatch(self):
+        # given
+        client = Client()
+        recipient = 'ggone'
+        secret_code = 'christmas_dream'
+
+        # when
+        mail = Mail.objects.create(recipient=recipient, sender='jong@google.com',
+                                   subject='secret mail.', contents='iloveyou',
+                                   secret_code=secret_code)
+        add_recip_to_session(client, recipient)
+        response = client.post(reverse('front:detail', args=(mail.pk,)),
+                               data={'secret_code': 'wrong_secretcode'})
+
+        # then
+        self.assertTemplateUsed(response, 'front/secretcode_form.html')
 
 
 class ReadAuthorityCheckerTest(TestCase):
@@ -171,4 +189,6 @@ class ReadAuthorityCheckerTest(TestCase):
                                    contents='hello sidney..',
                                    secret_code='chinatown')
         checker = ReadAuthorityChecker(request, mail)
-        self.assertTrue(checker.check())
+
+        expected = (True, None)
+        self.assertEqual(checker.check(), expected)
