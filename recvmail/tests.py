@@ -10,48 +10,51 @@ from .util import nomalize_recip, nomalize_body
 
 
 class RecvMailTest(TestCase):
+    msg = MIMEText('This is the body of the message.')
+    frommail = 'author@example.com'
+    peers = ['recipient@example.com',
+             'recp2@example.com',
+             'recp3@example.com']
 
     @classmethod
     def setUpClass(cls):
-        cls.msg = MIMEText('This is the body of the message.')
-        cls.frommail = 'author@example.com'
-        cls.peers = ['recipient@example.com',
-                     'recp2@example.com',
-                     'recp3@example.com']
         super(RecvMailTest, cls).setUpClass()
-        RecvMailTest.start_mail_server(cls)
+        RecvMailTest.start_mail_server()
         # for wait running server
-        time.sleep(0.1)
-        RecvMailTest.send_test_mail(cls)
+        time.sleep(10)
+        RecvMailTest.send_test_mail()
 
     @classmethod
     def tearDownClass(cls):
         cls.p.terminate()
-        
-    def send_test_mail(self):
-        self.set_self_msg(self)
 
-        server = smtplib.SMTP('127.0.0.1', 25)
+    @classmethod
+    def send_test_mail(cls):
+        cls.set_self_msg()
+
+        conn = smtplib.SMTP('127.0.0.1', 25)
         # show communication with the server
         try:
-            server.sendmail(self.frommail,
-                            self.peers,
-                            self.msg.as_string())
+            conn.sendmail(cls.frommail,
+                          cls.peers,
+                          cls.msg.as_string())
         finally:
-            server.quit()
+            conn.quit()
         # for wait to process mail
         time.sleep(0.1)
 
-    def set_self_msg(self):
-        self.msg['To'] = email.utils.formataddr(
-            ('Recipient', self.peers[0]))
-        self.msg['From'] = email.utils.formataddr(('Author', self.frommail))
-        self.msg['Subject'] = 'Simple test message'
+    @classmethod
+    def set_self_msg(cls):
+        cls.msg['To'] = email.utils.formataddr(
+                ('Recipient', cls.peers[0]))
+        cls.msg['From'] = email.utils.formataddr(('Author', cls.frommail))
+        cls.msg['Subject'] = 'Simple test message'
 
-    def start_mail_server(self):
-        self.p = Sh8MailProcessForTest()
-        self.p.daemon = True
-        self.p.start()
+    @classmethod
+    def start_mail_server(cls):
+        cls.p = Sh8MailProcessForTest()
+        cls.p.daemon = True
+        cls.p.start()
 
     def test_count_mails(self):
         mails = Mail.objects.all()
@@ -67,7 +70,7 @@ class RecvMailTest(TestCase):
         self.check_mail_is_exist_with_recipient("recipient")
         self.check_mail_is_exist_with_recipient("recp2")
         self.check_mail_is_exist_with_recipient("recp3")
-        
+
     def check_mail_is_exist_with_recipient(self, recipient):
         mail = Mail.objects.get(recipient=recipient)
         self.assertTrue(mail)
@@ -89,13 +92,13 @@ class MailUtil(TestCase):
 
     def test_nomalize_reciepent(self):
         self.assert_after_nomalize_recipent(
-            "recipient@example.com", "recipient")
+                "recipient@example.com", "recipient")
         self.assert_after_nomalize_recipent(
-            "recip@ent@example.com", "recip@ent")
+                "recip@ent@example.com", "recip@ent")
         self.assert_after_nomalize_recipent(
-            "Recipient : <recipient@example.com>", "recipient")
+                "Recipient : <recipient@example.com>", "recipient")
         self.assert_after_nomalize_recipent(
-            "Recipient : < recipient@example.com >", "recipient")
+                "Recipient : < recipient@example.com >", "recipient")
 
     def test_nomalize_body_case_with_only_body(self):
         p_body = self.make_default_parameter_body()
