@@ -12,12 +12,12 @@ class ReadAuthorityChecker(object):
     def __init__(self, request, mail):
         self.request = request
         self.mail = mail
+        self.checkin_manager = CheckinManager(self.request)
 
     def check(self):
-        checkin_manager = CheckinManager(self.request)
         secret_code = self.request.POST.get('secret_code')
 
-        is_own = self.mail.is_own(checkin_manager)
+        is_own = self.mail.is_own(self.checkin_manager)
         secret_code_match = self._check_secretcode_equality(secret_code)
 
         if is_own and secret_code_match:
