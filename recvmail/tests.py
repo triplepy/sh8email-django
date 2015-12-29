@@ -21,7 +21,7 @@ class RecvMailTest(TestCase):
         super(RecvMailTest, cls).setUpClass()
         RecvMailTest.start_mail_server()
         # for wait running server
-        time.sleep(10)
+        time.sleep(1)
         RecvMailTest.send_test_mail()
 
     @classmethod
