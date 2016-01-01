@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 from front.models import Mail
 from .recv_server import Sh8MailProcess
 import time
-from .util import nomalize_recip, nomalize_body
+from .util import nomalize_recip, nomalize_body, is_secret, split_secret
 
 
 class RecvMailTest(TestCase):
@@ -14,7 +14,8 @@ class RecvMailTest(TestCase):
     frommail = 'author@example.com'
     peers = ['recipient@example.com',
              'recp2@example.com',
-             'recp3@example.com']
+             'recp3@example.com',
+             'secret$$secsec@example.com']
 
     @classmethod
     def setUpClass(cls):
@@ -71,6 +72,12 @@ class RecvMailTest(TestCase):
         self.check_mail_is_exist_with_recipient("recp2")
         self.check_mail_is_exist_with_recipient("recp3")
 
+    def test_secret_mail(self):
+        self.check_mail_is_exist_with_recipient("secret")
+        sec_mail = Mail.objects.get(recipient="secret")
+        self.assertEquals('secsec', sec_mail.secret_code)
+        
+
     def check_mail_is_exist_with_recipient(self, recipient):
         mail = Mail.objects.get(recipient=recipient)
         self.assertTrue(mail)
@@ -116,6 +123,22 @@ class MailUtil(TestCase):
 
         self.assertEquals("From <from@example.com>", result_body['From'])
         self.assertEquals("recipient", result_body['To'])
+
+
+    def test_is_secret_mail(self):
+        not_secret_recip = "not_secret"
+        is_not_secret = is_secret(not_secret_recip)
+        self.assertFalse(is_not_secret)
+
+        is_secret_recip = "this_is$$secret"
+        this_is_secret = is_secret(is_secret_recip)
+        self.assertTrue(this_is_secret)
+
+    def test_extract_secret(self):
+        is_secret_recip = "this_is$$secret"
+        recip, secret_code = split_secret(is_secret_recip)
+        self.assertEquals("this_is", recip)
+        self.assertEquals("secret", secret_code)
 
 
 class Sh8MailProcessForTest(Sh8MailProcess):

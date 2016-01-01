@@ -28,3 +28,9 @@ def mail_template_to_save(data, mailfrom):
     body = Parser().parsestr(data)
     return nomalize_body(body, mailfrom)
         
+
+def is_secret(recip):
+    return recip.find("$$") != -1
+
+def split_secret(recip):
+    return recip.split("$$")
