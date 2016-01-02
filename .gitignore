@@ -109,3 +109,6 @@ crashlytics-build.properties
 # python virtual environment
 venv/
 */migrations/*
+
+# vagrant internal directory
+.vagrant/
