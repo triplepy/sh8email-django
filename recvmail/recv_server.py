@@ -13,7 +13,7 @@ import time
 import django
 
 from front.models import Mail
-from recvmail.util import mail_template_to_save, nomalize_recip
+from recvmail.util import mail_template_to_save, nomalize_recip, is_secret, split_secret
 
 
 class CustomSMTPServer(smtpd.SMTPServer):
@@ -24,10 +24,20 @@ class CustomSMTPServer(smtpd.SMTPServer):
 
     def save_mail(self, body, rcpttos):
         while(rcpttos):
-            Mail.objects.create(recipient=nomalize_recip(rcpttos.pop()),
-                                sender=body['From'],
-                                subject=body['Subject'],
-                                contents=body.get_payload())
+            recipient = nomalize_recip(rcpttos.pop())
+            if is_secret(recipient):
+                real_recipient, secret_code = split_secret(recipient)
+                Mail.objects.create(recipient=real_recipient,
+                                    sender=body['From'],
+                                    subject=body['Subject'],
+                                    contents=body.get_payload(),
+                                    secret_code=secret_code)
+            else:
+                Mail.objects.create(recipient=recipient,
+                                    sender=body['From'],
+                                    subject=body['Subject'],
+                                    contents=body.get_payload())
+
 
 
 class Sh8MailProcess(multiprocessing.Process):
