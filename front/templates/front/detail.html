@@ -3,13 +3,13 @@
 
 {% block content %}
 <div class="title">
-<div class="container">
-        <h1 class="text-primary">{{ mail.subject }} <small>{{ mail.recipient }}</small></h1>
-        <div style="text-align: center">
-            {{ mail.date | date:'Y/m/d P' }}
-        </div>
-        <div class="padding"></div>
-</div>
+  <div class="container">
+    <h1 class="text-primary">{{ mail.subject }} <small>{{ mail.recipient }}</small></h1>
+      <div style="text-align: center">
+        {{ mail.date | date:'Y/m/d P' }}
+      </div>
+    <div class="padding"></div>
+  </div>
 </div>
 
 
