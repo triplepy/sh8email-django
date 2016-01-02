@@ -5,7 +5,7 @@ body {
 
 div.navigation-wrapper{
   height: 200px;
-  background-color: #1976D2;
+  background-color: rgb(80,80,80);
   position: relative;
 }
 
@@ -16,6 +16,8 @@ div.mail-form{
 
 div.sh8email-title {
   padding-right: 10px;
+  font-family:sans-serif;
+  font-weight:bolder;
   text-align: right;
 
 }
@@ -29,15 +31,15 @@ div.mail-input-box {
 
 div.navigation {
   color: #FFFFFF;
-  background-color: #1976D2;
+  background-color: rgb(80,80,80);
 }
 
 div.sh8email-content{
   position: relative;
   top: -120px;
-  background-color: #E3F2FD;
+  background-color: rgb(255, 255, 255);
   border-radius: 15px 50px;
-  
+
 }
 
 div.nomail {
@@ -45,4 +47,68 @@ div.nomail {
   padding-left: 30px;
   font-size: 30px;
   min-height: 300px;
+}
+
+h1{
+    font-family: 'MoolBoran', 'Nanum Gothic', '나눔 고딕';
+    font-weight: bolder;
+}
+
+div.detail-content {
+  min-height: 600px;
+}
+
+legend{
+    border-color: lightslategray;
+}
+li.maillist-a-row {
+  border-radius: 15px 50px;
+  color: black;
+
+}
+
+.maillist-content-wrapper {
+  width: 100%;
+  min-height: 100%;
+  background-color: rgb(40, 40, 40)
+  border-radius: 15px 50px;
+  margin-bottom: 25px;
+}
+
+.maillist-content-list-group {
+  border-radius: 15px 50px;
+  background-color: white;
+  margin-top: 20px;
+}
+
+.maillist-content-sender{
+  font-weight:bold;
+}
+
+.btn.back-btn{
+    font-family: 'MoolBoran', 'Nanum Gothic', '나눔 고딕';
+}
+
+.title {
+    text-align:center;
+    align-items: center;
+}
+
+.padding{
+    padding:10px;
+}
+
+
+footer {
+  min-height: 50px;
+  background-color: rgb(74, 74, 74);
+}
+
+.footer-copyright{
+  font-size: 24px;
+  vertical-align: middle;
+  margin-top: 50px;
+}
+span.label {
+  margin-top: 50px;
 }

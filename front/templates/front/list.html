@@ -2,9 +2,7 @@
 
 
 {% block content %}
-
-    <div class="row">
-        <div class="list-group">
+  <div class="maillist-content-wrapper">
         {% if not recipient %}
             <div class="row">
               <div class="nomail">
@@ -22,17 +20,21 @@
               </div>
             </div>
         {% else %}
-            {% for mail in mail_list %}
-                <a href="{% url 'front:detail' mail.id %}" class="list-group-item">
-                    <div class="row">
-                        <div class="col-md-2">{{ mail.sender }}</div>
-                        <div class="col-md-8">{{ mail.subject }}</div>
-                        <div class="col-md-2">{{ mail.date | date:'Y/m/d P' }}</div>
-                    </div>
-                </a>
-            {% endfor %}
+            <ul class="list-group maillist-content-list-group">
+              {% for mail in mail_list %}
+                  <a href="{% url 'front:detail' mail.id %}" >
+                    <li class="list-group-item maillist-a-row">
+                      <div class="row">
+                          <div class="col-md-2 maillist-content-sender">{{ mail.sender }}</div>
+                          <div class="col-md-8 maillist-content-subject">{{ mail.subject }}</div>
+                          <div class="col-md-2 maillist-content-date">{{ mail.date | date:'Y/m/d P' }}</div>
+                      </div>
+                    </li>
+                  </a>
+              {% endfor %}
+            </ul>
         {% endif %}
-        </div>
-    </div>
+
+  </div>
 
 {% endblock %}

@@ -13,14 +13,14 @@
 </div>
 
 
-<div class="container">
+<div class="container detail-content">
     <fieldset>
         <legend>Sender : {{ mail.sender }}</legend>
             <p style="align-items: center">{{ mail.contents | linebreaks }}
             </p>
     </fieldset>
     <div class="padding"></div>
-    <a class="btn btn-primary" href="{% url 'front:list' %}" role="button" style="float:right">← BACK</a>
+    <a class="btn back-btn" href="{% url 'front:list' %}" role="button">← 뒤로</a>
 </div>
 
 {% endblock %}
