@@ -1,8 +1,15 @@
 #!/bin/sh -e
 
+# Install required packages without postgresql
 sudo apt-get update
 sudo apt-get install -y python3-pip postgresql-server-dev-9.3
 sudo pip3 install -r /vagrant/requirements.txt
+
+# Link source directory for convenience
+if ! [ -L /home/vagrant/sh8email ]; then
+  rm -rf /home/vagrant/sh8email
+  ln -fs /vagrant /home/vagrant/sh8email
+fi
 
 # Edit the following to change the name of the database user that will be created:
 APP_DB_USER=sh8email
