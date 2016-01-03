@@ -18,6 +18,9 @@ body:hover {
   background-color: rgba(240,240,240,0.5)
 }
 
+h3 {
+  font-weight: bolder;
+}
 /* navigation */
 div.navigation-wrapper {
   height: 200px;
