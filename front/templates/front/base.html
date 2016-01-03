@@ -31,6 +31,11 @@
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="{% static 'front/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script>
+    function submit(){
+      $("form").submit();
+    }
+  </script>
 </head>
 
 <body>
@@ -43,9 +48,9 @@
           <div class="input-group mail-form">
             <div class="mail-input-box">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="{{ recipient | default:'수신 이름을 입력하세요.' }}" name="recipient" aria-describedby="basic-addon2">
+                <input type="text" class="form-control base-recip-box" placeholder="{{ recipient | default:'수신 이름을 입력하세요.' }}" name="recipient" aria-describedby="basic-addon2">
                 {% csrf_token %}
-                <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-envelope"></span></span>
+                <span class="input-group-addon base-mail-btn" onclick="submit()"><span class="glyphicon glyphicon-envelope"></span></span>
               </div>
             </div>
           </div>

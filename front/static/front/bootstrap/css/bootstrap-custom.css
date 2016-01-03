@@ -1,13 +1,50 @@
+html{
+  min-height: 100%;
+  height: 100%;
+
+}
+
+body {
+  height: 94%;
+  min-height: 94%;
+}
+.container {
+  min-height: 80%;
+}
 body {
   background-color: #EEEEEE;
 }
-
-
-div.navigation-wrapper{
-  height: 200px;
-  background-color: rgb(80,80,80);
-  position: relative;
+body:hover {
+  background-color: rgba(240,240,240,0.5)
 }
+
+/* navigation */
+div.navigation-wrapper {
+  height: 200px;
+  background-color: rgba(80, 80, 80,0.9);
+  position: relative;
+  box-shadow: 10px 1px 1 rgb(37, 37, 37)
+  border-bottom: 1px solid rgb(2,2,2)
+}
+
+div.navigation-wrapper:hover {
+  background-color: rgb(80,80,80);
+}
+
+div.navigation {
+  color: #FFFFFF;
+  box-shadow: 0 0 0;
+}
+
+.base-reicp-box:hover {
+  background-color: rgba(250,250,250,0.8);
+}
+
+span.input-group-addon.base-mail-btn:hover {
+  background-color: rgba(250,250,250,0.8);
+}
+/* end navigation */
+
 
 div.mail-form{
   padding-top: 20px;
@@ -15,6 +52,7 @@ div.mail-form{
 }
 
 div.sh8email-title {
+  color: #FFFFFF;
   padding-right: 10px;
   font-family:sans-serif;
   font-weight:bolder;
@@ -29,10 +67,7 @@ div.mail-input-box {
   max-width: 200px;
 }
 
-div.navigation {
-  color: #FFFFFF;
-  background-color: rgb(80,80,80);
-}
+
 
 div.sh8email-content{
   position: relative;
@@ -61,12 +96,17 @@ div.detail-content {
 legend{
     border-color: lightslategray;
 }
+/* about list */
 li.maillist-a-row {
+
   border-radius: 15px 50px;
   color: black;
-
 }
-
+li.maillist-a-row:hover {
+  background-color: rgba(20, 20, 20, 0.5);
+  color: white;
+  box-shadow: 0 1px 0 rgb(2,2,2)
+}
 .maillist-content-wrapper {
   width: 100%;
   min-height: 100%;
@@ -88,6 +128,10 @@ li.maillist-a-row {
 .btn.back-btn{
     font-family: 'MoolBoran', 'Nanum Gothic', '나눔 고딕';
 }
+.btn.back-btn:hover {
+  background-color: rgba(190, 190, 190, 0.5)
+}
+/* end about list */
 
 .title {
     text-align:center;
@@ -107,8 +151,8 @@ footer {
 .footer-copyright{
   font-size: 24px;
   vertical-align: middle;
-  margin-top: 50px;
+
 }
 span.label {
-  margin-top: 50px;
+
 }
