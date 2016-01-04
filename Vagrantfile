@@ -26,6 +26,7 @@ Vagrant.configure(2) do |config|
   # -------------------------------------------------------------------------
   # PostgreSQL Server port forwarding
   # config.vm.network "forwarded_port", guest: 15432, host:5432
+  config.vm.network "forwarded_port", guest: 8000, host:8000
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
