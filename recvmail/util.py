@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+import pdb
+from email.message import Message
 from email.parser import Parser
+from email.utils import parseaddr
 
 
 def nomalize_recip(recip):
@@ -30,7 +33,41 @@ def mail_template_to_save(data, mailfrom):
         
 
 def is_secret(recip):
-    return recip.find("$$") != -1
+    return '$$' in recip
+
 
 def split_secret(recip):
     return recip.split("$$")
+
+
+def extract_secretcode(source):
+    if isinstance(source, Message):
+        msg = source
+        # TODO refactor
+        name, address = parseaddr(msg.get('To'))
+        recipient_with_secret = address.split('@')[0]
+    else:
+        recipient_with_secret = source
+
+    if is_secret(recipient_with_secret):
+        return recipient_with_secret.split('$$')[1]
+    else:
+        return None
+
+
+def extract_recipient(source):
+    if isinstance(source, Message):
+        msg = source
+        raw_rcptto = msg.get('To')
+    else:
+        raw_rcptto = source
+
+    # TODO refactor
+    name, address = parseaddr(raw_rcptto)
+    recipient = address.split('@')[0]
+
+    # TODO refactor required
+    if is_secret(recipient):
+        recipient = split_secret(recipient)[0]
+
+    return recipient
