@@ -41,7 +41,6 @@ class RecvMailTest(TestCase):
 
     @classmethod
     def set_self_msg(cls):
-        # TODO msg를 이런식으로 만들지 않아도 되었을 듯? 확인해서 수정하기.
         cls.msg = Parser().parsestr("""Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 X-Originating-IP: [218.51.1.226]
@@ -69,8 +68,8 @@ test""")
                            'recp3',
                            'secret$$secsec']
 
-        cls.msg.replace_header('To', ', '.join(map(formataddr,
-                                                   zip(recipients_name, cls.recipients))))
+        header_to = ', '.join(map(formataddr, zip(recipients_name, cls.recipients)))
+        cls.msg.replace_header('To', header_to)
         cls.msg.replace_header('From', formataddr(('author', cls.frommail)))
 
     @classmethod
