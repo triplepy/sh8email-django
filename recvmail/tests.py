@@ -11,6 +11,8 @@ from .recv_server import Sh8MailProcess
 
 
 class RecvMailTest(TestCase):
+    p = None
+
     msg = None
     frommail = None
     recipients = None
@@ -74,7 +76,7 @@ test""")
 
     @classmethod
     def start_mail_server(cls):
-        cls.p = Sh8MailProcessForTest()
+        cls.p = Sh8MailProcess()
         cls.p.daemon = True
         cls.p.start()
 
@@ -169,12 +171,6 @@ class AddressTest(TestCase):
 
         # then
         self.assertEqual(header_to, address.as_headerstr())
-
-
-# TODO refactor required
-class Sh8MailProcessForTest(Sh8MailProcess):
-    def run(self):
-        super(Sh8MailProcessForTest, self).run()
 
 
 class MsgParseTest(TestCase):
