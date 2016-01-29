@@ -1,18 +1,13 @@
 # -*- coding: utf-8 -*-
-import email.utils
 import smtplib
 import time
-from email.message import EmailMessage
-from email.mime.text import MIMEText
 from email.parser import Parser
 from email.utils import formataddr
 
 from django.test import TestCase
 from front.models import Mail
 from recvmail.msgparse import raw_to_mail, reproduce_mail, Address
-from recvmail.util import extract_recipient
 from .recv_server import Sh8MailProcess
-from .util import nomalize_recip, nomalize_body, is_secret, split_secret
 
 
 class RecvMailTest(TestCase):
@@ -101,86 +96,6 @@ test""")
     def _check_mail_is_exist_with_recipient(self, recipient):
         mail = Mail.objects.get(recipient=recipient)
         self.assertTrue(mail)
-
-
-class MailUtilTest(TestCase):
-    empty_mailfrom = ""
-    empty_peer = ""
-
-    def _assert_after_nomalize_recipent(self, param_email, expected):
-        result = nomalize_recip(param_email)
-        self.assertEquals(expected, result)
-
-    def _make_default_parameter_body(self):
-        body = {}
-        body['From'] = "From <from@example.com>"
-        body['To'] = "recipient@exam.com"
-        return body
-
-    def test_nomalize_reciepent(self):
-        self._assert_after_nomalize_recipent(
-                "recipient@example.com", "recipient")
-        self._assert_after_nomalize_recipent(
-                "recip@ent@example.com", "recip@ent")
-        self._assert_after_nomalize_recipent(
-                "Recipient : <recipient@example.com>", "recipient")
-        self._assert_after_nomalize_recipent(
-                "Recipient : < recipient@example.com >", "recipient")
-
-    def test_nomalize_body_case_with_only_body(self):
-        p_body = self._make_default_parameter_body()
-
-        result_body = nomalize_body(p_body, self.empty_mailfrom)
-
-        self.assertEquals("From <from@example.com>", result_body['From'])
-        self.assertEquals("recipient", result_body['To'])
-
-    def test_nomalize_body_case_with_mailfrom(self):
-        p_body = self._make_default_parameter_body()
-        p_mailfrom = "mailfrom@example.com"
-
-        result_body = nomalize_body(p_body, p_mailfrom)
-
-        self.assertEquals("From <from@example.com>", result_body['From'])
-        self.assertEquals("recipient", result_body['To'])
-
-    def test_is_secret_mail(self):
-        not_secret_recip = "not_secret"
-        is_not_secret = is_secret(not_secret_recip)
-        self.assertFalse(is_not_secret)
-
-        is_secret_recip = "this_is$$secret"
-        this_is_secret = is_secret(is_secret_recip)
-        self.assertTrue(this_is_secret)
-
-    def test_extract_secret(self):
-        is_secret_recip = "this_is$$secret"
-        recip, secret_code = split_secret(is_secret_recip)
-        self.assertEquals("this_is", recip)
-        self.assertEquals("secret", secret_code)
-
-    def test_extract_recipient__using_message(self):
-        # given
-        rawemail = open('recvmail/tools/aws_simple.eml').read()
-        msg = Parser().parsestr(rawemail)
-
-        # when
-        recipient = extract_recipient(msg)
-
-        # then
-        expected_recipient = "getogrand"
-        self.assertEqual(recipient, expected_recipient)
-
-    def test_extract_recipient__using_raw_rcptto(self):
-        # given
-        raw_rcptto = "wonyoungju <getogrand@sh8.email>"
-
-        # when
-        recipient = extract_recipient(raw_rcptto)
-
-        # then
-        expected_recipient = "getogrand"
-        self.assertEqual(recipient, expected_recipient)
 
 
 class AddressTest(TestCase):
