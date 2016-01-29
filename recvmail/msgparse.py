@@ -1,7 +1,7 @@
 from email.header import decode_header, make_header
 from email.message import EmailMessage
 from email.parser import Parser
-from email.utils import parseaddr
+from email.utils import parseaddr, formataddr
 
 from front.models import Mail
 from recvmail.util import extract_recipient, is_secret, extract_secretcode
@@ -36,3 +36,38 @@ def reproduce_mail(origin, rcpttos):
         )
         mails.append(m)
     return mails
+
+
+class Address(object):
+    def __init__(self, local=None, domain=None, name='Name', header_to=None):
+        self.local = local
+        self.domain = domain
+        self.name = name
+
+        if header_to:
+            self.name, address_str = parseaddr(header_to)
+            self.local, self.domain = address_str.split('@')
+
+    @property
+    def recipient(self):
+        return self._split_local()[0]
+
+    @property
+    def secret_code(self):
+        return self._split_local()[1]
+
+    def _split_local(self):
+        if is_secret(self.local):
+            recipient, secret_code = self.local.split('$$')
+            return recipient, secret_code
+        else:
+            return self.local, self.local
+
+    def as_str(self):
+        return self.local + '@' + self.domain
+
+    def as_headerstr(self):
+        return formataddr((self.name, self.as_str()))
+
+    def __str__(self):
+        return self.as_str()

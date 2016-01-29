@@ -9,7 +9,7 @@ from email.utils import formataddr
 
 from django.test import TestCase
 from front.models import Mail
-from recvmail.msgparse import raw_to_mail, reproduce_mail
+from recvmail.msgparse import raw_to_mail, reproduce_mail, Address
 from recvmail.util import extract_recipient
 from .recv_server import Sh8MailProcess
 from .util import nomalize_recip, nomalize_body, is_secret, split_secret
@@ -107,28 +107,28 @@ class MailUtilTest(TestCase):
     empty_mailfrom = ""
     empty_peer = ""
 
-    def assert_after_nomalize_recipent(self, param_email, expected):
+    def _assert_after_nomalize_recipent(self, param_email, expected):
         result = nomalize_recip(param_email)
         self.assertEquals(expected, result)
 
-    def make_default_parameter_body(self):
+    def _make_default_parameter_body(self):
         body = {}
         body['From'] = "From <from@example.com>"
         body['To'] = "recipient@exam.com"
         return body
 
     def test_nomalize_reciepent(self):
-        self.assert_after_nomalize_recipent(
+        self._assert_after_nomalize_recipent(
                 "recipient@example.com", "recipient")
-        self.assert_after_nomalize_recipent(
+        self._assert_after_nomalize_recipent(
                 "recip@ent@example.com", "recip@ent")
-        self.assert_after_nomalize_recipent(
+        self._assert_after_nomalize_recipent(
                 "Recipient : <recipient@example.com>", "recipient")
-        self.assert_after_nomalize_recipent(
+        self._assert_after_nomalize_recipent(
                 "Recipient : < recipient@example.com >", "recipient")
 
     def test_nomalize_body_case_with_only_body(self):
-        p_body = self.make_default_parameter_body()
+        p_body = self._make_default_parameter_body()
 
         result_body = nomalize_body(p_body, self.empty_mailfrom)
 
@@ -136,7 +136,7 @@ class MailUtilTest(TestCase):
         self.assertEquals("recipient", result_body['To'])
 
     def test_nomalize_body_case_with_mailfrom(self):
-        p_body = self.make_default_parameter_body()
+        p_body = self._make_default_parameter_body()
         p_mailfrom = "mailfrom@example.com"
 
         result_body = nomalize_body(p_body, p_mailfrom)
@@ -181,6 +181,80 @@ class MailUtilTest(TestCase):
         # then
         expected_recipient = "getogrand"
         self.assertEqual(recipient, expected_recipient)
+
+
+class AddressTest(TestCase):
+    def _assert_local_domain(self, address, local, domain):
+        self.assertEqual(local, address.local)
+        self.assertEqual(domain, address.domain)
+
+    def test_basic_init(self):
+        # given
+        local = 'getogrand$$silversuffer'
+        recipient = 'getogrand'
+        secret_code = 'silversuffer'
+        domain = 'google.com'
+
+        # when
+        address = Address(local=local, domain=domain)
+
+        # then
+        self._assert_local_domain(address, local, domain)
+        self.assertEqual(recipient, address.recipient)
+        self.assertEqual(secret_code, address.secret_code)
+
+    def test_as_str(self):
+        # given
+        expected_address = 'getogrand$$silversuffer@google.com'
+        local = 'getogrand$$silversuffer'
+        domain = 'google.com'
+
+        # when
+        address = Address(local=local, domain=domain)
+        address_str = address.as_str()
+
+        # then
+        self.assertEqual(expected_address, address_str)
+
+    def test_str_magicmethod(self):
+        # given
+        expected_address = 'getogrand$$silversuffer@google.com'
+        local = 'getogrand$$silversuffer'
+        domain = 'google.com'
+
+        # when
+        address = Address(local=local, domain=domain)
+        address_str = str(address)
+
+        # then
+        self.assertEqual(expected_address, address_str)
+
+    def test_rawaddress_to_address(self):
+        # given
+        local = 'getogrand$$silversuffer'
+        domain = 'google.com'
+        name = 'Geto'
+        header_to = 'Geto <getogrand$$silversuffer@google.com>'
+
+        # when
+        address = Address(header_to=header_to)
+
+        # then
+        self._assert_local_domain(address, local, domain)
+        self.assertEqual(name, address.name)
+
+    def test_address_to_rawaddress(self):
+        # given
+        local = 'getogrand$$silversuffer'
+        domain = 'google.com'
+        name = 'Geto'
+        header_to = 'Geto <getogrand$$silversuffer@google.com>'
+
+        # when
+        address = Address(local=local, domain=domain, name=name)
+
+        # then
+        self.assertEqual(header_to, address.as_headerstr())
 
 
 # TODO refactor required
