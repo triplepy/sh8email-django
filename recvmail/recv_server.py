@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
-import pdb
 import sys
 
 from recvmail.msgparse import raw_to_mail, reproduce_mail
-
-sys.path.append('..' + os.sep)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings")
 
 import asyncore
 import multiprocessing
@@ -17,6 +13,9 @@ import time
 import django
 
 from front.models import Mail
+
+sys.path.append('..' + os.sep)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings")
 
 
 class CustomSMTPServer(smtpd.SMTPServer):
@@ -38,7 +37,7 @@ class BatchJobSchedule(multiprocessing.Process):
     def run(self):
         def delete_job():
             django.setup()
-            return Mail.delete_one_day_ago(Mail)
+            return Mail.delete_one_day_ago()
 
         schedule.every().hour.do(delete_job)
 
