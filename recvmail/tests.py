@@ -211,10 +211,10 @@ nsp.gif&A=3DSOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=3DN7JT3YAVYRAXQTERCCBJLV5NXMMA" =
         self.assertEqual(mail.subject, expected.subject)
         self.assertHTMLEqual(mail.contents, expected.contents)
 
-    def test_raw_to_mail__multiple_to(self):
+    def test_raw_to_mail__unicode_sender(self):
         # given
-        rawemail = open('recvmail/tools/multipleTo.eml').read()
-        expected1 = Mail.objects.create(
+        rawemail = open('recvmail/tools/unicode_sender.eml').read()
+        expected = Mail.objects.create(
                 recipient='getogrand1',
                 secret_code=None,
                 sender='" 주원영 " <getogrand@paran.com>',
@@ -226,10 +226,10 @@ nsp.gif&A=3DSOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=3DN7JT3YAVYRAXQTERCCBJLV5NXMMA" =
         mail = raw_to_mail(rawemail)
 
         # then
-        self.assertEqual(mail.recipient, expected1.recipient)
-        self.assertEqual(mail.sender, expected1.sender)
-        self.assertEqual(mail.subject, expected1.subject)
-        self.assertEqual(mail.contents, expected1.contents)
+        self.assertEqual(mail.sender, expected.sender)
+        self.assertEqual(mail.recipient, expected.recipient)
+        self.assertEqual(mail.subject, expected.subject)
+        self.assertEqual(mail.contents, expected.contents)
 
     def test_raw_to_mail__secretcode(self):
         # given
