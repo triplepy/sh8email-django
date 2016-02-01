@@ -6,7 +6,7 @@ from email.utils import formataddr
 
 from django.test import TestCase
 from front.models import Mail
-from recvmail.msgparse import raw_to_mail, reproduce_mail, Address
+from recvmail.msgparse import raw_to_mail, reproduce_mail, Address, readablize_header
 from .recv_server import Sh8MailProcess
 
 
@@ -273,3 +273,14 @@ nsp.gif&A=3DSOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=3DN7JT3YAVYRAXQTERCCBJLV5NXMMA" =
             self.assertEqual(m.sender, orgin_mail.sender)
             self.assertEqual(m.subject, orgin_mail.subject)
             self.assertEqual(m.contents, orgin_mail.contents)
+
+    def test_readablize_header(self):
+        # given
+        header = '=?UTF-8?B?QVdT7J2YIOy2nOyLnCDqs7Xsp4A=?='
+        expected_readable_header = 'AWS의 출시 공지'
+
+        # when
+        readable_header = readablize_header(header)
+
+        # then
+        self.assertEqual(expected_readable_header, readable_header)

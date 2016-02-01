@@ -9,8 +9,8 @@ from front.models import Mail
 def raw_to_mail(rawtext):
     msg = Parser(_class=EmailMessage).parsestr(rawtext)
 
-    sender = str(make_header(decode_header(msg.get('From'))))
-    subject = str(make_header(decode_header(msg.get('Subject'))))
+    sender = readablize_header(msg.get('From'))
+    subject = readablize_header(msg.get('Subject'))
 
     address = Address(header_to=msg.get('To'))
 
@@ -21,6 +21,10 @@ def raw_to_mail(rawtext):
                 contents=msg.get_body().get_payload())
 
     return mail
+
+
+def readablize_header(header):
+    return str(make_header(decode_header(header)))
 
 
 def reproduce_mail(origin, rcpttos):
@@ -63,8 +67,8 @@ class Address(object):
         else:
             return self.local, self.local
 
-    def _is_secret(self, recip):
-        return '$$' in recip
+    def _is_secret(self, local):
+        return '$$' in local
 
     def as_str(self):
         return self.local + '@' + self.domain
