@@ -163,7 +163,7 @@ span.label {
 /* ------- New design ---------*/
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-html {
+html, body {
   font-family: 'Nanum Gothic', sans-serif;
 }
 
