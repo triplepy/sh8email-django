@@ -1,0 +1,59 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="front/static/front/bootstrap/css/bootstrap-custom.css"/>
+  <link rel="stylesheet" type="text/css" href="front/static/front/bootstrap/css/bootstrap-custom.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>sh8email list</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap.min.css' %}">
+   <!-- Optional theme -->
+  <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap-theme.min.css' %}">
+   <!-- detail.css -->
+  <link rel="stylesheet" href="{% static 'front/detail.css' %}">
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- jquery -->
+  <script src="{% static 'front/jquery/jquery-2.1.4.min.js' %}"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="{% static 'front/bootstrap/js/bootstrap.min.js' %}"></script>
+
+  <!-- Custom bootstrap -->
+  <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap-custom.css' %}">
+
+  <!-- jquery -->
+  <script src="{% static 'front/jquery/jquery-2.1.4.min.js' %}"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="{% static 'front/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script>
+    function submit(){
+      $("form").submit();
+    }
+  </script>
+</head>
+<body>
+<div class="container">
+  <div class="jumbotron jumbotron-top-margin">
+    <h1 class="text-center">sh8.email</h1>
+    <div class="panel panel-primary panel-top-margin">
+      <div class="panel-heading">Nickname</div>
+      <div class="panel-body">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="@sh8.email"
+                 aria-label="확인할 메일 주소 앞자리를 입력해 주세요.">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">메일 확인</button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-dismissible alert-success">
+      <strong><a href="#" class="alert-link">쉿 메일?</a></strong>
+    </div>
+  </div>
+</div>
+</body>
+</html>

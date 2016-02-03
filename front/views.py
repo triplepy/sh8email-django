@@ -1,11 +1,14 @@
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseForbidden
-from django.shortcuts import render, get_object_or_404, redirect
-from django.core.urlresolvers import reverse
+from django.shortcuts import render, get_object_or_404
 from front.readauth import CannotReadReasons
-from .models import Mail
 from .checkin import CheckinManager
+from .models import Mail
 
+
+def intro(request):
+    return render(request, 'front/intro.html')
 
 def detail(request, pk):
     mail = get_object_or_404(Mail, pk=pk)
