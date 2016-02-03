@@ -159,3 +159,18 @@ footer {
 span.label {
 
 }
+
+/* ------- New design ---------*/
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+html {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+.jumbotron-top-margin {
+  margin-top: 10em
+}
+
+.panel-top-margin {
+  margin-top: 3em;
+}
