@@ -20,54 +20,50 @@
 
   <!-- Custom bootstrap -->
   <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap-custom.css' %}">
-
-  <!-- jquery -->
-  <script src="{% static 'front/jquery/jquery-2.1.4.min.js' %}"></script>
-
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="{% static 'front/bootstrap/js/bootstrap.min.js' %}"></script>
-  <script>
-    function submit(){
-      $("form").submit();
-    }
-  </script>
 </head>
 
 <body>
-<div class="navigation-wrapper">
-  <div class="container navigation">
-    <div class="row">
-      <div class="col-xs-1"></div>
-      <div class="col-xs-5">
-        <form method="post" action="{% url 'checkin' %}">
-          <div class="input-group mail-form">
-            <div class="mail-input-box">
-              <div class="input-group">
-                <input type="text" class="form-control base-recip-box" placeholder="{{ recipient | default:'수신 이름을 입력하세요.' }}" name="recipient" aria-describedby="basic-addon2">
-                {% csrf_token %}
-                <span class="input-group-addon base-mail-btn" onclick="submit()"><span class="glyphicon glyphicon-envelope"></span></span>
-              </div>
-            </div>
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">sh8.email</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control" name="recipient"
+                   placeholder="{{ recipient | default:'수신 이름을 입력하세요.' }}">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">메일 확인</button>
+            </span>
           </div>
-        </form>
-      </div>
-      <div class="col-xs-2"></div>
-      <div class="col-xs-3 sh8email-title"><h3><i class="ionicons ion-ios-infinite"></i> sh8email</h3></div>
-      <div class="col-xs-1"></div>
+          {% csrf_token %}
+        </div>
+
+      </form>
     </div>
   </div>
+</nav>
+<div class="container sh8email-content">
+  {% block content %}
+  {% endblock %}
 </div>
-  <div class="container sh8email-content">
-    {% block content %}
-    {% endblock %}
-  </div>
-  <footer>
-    <div class="contaier">
-      <div class="footer-copyright">
-        <span class="label">©pypypy 2015-2016</span>
-      </div>
+<footer>
+  <div class="contaier">
+    <div class="footer-copyright">
+      <span class="label">©pypypy 2015-2016</span>
     </div>
-  </footer>
+  </div>
+</footer>
 </body>
 
 </html>

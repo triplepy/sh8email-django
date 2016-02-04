@@ -20,12 +20,6 @@
 
   <!-- Custom bootstrap -->
   <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap-custom.css' %}">
-
-  <!-- jquery -->
-  <script src="{% static 'front/jquery/jquery-2.1.4.min.js' %}"></script>
-
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="{% static 'front/bootstrap/js/bootstrap.min.js' %}"></script>
 </head>
 <body>
 <div class="container">
@@ -43,7 +37,7 @@
             {% csrf_token %}
           </form>
           <span class="input-group-btn">
-            <button class="btn btn-default" type="submit">메일 확인</button>
+            <button class="btn btn-default" type="button">메일 확인</button>
           </span>
         </div>
       </div>
