@@ -10,6 +10,7 @@ from .models import Mail
 def intro(request):
     return render(request, 'front/intro.html')
 
+
 def detail(request, pk):
     mail = get_object_or_404(Mail, pk=pk)
     can_read = mail.can_read(request)

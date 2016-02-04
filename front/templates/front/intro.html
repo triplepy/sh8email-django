@@ -26,11 +26,6 @@
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="{% static 'front/bootstrap/js/bootstrap.min.js' %}"></script>
-  <script>
-    function submit(){
-      $("form").submit();
-    }
-  </script>
 </head>
 <body>
 <div class="container">
@@ -41,10 +36,14 @@
       <div class="panel-heading">Nickname</div>
       <div class="panel-body">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="@sh8.email"
-                 aria-label="확인할 메일 주소 앞자리를 입력해 주세요.">
+          <form action="{% url 'checkin' %}" method="post">
+            <input type="text" class="form-control" placeholder="@sh8.email"
+                   aria-label="확인할 메일 주소 앞자리를 입력해 주세요."
+                   name="recipient">
+            {% csrf_token %}
+          </form>
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button">메일 확인</button>
+            <button class="btn btn-default" type="submit">메일 확인</button>
           </span>
         </div>
       </div>
