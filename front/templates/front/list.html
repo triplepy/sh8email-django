@@ -1,5 +1,5 @@
 {% extends "front/base.html" %}
-
+{% load staticfiles %}
 
 {% block content %}
   <div class="maillist-content-wrapper">
@@ -15,7 +15,10 @@
             <div class="row">
               <div class="nomail">
                 <div class="col-md-12">
-                    수신한 메일이 없습니다.
+                  <h1 class="text-center">수신한 메일이 없습니다.</h1>
+                  <img src="{% static 'front/image/mailbox-empty.jpg' %}" alt="수신한 메일이 없습니다."
+                       class="img-responsive center-block">
+                  <p class="text-center">Image from https://pixabay.com/photo-875232/</p>
                 </div>
               </div>
             </div>
