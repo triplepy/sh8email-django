@@ -11,6 +11,7 @@ class IntroViewTest(TestCase):
         response = client.get(reverse('front:intro'))
         self.assertContains(response, '쉿 메일?')
 
+
 class DetailViewTest(TestCase):
     def setUp(self):
         self.recipient = 'ggone'
