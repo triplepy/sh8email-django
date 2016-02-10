@@ -45,7 +45,8 @@ def list_(request):
     recipient = checkin_manager.current_recipient()
 
     if recipient:
-        mail_list = Mail.objects.filter(recipient=recipient)
+        mail_list = Mail.objects.filter(recipient=recipient)\
+            .order_by('-recip_date')
     else:
         mail_list = []
 
