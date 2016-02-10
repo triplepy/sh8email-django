@@ -1,11 +1,9 @@
 var forms = forms || {};
 
-forms.submitForms = function() {
-    $('.js-forms-submitform').submit();
-};
-
 forms.attachSubmitEvents = function() {
-    $('.js-forms-submitbutton').click(forms.submitForms);
+    $('.js-forms-submitbutton').click(function(event) {
+        $(event.target).parents('.js-forms-submitform').submit();
+    });
 };
 
 

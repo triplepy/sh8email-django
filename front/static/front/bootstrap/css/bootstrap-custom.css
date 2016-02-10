@@ -12,3 +12,7 @@ html, body {
 .panel-top-margin {
   margin-top: 3em;
 }
+
+.text-4em {
+  font-size: 4em;
+}

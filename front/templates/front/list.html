@@ -1,4 +1,5 @@
 {% extends "front/base.html" %}
+{% load humanize %}
 {% load staticfiles %}
 
 {% block title_text %}
@@ -31,19 +32,40 @@
         </div>
       </div>
     {% else %}
-      <ul class="list-group maillist-content-list-group">
+      <div class="list-group maillist-content-list-group">
         {% for mail in mail_list %}
-          <a href="{% url 'front:detail' mail.id %}" >
-            <li class="list-group-item">
-              <div class="row">
-                  <div class="col-md-2 maillist-content-sender">{{ mail.sender }}</div>
-                  <div class="col-md-8 maillist-content-subject">{{ mail.subject }}</div>
-                  <div class="col-md-2 maillist-content-date">{{ mail.date | date:'Y/m/d P' }}</div>
+          <a class="list-group-item" href="{% url 'front:detail' mail.id %}" >
+            <div class="row">
+              <div class="col-md-11">
+                <div class="row h4">
+                  <div class="col-md-10">
+                    {{ mail.sender }}
+                    {% if mail.is_secret %}
+                      <span class="glyphicon glyphicon-lock"></span>
+                    {% endif %}
+                  </div>
+                  <div class="col-md-2 text-right">{{ mail.recip_date | naturaltime }}</div>
+                </div>
+                <div class="row h3">
+                  <div class="col-md-12">
+                    {{ mail.subject | truncatechars:50 }}
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    {{ mail.contents | striptags | truncatechars:200 }}
+                  </div>
+                </div>
               </div>
-            </li>
+              <div class="col-md-1 text-right text-4em">&gt;</div>
+
+{#              <div class="col-md-2 maillist-content-sender">{{ mail.sender }}</div>#}
+{#              <div class="col-md-8 maillist-content-subject">{{ mail.subject }}</div>#}
+{#              <div class="col-md-2 maillist-content-date">{{ mail.date | date:'Y/m/d P' }}</div>#}
+            </div>
           </a>
         {% endfor %}
-      </ul>
+      </div>
     {% endif %}
   </div>
 {% endblock %}

@@ -36,3 +36,6 @@ class Mail(models.Model):
     def can_read(self, request):
         checker = ReadAuthorityChecker(request, self)
         return checker.check()
+
+    def is_secret(self):
+        return bool(self.secret_code)
