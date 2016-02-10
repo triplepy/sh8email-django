@@ -1,43 +1,49 @@
 {% extends "front/base.html" %}
 {% load staticfiles %}
 
+{% block title_text %}
+  {% if not recipient %}
+    수신 이름을 입력하여 체크인을 해주세요.
+  {% else %}
+    {{ recipient }}@sh8.email
+  {% endif %}
+{% endblock %}
+
 {% block content %}
   <div class="maillist-content-wrapper">
-        {% if not recipient %}
-            <div class="row">
-              <div class="nomail">
-                <div class="col-md-12">
-                    수신 이름을 입력하여 체크인을 해주세요.
-                </div>
+    {% if not recipient %}
+      <div class="row">
+        <div class="nomail">
+          <div class="col-md-12">
+              수신 이름을 입력하여 체크인을 해주세요.
+          </div>
+        </div>
+      </div>
+    {% elif not mail_list %}
+      <div class="row">
+        <div class="nomail">
+          <div class="col-md-12">
+            <h1 class="text-center">받은 메일이 없습니다.</h1>
+            <img src="{% static 'front/image/mailbox-empty.jpg' %}" alt="받은 메일이 없습니다."
+                 class="img-responsive center-block">
+            <p class="text-center">Image from https://pixabay.com/photo-875232/</p>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <ul class="list-group maillist-content-list-group">
+        {% for mail in mail_list %}
+          <a href="{% url 'front:detail' mail.id %}" >
+            <li class="list-group-item">
+              <div class="row">
+                  <div class="col-md-2 maillist-content-sender">{{ mail.sender }}</div>
+                  <div class="col-md-8 maillist-content-subject">{{ mail.subject }}</div>
+                  <div class="col-md-2 maillist-content-date">{{ mail.date | date:'Y/m/d P' }}</div>
               </div>
-            </div>
-        {% elif not mail_list %}
-            <div class="row">
-              <div class="nomail">
-                <div class="col-md-12">
-                  <h1 class="text-center">수신한 메일이 없습니다.</h1>
-                  <img src="{% static 'front/image/mailbox-empty.jpg' %}" alt="수신한 메일이 없습니다."
-                       class="img-responsive center-block">
-                  <p class="text-center">Image from https://pixabay.com/photo-875232/</p>
-                </div>
-              </div>
-            </div>
-        {% else %}
-            <ul class="list-group maillist-content-list-group">
-              {% for mail in mail_list %}
-                  <a href="{% url 'front:detail' mail.id %}" >
-                    <li class="list-group-item maillist-a-row">
-                      <div class="row">
-                          <div class="col-md-2 maillist-content-sender">{{ mail.sender }}</div>
-                          <div class="col-md-8 maillist-content-subject">{{ mail.subject }}</div>
-                          <div class="col-md-2 maillist-content-date">{{ mail.date | date:'Y/m/d P' }}</div>
-                      </div>
-                    </li>
-                  </a>
-              {% endfor %}
-            </ul>
-        {% endif %}
-
+            </li>
+          </a>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
-
 {% endblock %}

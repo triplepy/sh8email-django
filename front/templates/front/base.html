@@ -5,65 +5,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>sh8email list</title>
-  <!-- Latest compiled and minified CSS -->
+  <title>{% block title_text %}sh8.email{% endblock %}</title>
+  <!-- bootstrap css -->
   <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap.min.css' %}">
-   <!-- Optional theme -->
   <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap-theme.min.css' %}">
-   <!-- detail.css -->
-  <link rel="stylesheet" href="{% static 'front/detail.css' %}">
-  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- jquery -->
-  <script src="{% static 'front/jquery/jquery-2.1.4.min.js' %}"></script>
-  <!-- Latest compiled and minified JavaScript -->
+  <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap-custom.css' %}">
+
+  {% block extra_css %}{% endblock %}
+
+  <!-- bootstrap js -->
   <script src="{% static 'front/bootstrap/js/bootstrap.min.js' %}"></script>
 
-  <!-- Custom bootstrap -->
-  <link rel="stylesheet" href="{% static 'front/bootstrap/css/bootstrap-custom.css' %}">
+  <!-- jquery -->
+  <script src="{% static 'front/jquery/jquery-2.1.4.min.js' %}"></script>
+
+  <!-- Internal js components -->
+  <script type="text/javascript" src="{% static 'front/js/forms.js' %}"></script>
+
+  {% block extra_js %}{% endblock %}
 </head>
 
 <body>
-<nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">sh8.email</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <div class="input-group">
-            <input type="text" class="form-control" name="recipient"
-                   placeholder="{{ recipient | default:'수신 이름을 입력하세요.' }}">
-            <span class="input-group-btn">
-              <button class="btn btn-default" type="button">메일 확인</button>
-            </span>
-          </div>
-          {% csrf_token %}
-        </div>
-
-      </form>
-    </div>
-  </div>
-</nav>
-<div class="container sh8email-content">
-  {% block content %}
-  {% endblock %}
+{% block navbar %}
+  {% include 'front/_navbar.html' %}
+{% endblock %}
+<div class="container">
+  {% block content %}{% endblock %}
 </div>
-<footer>
-  <div class="contaier">
-    <div class="footer-copyright">
-      <span class="label">©pypypy 2015-2016</span>
-    </div>
-  </div>
-</footer>
 </body>
 
 </html>
