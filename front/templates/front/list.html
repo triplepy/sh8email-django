@@ -16,7 +16,7 @@
       <div class="row">
         <div class="nomail">
           <div class="col-md-12">
-              수신 이름을 입력하여 체크인을 해주세요.
+              닉네임을 입력하여 체크인을 해주세요.
           </div>
         </div>
       </div>
@@ -24,10 +24,8 @@
       <div class="row">
         <div class="nomail">
           <div class="col-md-12">
-            <h1 class="text-center">받은 메일이 없습니다.</h1>
-            <img src="{% static 'front/image/mailbox-empty.jpg' %}" alt="받은 메일이 없습니다."
-                 class="img-responsive center-block">
-            <p class="text-center">Image from https://pixabay.com/photo-875232/</p>
+            <h3 class="text-center">({{ recipient }}@sh8.email)로 메일을 보내주세요</h3>
+            <h1 class="text-center"><i class="fa fa-envelope" style="font-size:3.5em"></i></h1>
           </div>
         </div>
       </div>
