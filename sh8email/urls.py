@@ -21,5 +21,5 @@ from front import urls as front_urls
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^checkin/$', front_views.checkin, name='checkin'),
-    url(r'^mail/', include(front_urls, namespace='front')),
+    url(r'', include(front_urls, namespace='front')),
 ]
