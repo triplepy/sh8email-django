@@ -65,7 +65,7 @@ class Address(object):
             recipient, secret_code = self.local.split('$$')
             return recipient, secret_code
         else:
-            return self.local, self.local
+            return self.local, None
 
     def _is_secret(self, local):
         return '$$' in local
