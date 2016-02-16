@@ -2,6 +2,9 @@
 import os
 import sys
 
+sys.path.append('..' + os.sep)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings")
+
 from recvmail.msgparse import raw_to_mail, reproduce_mail
 
 import asyncore
@@ -13,9 +16,6 @@ import time
 import django
 
 from front.models import Mail
-
-sys.path.append('..' + os.sep)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings")
 
 
 class CustomSMTPServer(smtpd.SMTPServer):
