@@ -4,7 +4,7 @@
 {% block content %}
 <div class="title">
   <div class="container">
-    <h1 class="text-primary">{{ mail.subject }} <small>{{ mail.recipient }}</small></h1>
+    <h1 class="text-primary">{{ mail.subject }}</h1>
       <div style="text-align: center">
         {{ mail.date | date:'Y/m/d P' }}
       </div>
@@ -15,8 +15,9 @@
 
 <div class="container detail-content">
     <fieldset>
-        <legend>Sender : {{ mail.sender }}</legend>
-            <p style="align-items: center">{{ mail.contents | linebreaks }}
+        <legend><h4><small>{{ mail.sender }}</small></h4></legend>
+            <p style="align-items: center">
+              {% autoescape off %}{{ mail.contents}}{% endautoescape %}
             </p>
     </fieldset>
     <div class="padding"></div>

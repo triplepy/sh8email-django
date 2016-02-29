@@ -18,7 +18,8 @@ def raw_to_mail(rawtext):
                 secret_code=address.secret_code,
                 sender=sender,
                 subject=subject,
-                contents=msg.get_body().get_payload())
+                contents=msg.get_body(preferencelist=('html', 'plain'))
+                            .get_payload(decode=True))
 
     return mail
 
@@ -36,7 +37,7 @@ def reproduce_mail(origin, rcpttos):
                 secret_code=address.secret_code,
                 sender=origin.sender,
                 subject=origin.subject,
-                contents=origin.subject
+                contents=origin.contents
         )
         mails.append(m)
     return mails
