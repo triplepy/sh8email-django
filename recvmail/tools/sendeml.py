@@ -17,8 +17,8 @@ if len(sys.argv) <= 2:
 
 server = 'localhost'
 port = 25
-mailfrom = sys.argv[0]
-rcptto = sys.argv[1].split(',')
+mailfrom = sys.argv[1]
+rcptto = sys.argv[2].split(',')
 
 message = ''
 if len(sys.argv) >= 4:
