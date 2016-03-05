@@ -13,11 +13,11 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <form class="navbar-form navbar-right js-forms-submitform" role="search"
-              method="post" action="{% url 'checkin' %}">
+              method="post" action="{% url 'checkin' %}" >
           <div class="form-group">
             <div class="input-group">
               <input type="text" class="form-control" name="recipient"
-                     placeholder="{{ recipient | default:'닉네임을 입력하세요'}}">
+                     placeholder="{{ recipient | default:'닉네임을 입력하세요'}}" required="required">
               <span class="input-group-btn">
                 <button class="btn btn-default js-forms-submitbutton" type="button">메일 확인</button>
               </span>

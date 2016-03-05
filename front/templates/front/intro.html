@@ -18,12 +18,8 @@
   }
 </style>
 <div class="site-wrapper">
-
       <div class="site-wrapper-inner">
-
         <div class="cover-container">
-
-
           <div class="inner cover">
             <h1 class="cover-heading" style="color: #FFFFFF">sh8.email</h1>
             <p class="lead">
@@ -33,7 +29,7 @@
                     <div class="input-group">
                      <form id="login" action="{% url 'checkin' %}" method="post" class="js-forms-submitform">
                        <div class="input-group input-group-lg">
-                         <input type="text"  name="recipient" class="form-control" placeholder="닉네임" >
+                         <input type="text"  name="recipient" id="recipient" class="form-control" placeholder="닉네임" required="required">
                          <span class="input-group-addon" id="basic-addon2">@sh8.email</span>
                        </div>
                        {% csrf_token %}
@@ -55,11 +51,8 @@
               <a href="#">쉿 메일?</a>
             </p>
           </div>
-
-
         </div>
-
       </div>
+</div>
 
-    </div>
 {% endblock %}
