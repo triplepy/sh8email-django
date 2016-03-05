@@ -14,12 +14,15 @@ def raw_to_mail(rawtext):
 
     address = Address(header_to=msg.get('To'))
 
+    contents = str(msg.get_body(preferencelist=('html', 'plain'))
+                      .get_payload(decode=True),
+                   encoding='utf-8')
+
     mail = Mail(recipient=address.recipient,
                 secret_code=address.secret_code,
                 sender=sender,
                 subject=subject,
-                contents=msg.get_body(preferencelist=('html', 'plain'))
-                            .get_payload(decode=True))
+                contents=contents)
 
     return mail
 
@@ -44,6 +47,8 @@ def reproduce_mail(origin, rcpttos):
 
 
 class Address(object):
+    secret_code_sep = '__'
+
     def __init__(self, local=None, domain=None, name='Name', header_to=None):
         self.local = local
         self.domain = domain
@@ -63,13 +68,13 @@ class Address(object):
 
     def _split_local(self):
         if self._is_secret(self.local):
-            recipient, secret_code = self.local.split('$$')
+            recipient, secret_code = self.local.split(self.secret_code_sep)
             return recipient, secret_code
         else:
             return self.local, None
 
     def _is_secret(self, local):
-        return '$$' in local
+        return self.secret_code_sep in local
 
     def as_str(self):
         return self.local + '@' + self.domain
