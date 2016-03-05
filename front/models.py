@@ -16,14 +16,13 @@ class Mail(models.Model):
     @classmethod
     def delete_read(cls, checkin_manager):
         to_delete = cls.objects.filter(
-                is_read=True, recipient=checkin_manager.current_recipient())
+            is_read=True, recipient=checkin_manager.current_recipient())
         to_delete.delete()
 
     @classmethod
     def delete_one_day_ago(cls):
         yesterday = timezone.now() - timedelta(days=1)
-        to_delete = cls.objects.filter(
-                recip_date__lte=yesterday)
+        to_delete = cls.objects.filter(recip_date__lte=yesterday)
         to_delete.delete()
 
     def is_own(self, checkin_manager):
