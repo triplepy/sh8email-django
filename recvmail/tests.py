@@ -49,7 +49,7 @@ Content-Transfer-Encoding: base64
 X-Originating-IP: [218.51.1.226]
 From: "=?utf-8?B?7KO87JuQ7JiB?=" <getogrand@paran.com>
 Organization:
-To: "getogrand" <getogrand1$$silversuffer@sh8.email>
+To: "getogrand" <getogrand1__silversuffer@sh8.email>
 Subject: test
 X-Mailer: Daum Web Mailer 1.2
 Date: Sat, 23 Jan 2016 23:49:52 +0900 (KST)
@@ -70,11 +70,11 @@ dGVzdAo=""")
         cls.recipients = ['recipient@example.com',
                           'recp2@example.com',
                           'recp3@example.com',
-                          'secret$$secsec@example.com']
+                          'secret__secsec@example.com']
         recipients_name = ['recipient',
                            'recp2',
                            'recp3',
-                           'secret$$secsec']
+                           'secret__secsec']
 
         header_to = ', '.join(map(formataddr, zip(recipients_name, cls.recipients)))
         cls.msg.replace_header('To', header_to)
@@ -112,7 +112,7 @@ class AddressTest(TestCase):
 
     def test_basic_init(self):
         # given
-        local = 'getogrand$$silversuffer'
+        local = 'getogrand__silversuffer'
         recipient = 'getogrand'
         secret_code = 'silversuffer'
         domain = 'google.com'
@@ -127,8 +127,8 @@ class AddressTest(TestCase):
 
     def test_as_str(self):
         # given
-        expected_address = 'getogrand$$silversuffer@google.com'
-        local = 'getogrand$$silversuffer'
+        expected_address = 'getogrand__silversuffer@google.com'
+        local = 'getogrand__silversuffer'
         domain = 'google.com'
 
         # when
@@ -140,8 +140,8 @@ class AddressTest(TestCase):
 
     def test_str_magicmethod(self):
         # given
-        expected_address = 'getogrand$$silversuffer@google.com'
-        local = 'getogrand$$silversuffer'
+        expected_address = 'getogrand__silversuffer@google.com'
+        local = 'getogrand__silversuffer'
         domain = 'google.com'
 
         # when
@@ -153,10 +153,10 @@ class AddressTest(TestCase):
 
     def test_rawaddress_to_address(self):
         # given
-        local = 'getogrand$$silversuffer'
+        local = 'getogrand__silversuffer'
         domain = 'google.com'
         name = 'Geto'
-        header_to = 'Geto <getogrand$$silversuffer@google.com>'
+        header_to = 'Geto <getogrand__silversuffer@google.com>'
 
         # when
         address = Address(header_to=header_to)
@@ -167,10 +167,10 @@ class AddressTest(TestCase):
 
     def test_address_to_rawaddress(self):
         # given
-        local = 'getogrand$$silversuffer'
+        local = 'getogrand__silversuffer'
         domain = 'google.com'
         name = 'Geto'
-        header_to = 'Geto <getogrand$$silversuffer@google.com>'
+        header_to = 'Geto <getogrand__silversuffer@google.com>'
 
         # when
         address = Address(local=local, domain=domain, name=name)

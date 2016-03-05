@@ -12,6 +12,13 @@ class IntroViewTest(TestCase):
         self.assertContains(response, '쉿 메일?')
 
 
+class WehavesecretViewTest(TestCase):
+    def test_page_visible(self):
+        client = Client()
+        response = client.get(reverse('front:wehavesecret'))
+        self.assertContains(response, '순간 비밀번호 생성 기능')
+
+
 class DetailViewTest(TestCase):
     def setUp(self):
         self.recipient = 'ggone'
