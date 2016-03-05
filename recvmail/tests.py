@@ -43,7 +43,8 @@ class RecvMailTest(TestCase):
 
     @classmethod
     def set_self_msg(cls):
-        cls.msg = Parser().parsestr("""Content-Type: text/plain; charset="utf-8"
+        cls.msg = Parser().parsestr("""Content-Type: multipart/alternative;
+	boundary="----=_Part_399822_750742711.1457150967169"
 Content-Transfer-Encoding: base64
 X-Originating-IP: [218.51.1.226]
 From: "=?utf-8?B?7KO87JuQ7JiB?=" <getogrand@paran.com>
@@ -59,7 +60,12 @@ X-HM-FIGURE: i0Yy1lQLTQ/7FlCfj3oLn+xD9XCyy4Cl
 MIME-Version: 1.0
 X-Hanmail-Attr: fc=1
 
-test""")
+------=_Part_399822_750742711.1457150967169
+Content-Type: text/plain;
+	charset=UTF-8
+Content-Transfer-Encoding: base64
+
+dGVzdAo=""")
         cls.frommail = 'author@example.com'
         cls.recipients = ['recipient@example.com',
                           'recp2@example.com',
@@ -175,6 +181,8 @@ class AddressTest(TestCase):
 
 class MsgParseTest(TestCase):
     def test_raw_to_mail(self):
+        self.maxDiff = None
+
         # given
         rawemail = open('recvmail/tools/aws_simple.eml').read()
         expected = Mail.objects.create(
@@ -182,23 +190,15 @@ class MsgParseTest(TestCase):
                 secret_code=None,
                 sender='Amazon Web Services <aws-marketing-email-replies@amazon.com>',
                 subject='AWS의 출시 공지',
-                contents="""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
-w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                contents="""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8=
-">
-    <meta name=3D"viewport" content=3D"width=3Ddevice-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width">
 </head>
-<body yahoo=3D'fix' style=3D'margin-top:0;margin-bottom:0;margin-left:0;mar=
-gin-right:0;'><img src=3D"https://www.amazon.com/gp/r.html?C=3D1JF1R0SY4HT0=
-H&R=3DH3QBGNBIQ749&T=3DO&U=3Dhttp%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F=
-01%2Fnav%2Ftransp.gif&A=3DONQSC50VFP3FZWOPY8YS4AQEEDCA&H=3DSNDTUUGDMOBHOQ6I=
-TQESCNEFGX0A&ref_=3Dpe_612980_160090880" />
-<img src=3D"https://www.amazon.com/gp/r.html?C=3D1JF1R0SY4HT0H&R=3DH3QBGNBI=
-Q749&T=3DE&U=3Dhttp%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftra=
-nsp.gif&A=3DSOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=3DN7JT3YAVYRAXQTERCCBJLV5NXMMA" =
-/></body>
+<body yahoo='fix' style='margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;'>
+<img src="https://www.amazon.com/gp/r.html?C=1JF1R0SY4HT0H&R=H3QBGNBIQ749&T=O&U=http%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&A=ONQSC50VFP3FZWOPY8YS4AQEEDCA&H=SNDTUUGDMOBHOQ6ITQESCNEFGX0A&ref_=pe_612980_160090880" />
+<img src="https://www.amazon.com/gp/r.html?C=1JF1R0SY4HT0H&R=H3QBGNBIQ749&T=E&U=http%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&A=SOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=N7JT3YAVYRAXQTERCCBJLV5NXMMA" /></body>
 </html>"""
         )
 
@@ -229,7 +229,7 @@ nsp.gif&A=3DSOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=3DN7JT3YAVYRAXQTERCCBJLV5NXMMA" =
         self.assertEqual(mail.sender, expected.sender)
         self.assertEqual(mail.recipient, expected.recipient)
         self.assertEqual(mail.subject, expected.subject)
-        self.assertEqual(mail.contents, expected.contents)
+        self.assertEqual(mail.contents.strip(), expected.contents)
 
     def test_raw_to_mail__secretcode(self):
         # given
@@ -250,7 +250,7 @@ nsp.gif&A=3DSOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=3DN7JT3YAVYRAXQTERCCBJLV5NXMMA" =
         self.assertEqual(mail.secret_code, expected.secret_code)
         self.assertEqual(mail.sender, expected.sender)
         self.assertEqual(mail.subject, expected.subject)
-        self.assertEqual(mail.contents, expected.contents)
+        self.assertEqual(mail.contents.strip(), expected.contents)
 
     def test_reproduce_mail(self):
         # given

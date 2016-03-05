@@ -14,12 +14,15 @@ def raw_to_mail(rawtext):
 
     address = Address(header_to=msg.get('To'))
 
+    contents = str(msg.get_body(preferencelist=('html', 'plain'))
+                      .get_payload(decode=True),
+                   encoding='utf-8')
+
     mail = Mail(recipient=address.recipient,
                 secret_code=address.secret_code,
                 sender=sender,
                 subject=subject,
-                contents=msg.get_body(preferencelist=('html', 'plain'))
-                            .get_payload(decode=True))
+                contents=contents)
 
     return mail
 
