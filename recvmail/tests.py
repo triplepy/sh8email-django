@@ -3,6 +3,8 @@ import smtplib
 import time
 from email.parser import Parser
 from email.utils import formataddr
+import unittest
+import platform
 
 from django.test import TestCase
 from front.models import Mail
@@ -10,6 +12,9 @@ from recvmail.msgparse import raw_to_mail, reproduce_mail, Address, readablize_h
 from .recv_server import Sh8MailProcess
 
 
+@unittest.skipIf(platform.system() == 'Windows',
+                 "There is a gap with subprocessing mechanism of Linux/Windows." +
+                 " So, we will skip tests using subprocessing.\n")
 class RecvMailTest(TestCase):
     p = None
 
