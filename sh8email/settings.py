@@ -9,12 +9,24 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from .settings_common import BASE_DIR as COMMON_BASE_DIR
+from .settings_common import ALLOWED_HOSTS as COMMON_ALLOWED_HOSTS
+from .settings_common import INSTALLED_APPS as COMMON_INSTALLED_APPS
+from .settings_common import MIDDLEWARE_CLASSES as COMMON_MIDDLEWARE_CLASSES
+from .settings_common import ROOT_URLCONF as COMMON_ROOT_URLCONF
+from .settings_common import TEMPLATES as COMMON_TEMPLATES
+from .settings_common import WSGI_APPLICATION as COMMON_WSGI_APPLICATION
+from .settings_common import LANGUAGE_CODE as COMMON_LANGUAGE_CODE
+from .settings_common import TIME_ZONE as COMMON_TIME_ZONE
+from .settings_common import USE_I18N as COMMON_USE_I18N
+from .settings_common import USE_L10N as COMMON_USE_L10N
+from .settings_common import USE_TZ as COMMON_USE_TZ
+from .settings_common import STATIC_URL as COMMON_STATIC_URL
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = COMMON_BASE_DIR
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -30,48 +42,15 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.humanize',
-    'front',
-    'recvmail',
-)
+INSTALLED_APPS = COMMON_INSTALLED_APPS
 
-MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-)
+MIDDLEWARE_CLASSES = COMMON_MIDDLEWARE_CLASSES
 
-ROOT_URLCONF = 'sh8email.urls'
+ROOT_URLCONF = COMMON_ROOT_URLCONF
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../../templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
+TEMPLATES = COMMON_TEMPLATES
 
-WSGI_APPLICATION = 'sh8email.wsgi.application'
+WSGI_APPLICATION = COMMON_WSGI_APPLICATION
 
 
 # Database
@@ -88,18 +67,18 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'ko'
+LANGUAGE_CODE = COMMON_LANGUAGE_CODE
 
-TIME_ZONE = 'Asia/Seoul'
+TIME_ZONE = COMMON_TIME_ZONE
 
-USE_I18N = True
+USE_I18N = COMMON_USE_I18N
 
-USE_L10N = True
+USE_L10N = COMMON_USE_L10N
 
-USE_TZ = True
+USE_TZ = COMMON_USE_TZ
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = COMMON_STATIC_URL
