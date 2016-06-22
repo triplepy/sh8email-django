@@ -8,6 +8,14 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
+
+#####################################################
+
+If you want to sh8email application with this production settings,
+set OS environment variable "DJANGO_SETTINGS_MODULE" to 'sh8email.settings_prod',
+using below command.
+$ export DJANGO_SETTINGS_MODULE=sh8email.settings_prod
+    - by Wonyoung Ju
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -20,10 +28,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q&xot8*fg$b4dd9c1$+fqqj4!t4e%jk_3=un#!g9*!q%(_t@zd'
+SECRET_KEY = os.environ['SH8EMAIL_DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -79,8 +87,12 @@ WSGI_APPLICATION = 'sh8email.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'dev_db.sqlite3')
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'sh8email',
+        'USER': 'sh8email',
+        'PASSWORD': 'djangoUg0G!rls',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
