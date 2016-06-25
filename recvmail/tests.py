@@ -7,6 +7,7 @@ import unittest
 import platform
 
 from django.test import TestCase
+from django.conf import settings
 from front.models import Mail
 from recvmail.msgparse import raw_to_mail, reproduce_mail, Address, readablize_header
 from .recv_server import Sh8MailProcess
@@ -38,7 +39,7 @@ class RecvMailTest(TestCase):
     def send_test_mail(cls):
         cls.set_self_msg()
 
-        with smtplib.SMTP('127.0.0.1', 25) as conn:
+        with smtplib.SMTP('127.0.0.1', settings.MAIL_SERVER_PORT) as conn:
             # show communication with the server
             conn.sendmail(cls.frommail,
                           cls.recipients,
