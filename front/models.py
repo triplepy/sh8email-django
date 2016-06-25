@@ -38,3 +38,10 @@ class Mail(models.Model):
 
     def is_secret(self):
         return bool(self.secret_code)
+
+    def __repr__(self):
+        return "Mail(recipient={}, secret_code={}, sender={}, subject={}, contents={}, recip_date={}, is_read={})".format(
+            self.recipient, self.secret_code, self.sender, self.subject, self.contents, self.recip_date, self.is_read)
+
+    def __str__(self):
+        return self.__repr__()
