@@ -94,5 +94,5 @@ SANITIZER_ALLOWED_TAGS = ['html', 'head', 'title', 'body', 'meta',
                           'sub', 'sup', 'u', 'area', 'caption', 'col', 'colgroup',
                           'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr',
                           'button']
-SANITIZER_ALLOWED_ATTRIBUTES = ['href', 'http-equiv', 'content', 'name', 'charset', 'yahoo', 'src', ]
+SANITIZER_ALLOWED_ATTRIBUTES = ['href', 'http-equiv', 'content', 'name', 'charset', 'yahoo', 'src', 'class', 'id', ]
 SANITIZER_ALLOWED_STYLES = []
