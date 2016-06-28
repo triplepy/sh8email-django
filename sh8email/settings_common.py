@@ -29,6 +29,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'front',
     'recvmail',
+    'sanitizer'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -80,3 +81,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# html_sanitizer settings
+SANITIZER_ALLOWED_TAGS = ['html', 'head', 'title', 'body', 'meta',
+                          'a', 'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                          'footer', 'header', 'hgroup', 'nav',
+                          'dd', 'div', 'dl', 'dt', 'figcaption', 'figure',
+                          'hr', 'li', 'main', 'ol', 'p', 'pre', 'ul',
+                          'abbr', 'b', 'br', 'cite', 'code', 'em',
+                          'i', 'mark', 'q', 's', 'small', 'span', 'strong',
+                          'sub', 'sup', 'u', 'area', 'caption', 'col', 'colgroup',
+                          'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr',
+                          'button']
+SANITIZER_ALLOWED_ATTRIBUTES = ['href', 'http-equiv', 'content', 'name', 'charset', 'yahoo', 'src', ]
+SANITIZER_ALLOWED_STYLES = []

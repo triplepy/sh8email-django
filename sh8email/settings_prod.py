@@ -33,6 +33,9 @@ from .settings_common import USE_I18N as COMMON_USE_I18N
 from .settings_common import USE_L10N as COMMON_USE_L10N
 from .settings_common import USE_TZ as COMMON_USE_TZ
 from .settings_common import STATIC_URL as COMMON_STATIC_URL
+from .settings_common import SANITIZER_ALLOWED_TAGS as COMMON_SANITIZER_ALLOWED_TAGS
+from .settings_common import SANITIZER_ALLOWED_ATTRIBUTES as COMMON_SANITIZER_ALLOWED_ATTRIBUTES
+from .settings_common import SANITIZER_ALLOWED_STYLES as COMMON_SANITIZER_ALLOWED_STYLES
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = COMMON_BASE_DIR
@@ -98,3 +101,8 @@ STATIC_URL = COMMON_STATIC_URL
 
 # Mail receiving server settings
 MAIL_SERVER_PORT = 25
+
+# html_sanitizer settings
+SANITIZER_ALLOWED_TAGS = COMMON_SANITIZER_ALLOWED_TAGS
+SANITIZER_ALLOWED_ATTRIBUTES = COMMON_SANITIZER_ALLOWED_ATTRIBUTES
+SANITIZER_ALLOWED_STYLES = COMMON_SANITIZER_ALLOWED_STYLES

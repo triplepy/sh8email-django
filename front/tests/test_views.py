@@ -61,6 +61,36 @@ class DetailViewTest(TestCase):
 
         self.assertEqual(self.response.status_code, 404)
 
+    def test_html_sanitized_striphtml(self):
+        # given
+        client = Client()
+        recipient = 'ggone'
+        original_html = '''
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body yahoo='fix' style='margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;'>
+  <img src="https://www.amazon.com/gp/0.jpg">
+  <img src="https://www.amazon.com/gp/1.jpg" onerror="alert('shit!')">
+  <script>alert('shit!')</script>
+</body>
+</html>
+'''
+        # when
+        mail = Mail.objects.create(recipient=recipient, sender='jong@google.com',
+                                   subject='secret mail.', contents=original_html)
+        add_recip_to_session(client, recipient)
+        response = client.get(reverse('front:detail', args=(mail.pk,)))
+
+        # then
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<img src=\"https://www.amazon.com/gp/0.jpg\">", msg_prefix="Response was " + str(response.content))
+        self.assertContains(response, "alert&#40;'shit!'&#41;", msg_prefix="Response was " + str(response.content))
+        self.assertNotContains(response, "onerror=\"alert('shit!')\"", msg_prefix="Response was " + str(response.content))
+        self.assertNotContains(response, "<script>alert('shit!')</script>", msg_prefix="Response was " + str(response.content))
+
 
 class DetailViewWithSecretcodeTest(TestCase):
     def test_success_case(self):
