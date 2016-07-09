@@ -57,3 +57,7 @@ def list_(request):
         'mail_list': mail_list,
         'recipient': recipient,
     })
+
+
+def help_(request):
+    return render(request, 'front/help.html')
