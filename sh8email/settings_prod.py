@@ -50,7 +50,7 @@ SECRET_KEY = os.environ['SH8EMAIL_DJANGO_SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = COMMON_ALLOWED_HOSTS
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -97,6 +97,7 @@ USE_TZ = COMMON_USE_TZ
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = COMMON_STATIC_URL
+STATIC_ROOT = 'static'
 
 
 # Mail receiving server settings
