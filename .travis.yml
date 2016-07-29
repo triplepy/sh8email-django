@@ -1,0 +1,37 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+# command to install dependencies
+
+before_install:
+    - "export DISPLAY=:99.0"
+    - "sh -e /etc/init.d/xvfb start"
+    - sleep 3 # give xvfb some time to start
+
+install:
+  - pip install --upgrade setuptools
+  - pip install --upgrade pip
+  - pip install -r requirements.txt
+
+
+dist: trusty
+sudo: required
+addons:
+  firefox: "45.0.2"
+
+before_script:
+  - python manage.py makemigrations 
+  - python manage.py migrate -v 3
+  - python manage.py collectstatic --noinput
+
+script:
+  - python manage.py test front -v 3
+  - python manage.py test functional_tests -v 3
+  - python manage.py test recvmail -v 3
+
+env:
+  global:
+    - BUILD_ON_TRAVIS=true
+
+
