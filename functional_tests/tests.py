@@ -53,7 +53,7 @@ class FunctionalTest(unittest.TestCase):
         )
         # 로그인 창에 downy를 입력한다.
         nick_form.send_keys('downy')
-        nick_from.send_keys(Keys.ENTER)
+        nick_form.send_keys(Keys.ENTER)
         # 로그인 이후 (주)원영에서 온 메일이 나타난다.
         
         # (주)원영으로 부터 온 메일을 클릭하자 메일 내용이 보인다.
