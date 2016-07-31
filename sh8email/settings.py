@@ -24,6 +24,7 @@ from .settings_common import USE_I18N as COMMON_USE_I18N
 from .settings_common import USE_L10N as COMMON_USE_L10N
 from .settings_common import USE_TZ as COMMON_USE_TZ
 from .settings_common import STATIC_URL as COMMON_STATIC_URL
+from .settings_common import STATIC_ROOT as COMMON_STATIC_ROOT
 from .settings_common import SANITIZER_ALLOWED_TAGS as COMMON_SANITIZER_ALLOWED_TAGS
 from .settings_common import SANITIZER_ALLOWED_ATTRIBUTES as COMMON_SANITIZER_ALLOWED_ATTRIBUTES
 from .settings_common import SANITIZER_ALLOWED_STYLES as COMMON_SANITIZER_ALLOWED_STYLES
@@ -85,7 +86,7 @@ USE_TZ = COMMON_USE_TZ
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = COMMON_STATIC_URL
-
+STATIC_ROOT = COMMON_STATIC_ROOT
 
 # Mail receiving server settings
 MAIL_SERVER_PORT = 2525
