@@ -11,6 +11,7 @@ import schedule
 import time
 
 import django
+from django.conf import settings
 
 from front.models import Mail
 
@@ -26,7 +27,7 @@ class CustomSMTPServer(smtpd.SMTPServer):
 
 class Sh8MailProcess(multiprocessing.Process):
     def run(self):
-        self.server = CustomSMTPServer(('0.0.0.0', 25), None)
+        self.server = CustomSMTPServer(('0.0.0.0', settings.MAIL_SERVER_PORT), None)
         asyncore.loop()
 
 

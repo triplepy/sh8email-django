@@ -112,3 +112,9 @@ venv/
 
 # vagrant internal directory
 .vagrant/
+
+# psycopg2 binary wheel file for Windows OS
+psycopg2-2.6.1-cp34-none-win_amd64.whl
+
+# sqlite
+*.sqlite3

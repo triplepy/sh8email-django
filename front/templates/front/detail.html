@@ -1,5 +1,7 @@
 {% extends "front/base.html" %}
 
+{% load sanitizer %}\
+{% load entitify %}
 
 {% block content %}
 <div class="title">
@@ -17,7 +19,7 @@
     <fieldset>
         <legend><h4><small>{{ mail.sender }}</small></h4></legend>
             <p style="align-items: center">
-              {% autoescape off %}{{ mail.contents}}{% endautoescape %}
+              {% autoescape off %}{{ mail.contents | escape_html | entitify_paren }}{% endautoescape %}
             </p>
     </fieldset>
     <div class="padding"></div>

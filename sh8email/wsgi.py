@@ -11,6 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings")
+# If we use WSGI, then may it will be the situtation should load production settings.
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings_prod")
 
 application = get_wsgi_application()

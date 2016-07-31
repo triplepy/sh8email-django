@@ -8,7 +8,16 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
+
+#####################################################
+
+If you want to sh8email application with this production settings,
+set OS environment variable "DJANGO_SETTINGS_MODULE" to 'sh8email.settings_prod',
+using below command.
+$ export DJANGO_SETTINGS_MODULE=sh8email.settings_prod
+    - by Wonyoung Ju
 """
+
 import os
 
 from .settings_common import BASE_DIR as COMMON_BASE_DIR
@@ -31,24 +40,23 @@ from .settings_common import SANITIZER_ALLOWED_STYLES as COMMON_SANITIZER_ALLOWE
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = COMMON_BASE_DIR
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'q&xot8*fg$b4dd9c1$+fqqj4!t4e%jk_3=un#!g9*!q%(_t@zd'
+SECRET_KEY = os.environ['SH8EMAIL_DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = COMMON_INSTALLED_APPS
-
 MIDDLEWARE_CLASSES = COMMON_MIDDLEWARE_CLASSES
-
 ROOT_URLCONF = COMMON_ROOT_URLCONF
 
 TEMPLATES = COMMON_TEMPLATES
@@ -61,8 +69,12 @@ WSGI_APPLICATION = COMMON_WSGI_APPLICATION
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'dev_db.sqlite3')
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'sh8email',
+        'USER': 'sh8email',
+        'PASSWORD': 'djangoUg0G!rls',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
@@ -85,10 +97,11 @@ USE_TZ = COMMON_USE_TZ
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = COMMON_STATIC_URL
+STATIC_ROOT = 'static'
 
 
 # Mail receiving server settings
-MAIL_SERVER_PORT = 2525
+MAIL_SERVER_PORT = 25
 
 # html_sanitizer settings
 SANITIZER_ALLOWED_TAGS = COMMON_SANITIZER_ALLOWED_TAGS

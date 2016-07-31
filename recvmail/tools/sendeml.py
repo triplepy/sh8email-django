@@ -10,19 +10,23 @@ if len(sys.argv) <= 2:
     print('  mailfrom: MAIL FROM address.')
     print('  rcptto:   RCPT TO address.')
     print('  emlfile:  Message file in eml format. When emlfile is not specified, an empty message will be send.')
+    print('  port:     Port of SMTP server that would recieve the email. Optional. Default is 25.')
     print
     print('Example:')
-    print('  $ python ' + sys.argv[0] + ' mailfrom@example.com rcptto@example.com mail.eml')
+    print('  $ python ' + sys.argv[0] + ' mailfrom@example.com rcptto@example.com mail.eml 2525')
     sys.exit(0)
 
 server = 'localhost'
-port = 25
 mailfrom = sys.argv[1]
 rcptto = sys.argv[2].split(',')
+try:
+    port = sys.argv[3]
+except IndexError:
+    port = 25
 
 message = ''
-if len(sys.argv) >= 4:
-    filename = sys.argv[3]
+if len(sys.argv) >= 5:
+    filename = sys.argv[4]
     if not os.path.isfile(filename):
         print('File "' + filename + '" not found.')
         sys.exit(0)
