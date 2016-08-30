@@ -1,21 +1,21 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseForbidden
 from django.test import TestCase, Client
-from front.models import Mail
-from front.tests.utils import add_recip_to_session
+from sh8core.models import Mail
+from sh8core.tests.utils import add_recip_to_session
 
 
 class IntroViewTest(TestCase):
     def test_page_visible(self):
         client = Client()
-        response = client.get(reverse('front:intro'))
+        response = client.get(reverse('sh8core:intro'))
         self.assertContains(response, '쉿 메일?')
 
 
 class WehavesecretViewTest(TestCase):
     def test_page_visible(self):
         client = Client()
-        response = client.get(reverse('front:wehavesecret'))
+        response = client.get(reverse('sh8core:wehavesecret'))
         self.assertContains(response, '순간 비밀번호 생성 기능')
 
 
@@ -29,13 +29,13 @@ class DetailViewTest(TestCase):
     def test_simplest_success_case(self):
         add_recip_to_session(self.client, self.recipient)
         self.response = self.client.get(
-                reverse('front:detail', args=(self.mail.pk,)))
+                reverse('sh8core:detail', args=(self.mail.pk,)))
 
         self.assertContains(self.response, self.mail.subject)
 
     def test_not_checkin(self):
         self.response = self.client.get(
-                reverse('front:detail', args=(self.mail.pk,)))
+                reverse('sh8core:detail', args=(self.mail.pk,)))
         self.assertEqual(self.response.status_code,
                          HttpResponseForbidden.status_code)
 
@@ -44,7 +44,7 @@ class DetailViewTest(TestCase):
         add_recip_to_session(self.client, checkin_recipient)
 
         self.response = self.client.get(
-                reverse('front:detail', args=(self.mail.pk,)))
+                reverse('sh8core:detail', args=(self.mail.pk,)))
 
         self.assertEqual(self.response.status_code,
                          HttpResponseForbidden.status_code)
@@ -57,7 +57,7 @@ class DetailViewTest(TestCase):
         add_recip_to_session(self.client, self.recipient)
 
         self.response = self.client.get(
-                reverse('front:detail', args=(notexistsmail_pk,)))
+                reverse('sh8core:detail', args=(notexistsmail_pk,)))
 
         self.assertEqual(self.response.status_code, 404)
 
@@ -82,7 +82,7 @@ class DetailViewTest(TestCase):
         mail = Mail.objects.create(recipient=recipient, sender='jong@google.com',
                                    subject='secret mail.', contents=original_html)
         add_recip_to_session(client, recipient)
-        response = client.get(reverse('front:detail', args=(mail.pk,)))
+        response = client.get(reverse('sh8core:detail', args=(mail.pk,)))
 
         # then
         self.assertEqual(response.status_code, 200)
@@ -104,7 +104,7 @@ class DetailViewWithSecretcodeTest(TestCase):
                                    subject='secret mail.', contents='iloveyou',
                                    secret_code=secret_code)
         add_recip_to_session(client, recipient)
-        response = client.post(reverse('front:detail', args=(mail.pk,)),
+        response = client.post(reverse('sh8core:detail', args=(mail.pk,)),
                                data={'secret_code': secret_code})
 
         # then
@@ -121,8 +121,8 @@ class DetailViewWithSecretcodeTest(TestCase):
                                    subject='secret mail.', contents='iloveyou',
                                    secret_code=secret_code)
         add_recip_to_session(client, recipient)
-        response = client.post(reverse('front:detail', args=(mail.pk,)),
+        response = client.post(reverse('sh8core:detail', args=(mail.pk,)),
                                data={'secret_code': 'wrong_secretcode'})
 
         # then
-        self.assertTemplateUsed(response, 'front/secretcode_form.html')
+        self.assertTemplateUsed(response, 'sh8core/secretcode_form.html')

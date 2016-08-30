@@ -3,7 +3,7 @@ from email.message import EmailMessage
 from email.parser import Parser
 from email.utils import parseaddr, formataddr
 
-from front.models import Mail
+from sh8core.models import Mail
 
 
 def raw_to_mail(rawtext):

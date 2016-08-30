@@ -27,9 +27,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'front',
+
+    'sh8core',
     'recvmail',
-    'sanitizer'
+    'rest',
+
+    'rest_framework'
+
 )
 
 MIDDLEWARE_CLASSES = (

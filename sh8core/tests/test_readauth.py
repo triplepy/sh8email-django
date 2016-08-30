@@ -1,7 +1,7 @@
 from django.http import HttpRequest
 from django.test import TestCase
-from front.models import Mail
-from front.readauth import ReadAuthorityChecker, CannotReadReasons
+from sh8core.models import Mail
+from sh8core.readauth import ReadAuthorityChecker, CannotReadReasons
 
 
 class ReadAuthorityCheckerTest(TestCase):

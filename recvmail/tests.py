@@ -8,7 +8,7 @@ import platform
 
 from django.test import TestCase
 from django.conf import settings
-from front.models import Mail
+from sh8core.models import Mail
 from recvmail.msgparse import raw_to_mail, reproduce_mail, Address, readablize_header
 from .recv_server import Sh8MailProcess
 

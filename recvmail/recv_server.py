@@ -13,7 +13,7 @@ import time
 import django
 from django.conf import settings
 
-from front.models import Mail
+from sh8core.models import Mail
 
 
 class CustomSMTPServer(smtpd.SMTPServer):

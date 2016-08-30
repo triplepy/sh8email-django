@@ -1,6 +1,6 @@
 from enum import Enum
 
-from front.checkin import CheckinManager
+from sh8core.checkin import CheckinManager
 
 
 class CannotReadReasons(Enum):

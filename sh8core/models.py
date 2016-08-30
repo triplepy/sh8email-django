@@ -1,7 +1,7 @@
 from datetime import timedelta
 from django.utils import timezone
 from django.db import models
-from front.readauth import ReadAuthorityChecker
+from sh8core.readauth import ReadAuthorityChecker
 
 
 class Mail(models.Model):

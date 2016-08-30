@@ -4,9 +4,9 @@ from datetime import timedelta
 from django.http.request import HttpRequest
 from django.test import TestCase
 from django.utils import timezone
-from front.checkin import MockCheckinManager
-from front.models import Mail
-from front.readauth import CannotReadReasons
+from sh8core.checkin import MockCheckinManager
+from sh8core.models import Mail
+from sh8core.readauth import CannotReadReasons
 
 
 class MailTest(TestCase):

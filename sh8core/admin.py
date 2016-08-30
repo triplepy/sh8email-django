@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from front.models import Mail
+from sh8core.models import Mail
 
 admin.site.register(Mail)
