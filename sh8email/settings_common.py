@@ -30,7 +30,9 @@ INSTALLED_APPS = (
 
     'sh8core',
     'recvmail',
+    'web',
     'rest',
+
 
     'rest_framework'
 

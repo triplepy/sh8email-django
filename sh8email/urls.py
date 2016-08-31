@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from sh8core import views as front_views
-from sh8core import urls as front_urls
+
 from rest import urls as rest_urls
+from sh8core import urls as front_urls
+from web import views as front_views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^checkin/$', front_views.checkin, name='checkin'),
-    url(r'', include(front_urls, namespace='front')),
+    url(r'', include(front_urls, namespace='web')),
     url(r'^rest/', include(rest_urls, namespace='rest')),
 ]

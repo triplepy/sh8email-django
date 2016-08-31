@@ -3,27 +3,28 @@ from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from sh8core.readauth import CannotReadReasons
-from .checkin import CheckinManager
-from .models import Mail
+from sh8core.checkin import CheckinManager
+from sh8core.models import Mail
 
 
 def intro(request):
-    return render(request, 'front/intro.html')
+    return render(request, 'web/intro.html')
 
 
 def wehavesecret(request):
-    return render(request, 'front/wehavesecret.html')
+    return render(request, 'web/wehavesecret.html')
+
 
 def detail(request, pk):
     mail = get_object_or_404(Mail, pk=pk)
     can_read = mail.can_read(request)
     if can_read == (True, None):
         mail.read()
-        return render(request, 'front/detail.html', {
+        return render(request, 'web/detail.html', {
             'mail': mail, 'recipient': mail.recipient
         })
     elif can_read == (False, {CannotReadReasons.secret_code}):
-        return render(request, 'front/secretcode_form.html', {
+        return render(request, 'web/secretcode_form.html', {
             'mail': mail, 'recipient': mail.recipient
         })
     else:
@@ -39,7 +40,7 @@ def checkin(request):
 
     checkin_manager.set_current_recipient(recipient)
 
-    return HttpResponseRedirect(reverse('front:list'))
+    return HttpResponseRedirect(reverse('web:list'))
 
 
 def list_(request):
@@ -53,11 +54,11 @@ def list_(request):
     else:
         mail_list = []
 
-    return render(request, 'front/list.html', {
+    return render(request, 'web/list.html', {
         'mail_list': mail_list,
         'recipient': recipient,
     })
 
 
 def help_(request):
-    return render(request, 'front/help.html')
+    return render(request, 'web/help.html')
