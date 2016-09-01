@@ -33,9 +33,8 @@ INSTALLED_APPS = (
     'web',
     'rest',
 
-
-    'rest_framework'
-
+    'rest_framework',
+    'sanitizer'
 )
 
 MIDDLEWARE_CLASSES = (
