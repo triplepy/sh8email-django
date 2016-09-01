@@ -1,4 +1,4 @@
-{% extends "front/base.html" %}
+{% extends "web/base.html" %}
 {% load humanize %}
 {% load staticfiles %}
 
@@ -32,7 +32,7 @@
     {% else %}
       <div class="list-group maillist-content-list-group">
         {% for mail in mail_list %}
-          <a class="list-group-item" href="{% url 'front:detail' mail.id %}" >
+          <a class="list-group-item" href="{% url 'web:detail' mail.id %}" >
             <div class="row">
               <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
                 <div class="row">

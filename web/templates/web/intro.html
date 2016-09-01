@@ -1,4 +1,4 @@
-{% extends 'front/base.html' %}
+{% extends 'web/base.html' %}
 {% load staticfiles %}
 
 {% block navbar %}
@@ -49,12 +49,12 @@
             <p class="lead">
               <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-                  <a href="{% url 'front:help' %}" class="btn btn-lg btn-default mailcheck">이게 뭐고, 어떻게 쓰는거죠?</a>
+                  <a href="{% url 'web:help' %}" class="btn btn-lg btn-default mailcheck">이게 뭐고, 어떻게 쓰는거죠?</a>
                 </div>
               </div>
             </p>
             <p>
-              <a href="{% url 'front:wehavesecret' %}">쉿 메일?</a>
+              <a href="{% url 'web:wehavesecret' %}">쉿 메일?</a>
             </p>
           </div>
         </div>
