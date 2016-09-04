@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sh8email.settings_prod")
 
 from recvmail.msgparse import raw_to_mail, reproduce_mail
 
