@@ -3,6 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^list/$', views.MailList.as_view(), name='rest-mail-list'),
-    url(r'^(?P<pk>[0-9]+)/$', views.MailList.as_view(), name='rest-mail-detail'),
+    url(r'^mail/$', views.MailReceive.as_view(), name='rest-mail'),
+    url(r'^mail/list/$', views.MailList.as_view(), name='rest-mail-list'),
+    url(r'^mail/(?P<pk>[0-9]+)/$', views.MailDetail.as_view(), name='rest-mail-detail'),
 ]
