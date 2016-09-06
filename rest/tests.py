@@ -1,12 +1,11 @@
 import requests
-import time
 
 from django.test import LiveServerTestCase
 
 from sh8core.models import Mail
 
 
-class MailReceive(LiveServerTestCase):
+class MailReceiveTest(LiveServerTestCase):
     def test_mail_received(self):
         mail_data = {
             "recipient": "test_mail_received",
