@@ -9,6 +9,7 @@ import requests
 from django.conf import settings
 
 from recvmail.msgparse import raw_to_mail, reproduce_mail
+from sh8core.models import Mail
 
 
 class CustomSMTPServer(smtpd.SMTPServer):
@@ -30,23 +31,13 @@ class Sh8MailProcess(multiprocessing.Process):
         asyncore.loop()
 
 
-
 class BatchJobSchedule(multiprocessing.Process):
     def run(self):
         def delete_job():
-            # TODO 배치 잡 분리하기
-            pass
-
+            Mail.delete_one_day_ago()
 
         schedule.every().hour.do(delete_job)
 
         while True:
             schedule.run_pending()
             time.sleep(1)
-
-
-if __name__ == "__main__":
-    p = Sh8MailProcess()
-    b = BatchJobSchedule()
-    p.start()
-    b.start()
