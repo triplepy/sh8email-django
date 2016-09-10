@@ -25,7 +25,6 @@ class CustomSMTPServer(smtpd.SMTPServer):
 
 class Sh8MailProcess(multiprocessing.Process):
     def run(self):
-        print("SH8EMAIL SMTP SERVER IS START")
         mail_server_port = settings.MAIL_SERVER_PORT
         self.server = CustomSMTPServer(('0.0.0.0', mail_server_port), None)
         asyncore.loop()
