@@ -32,7 +32,7 @@ before_script:
 
 
 script:
-  - python manage.py test web -v 3
+  - python manage.py test sh8core -v 3
   - python manage.py test functional_tests -v 3
   - python manage.py test recvmail -v 3
 
