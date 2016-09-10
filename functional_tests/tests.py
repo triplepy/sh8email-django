@@ -28,7 +28,7 @@ class FunctionalTest(unittest.TestCase):
                             msg.as_string())
         finally:
             server.quit()
-            
+
 
     def test_new_user_ordinary_scene(self):
         # 주식왕 다운이는 원영주식회사(이하 (주)원영)의
@@ -45,14 +45,14 @@ class FunctionalTest(unittest.TestCase):
         self.send_cert_mail()
         
         # 다운이는 이메일을 확인하기 위해 sh8.email에 접속했다.
-        self.browser = webdriver.FireFox()
+        self.browser = webdriver.PhantomJS()
         self.browser.get("http://localhost:8000")
-        self.assertIn('sh8email', self.browser.title)
+        self.assertIn('sh8.email', self.browser.title)
         # 근래 본 사이트중에 가장 미려함에 반해 10초간 멍하니 바라보다가
-        nick_form = self.browesr.find_element_by_id('nickname')
+        nick_form = self.browser.find_element_by_id('recipient')
         self.assertEqual(
             nick_form.get_attribute('placeholder'),
-            'nickname'
+            '닉네임'
         )
         # 로그인 창에 downy를 입력한다.
         nick_form.send_keys('downy')
