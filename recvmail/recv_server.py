@@ -6,6 +6,7 @@ import schedule
 import time
 
 import requests
+from django.conf import settings
 
 from recvmail.msgparse import raw_to_mail, reproduce_mail
 
@@ -23,9 +24,11 @@ class CustomSMTPServer(smtpd.SMTPServer):
 
 class Sh8MailProcess(multiprocessing.Process):
     def run(self):
-        mail_server_port = 25
+        print("SH8EMAIL SMTP SERVER IS START")
+        mail_server_port = settings.MAIL_SERVER_PORT
         self.server = CustomSMTPServer(('0.0.0.0', mail_server_port), None)
         asyncore.loop()
+
 
 
 class BatchJobSchedule(multiprocessing.Process):

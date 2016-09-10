@@ -28,6 +28,7 @@ from .settings_common import STATIC_ROOT as COMMON_STATIC_ROOT
 from .settings_common import SANITIZER_ALLOWED_TAGS as COMMON_SANITIZER_ALLOWED_TAGS
 from .settings_common import SANITIZER_ALLOWED_ATTRIBUTES as COMMON_SANITIZER_ALLOWED_ATTRIBUTES
 from .settings_common import SANITIZER_ALLOWED_STYLES as COMMON_SANITIZER_ALLOWED_STYLES
+from .settings_common import MAIL_SERVER_PORT as COMMON_MAIL_SERVER_PORT
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = COMMON_BASE_DIR
@@ -83,15 +84,17 @@ USE_TZ = COMMON_USE_TZ
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
+# https://docs.djangoproject.com/en/1.8/howto/static-files/ls
 
 STATIC_URL = COMMON_STATIC_URL
 STATIC_ROOT = COMMON_STATIC_ROOT
 
 # Mail receiving server settings
-MAIL_SERVER_PORT = 25
+MAIL_SERVER_PORT = COMMON_MAIL_SERVER_PORT
 
 # html_sanitizer settings
 SANITIZER_ALLOWED_TAGS = COMMON_SANITIZER_ALLOWED_TAGS
 SANITIZER_ALLOWED_ATTRIBUTES = COMMON_SANITIZER_ALLOWED_ATTRIBUTES
 SANITIZER_ALLOWED_STYLES = COMMON_SANITIZER_ALLOWED_STYLES
+
+

@@ -103,3 +103,7 @@ SANITIZER_ALLOWED_TAGS = ['html', 'head', 'title', 'body', 'meta',
                           'button']
 SANITIZER_ALLOWED_ATTRIBUTES = ['href', 'http-equiv', 'content', 'name', 'charset', 'yahoo', 'src', 'class', 'id', ]
 SANITIZER_ALLOWED_STYLES = []
+
+
+# Mail receiving server settings
+MAIL_SERVER_PORT = 2525
