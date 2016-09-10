@@ -51,15 +51,3 @@ class MailDetail(APIView):
         mail = self.get_object(request, pk)
         serializer = MailSerializer(mail)
         return Response(serializer.data)
-
-
-class MailReceive(APIView):
-    def post(self, request):
-        data = request.data.get
-        Mail.objects.create(
-            recipient=data('recipient'),
-            secret_code=data('secret_code'),
-            sender=data('sender'),
-            subject=data('subject'),
-            contents=data('contents'),
-        )
