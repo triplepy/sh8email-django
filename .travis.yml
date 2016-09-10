@@ -29,6 +29,7 @@ before_script:
   - python manage.py collectstatic --noinput
   - python manage.py runrecv &
   - python manage.py runbatch &
+  - python manage.py runserver &
 
 
 script:
