@@ -45,7 +45,7 @@ class FunctionalTest(unittest.TestCase):
         self.send_cert_mail()
         
         # 다운이는 이메일을 확인하기 위해 sh8.email에 접속했다.
-        self.browser = webdriver.PhantomJS()
+        self.browser = webdriver.Firefox()
         self.browser.get("http://localhost:8000")
         self.assertIn('sh8.email', self.browser.title)
         # 근래 본 사이트중에 가장 미려함에 반해 10초간 멍하니 바라보다가
@@ -66,7 +66,7 @@ class FunctionalTest(unittest.TestCase):
         # 다시 확인하기 위해 접속을 시도한다.
         ## 새로운 브라우저 세션을 이용해서 접속해보기 위한 코드
         self.browser.quit()
-        self.browser = webdriver.FireFox()
+        self.browser = webdriver.Firefox()
         
         # 하지만 역시 무한대로 조용한 sh8.email 답게
         # 자동으로 메일이 삭제되어 있는 것을 확인한뒤,
