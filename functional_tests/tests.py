@@ -67,7 +67,8 @@ class FunctionalTest(unittest.TestCase):
         ## 새로운 브라우저 세션을 이용해서 접속해보기 위한 코드
         self.browser.quit()
         self.browser = webdriver.Firefox()
-        
+
+        # TODO implementation is required.
         # 하지만 역시 무한대로 조용한 sh8.email 답게
         # 자동으로 메일이 삭제되어 있는 것을 확인한뒤,
         # 안심하고 (주)원영사의 주식을 사러 간다
