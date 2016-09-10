@@ -28,7 +28,8 @@ before_script:
   - python manage.py makemigrations 
   - python manage.py migrate -v 3
   - python manage.py collectstatic --noinput
-  - python -m recvmail.recv_server &
+  - python manage.py runrecv
+  - python manage.py runbatch
 
 
 script:
