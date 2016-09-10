@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 
-from recvmail.recv_server import MailDeleteBatch
+from batch.maildelete import MailDeleteBatch
 
 
 class Command(BaseCommand):

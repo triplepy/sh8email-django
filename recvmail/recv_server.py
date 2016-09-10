@@ -2,13 +2,10 @@
 import asyncore
 import multiprocessing
 import smtpd
-import schedule
-import time
 
 from django.conf import settings
 
 from recvmail.msgparse import raw_to_mail, reproduce_mail
-from sh8core.models import Mail
 
 
 class CustomSMTPServer(smtpd.SMTPServer):
@@ -27,13 +24,3 @@ class Sh8MailProcess(multiprocessing.Process):
         asyncore.loop()
 
 
-class MailDeleteBatch(multiprocessing.Process):
-    def run(self):
-        def delete_job():
-            Mail.delete_one_day_ago()
-
-        schedule.every().hour.do(delete_job)
-
-        while True:
-            schedule.run_pending()
-            time.sleep(1)

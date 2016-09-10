@@ -29,12 +29,15 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 
     'sh8core',
-    'recvmail',
+
     'web',
     'rest',
 
+    'recvmail',
+    'batch',
+
     'rest_framework',
-    'sanitizer'
+    'sanitizer',
 )
 
 MIDDLEWARE_CLASSES = (
