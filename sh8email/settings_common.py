@@ -29,12 +29,15 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 
     'sh8core',
-    'recvmail',
+
     'web',
     'rest',
 
+    'recvmail',
+    'batch',
+
     'rest_framework',
-    'sanitizer'
+    'sanitizer',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,3 +106,7 @@ SANITIZER_ALLOWED_TAGS = ['html', 'head', 'title', 'body', 'meta',
                           'button']
 SANITIZER_ALLOWED_ATTRIBUTES = ['href', 'http-equiv', 'content', 'name', 'charset', 'yahoo', 'src', 'class', 'id', ]
 SANITIZER_ALLOWED_STYLES = []
+
+
+# Mail receiving server settings
+MAIL_SERVER_PORT = 2525
