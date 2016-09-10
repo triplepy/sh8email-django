@@ -2,7 +2,10 @@
 import unittest
 import smtplib
 import email
+
 from email.mime.text import MIMEText
+
+from django.conf import settings
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -19,7 +22,7 @@ class FunctionalTest(unittest.TestCase):
         msg['From'] = email.utils.formataddr(('Wonyoung Ju',
                                               'Ju@wonyoung.com'))
         msg['Subject'] = '인증해주시면 감사감사'
-        server = smtplib.SMTP('127.0.0.1', 25)
+        server = smtplib.SMTP('127.0.0.1', settings.MAIL_SERVER_PORT)
         try:
             server.sendmail('Ju@wonyoung.com',['downy@sh8.email'],
                             msg.as_string())
@@ -48,7 +51,7 @@ class FunctionalTest(unittest.TestCase):
         # 근래 본 사이트중에 가장 미려함에 반해 10초간 멍하니 바라보다가
         nick_form = self.browesr.find_element_by_id('nickname')
         self.assertEqual(
-            inputbox.get_attribute('placeholder'),
+            nick_form.get_attribute('placeholder'),
             'nickname'
         )
         # 로그인 창에 downy를 입력한다.
