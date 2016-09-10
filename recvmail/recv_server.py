@@ -27,7 +27,7 @@ class Sh8MailProcess(multiprocessing.Process):
         asyncore.loop()
 
 
-class BatchJobSchedule(multiprocessing.Process):
+class MailDeleteBatch(multiprocessing.Process):
     def run(self):
         def delete_job():
             Mail.delete_one_day_ago()
