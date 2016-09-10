@@ -22,7 +22,7 @@ install:
 dist: trusty
 sudo: required
 addons:
-  firefox: "45.0.2"
+  firefox: "48.0"
 
 before_script:
   - python manage.py makemigrations 
