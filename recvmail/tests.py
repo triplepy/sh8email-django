@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
+import platform
 import smtplib
 import time
+import unittest
 from email.parser import Parser
 from email.utils import formataddr
-import unittest
-import platform
 
-from django.test import TestCase
 from django.conf import settings
-from sh8core.models import Mail
+from django.test import TestCase
+
 from recvmail.msgparse import raw_to_mail, reproduce_mail, Address, readablize_header
-from .recv_server import Sh8MailProcess
+from recvmail.recv_server import Sh8MailProcess
+from sh8core.models import Mail
 
 
 @unittest.skipIf(platform.system() == 'Windows',

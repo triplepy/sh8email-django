@@ -42,7 +42,6 @@ class MailDetail(APIView):
                 mail.read()
                 return mail
             elif can_read == (False, {CannotReadReasons.secret_code}):
-                # TODO 이 부분을 Rest로 처리할 방법
                 return None
             return HttpResponseForbidden()
         except Mail.DoesNotExist:
