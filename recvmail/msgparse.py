@@ -3,6 +3,8 @@ from email.message import EmailMessage
 from email.parser import Parser
 from email.utils import parseaddr, formataddr
 
+from sh8core.models import Mail
+
 
 def raw_to_mail(rawtext):
     msg = Parser(_class=EmailMessage).parsestr(rawtext)
@@ -16,13 +18,11 @@ def raw_to_mail(rawtext):
                       .get_payload(decode=True),
                    encoding='utf-8')
 
-    mail = {
-        "recipient": address.recipient,
-        "secret_code": address.secret_code,
-        "sender": sender,
-        "subject": subject,
-        "contents": contents
-    }
+    mail = Mail(recipient=address.recipient,
+                secret_code=address.secret_code,
+                sender=sender,
+                subject=subject,
+                contents=contents)
 
     return mail
 
@@ -35,14 +35,14 @@ def reproduce_mail(origin, rcpttos):
     mails = []
     for rcptto in rcpttos:
         address = Address(header_to=rcptto)
-        mail = {
-            "recipient": address.recipient,
-            "secret_code": address.secret_code,
-            "sender": origin.sender,
-            "subject": origin.subject,
-            "contents": origin.contents
-        }
-        mails.append(mail)
+        m = Mail(
+                recipient=address.recipient,
+                secret_code=address.secret_code,
+                sender=origin.sender,
+                subject=origin.subject,
+                contents=origin.contents
+        )
+        mails.append(m)
     return mails
 
 
