@@ -16,22 +16,24 @@ install:
   - pip install --upgrade setuptools
   - pip install --upgrade pip
   - pip install -r requirements.txt
-  - python -m recvmail.recv_server &
 
 
 dist: trusty
 sudo: required
 addons:
-  firefox: "45.0.2"
+  firefox: "47.0.1"
 
 before_script:
   - python manage.py makemigrations 
   - python manage.py migrate -v 3
   - python manage.py collectstatic --noinput
-  - python -m recvmail.recv_server &
+  - python manage.py runrecv &
+  - python manage.py runbatch &
+  - python manage.py runserver &
 
 
 script:
+  - python manage.py test sh8core -v 3
   - python manage.py test web -v 3
   - python manage.py test functional_tests -v 3
   - python manage.py test recvmail -v 3

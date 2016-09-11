@@ -2,7 +2,10 @@
 import unittest
 import smtplib
 import email
+
 from email.mime.text import MIMEText
+
+from django.conf import settings
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
@@ -19,13 +22,13 @@ class FunctionalTest(unittest.TestCase):
         msg['From'] = email.utils.formataddr(('Wonyoung Ju',
                                               'Ju@wonyoung.com'))
         msg['Subject'] = '인증해주시면 감사감사'
-        server = smtplib.SMTP('127.0.0.1', 25)
+        server = smtplib.SMTP('127.0.0.1', settings.MAIL_SERVER_PORT)
         try:
             server.sendmail('Ju@wonyoung.com',['downy@sh8.email'],
                             msg.as_string())
         finally:
             server.quit()
-            
+
 
     def test_new_user_ordinary_scene(self):
         # 주식왕 다운이는 원영주식회사(이하 (주)원영)의
@@ -42,14 +45,14 @@ class FunctionalTest(unittest.TestCase):
         self.send_cert_mail()
         
         # 다운이는 이메일을 확인하기 위해 sh8.email에 접속했다.
-        self.browser = webdriver.FireFox()
+        self.browser = webdriver.Firefox()
         self.browser.get("http://localhost:8000")
-        self.assertIn('sh8email', self.browser.title)
+        self.assertIn('sh8.email', self.browser.title)
         # 근래 본 사이트중에 가장 미려함에 반해 10초간 멍하니 바라보다가
-        nick_form = self.browesr.find_element_by_id('nickname')
+        nick_form = self.browser.find_element_by_id('recipient')
         self.assertEqual(
-            inputbox.get_attribute('placeholder'),
-            'nickname'
+            nick_form.get_attribute('placeholder'),
+            '닉네임'
         )
         # 로그인 창에 downy를 입력한다.
         nick_form.send_keys('downy')
@@ -63,8 +66,9 @@ class FunctionalTest(unittest.TestCase):
         # 다시 확인하기 위해 접속을 시도한다.
         ## 새로운 브라우저 세션을 이용해서 접속해보기 위한 코드
         self.browser.quit()
-        self.browser = webdriver.FireFox()
-        
+        self.browser = webdriver.Firefox()
+
+        # TODO implementation is required.
         # 하지만 역시 무한대로 조용한 sh8.email 답게
         # 자동으로 메일이 삭제되어 있는 것을 확인한뒤,
         # 안심하고 (주)원영사의 주식을 사러 간다
