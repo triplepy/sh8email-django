@@ -26,6 +26,9 @@ class MailList(APIView):
             mail_list = Mail.objects.filter(recipient=recipient).order_by('-recip_date')
         else:
             mail_list = []
+
+        for mail in mail_list:
+            mail["is_secret"] = bool(mail["secret_code"])
         serializer = MailSerializer(mail_list, many=True)
         return Response(serializer.data)
 
