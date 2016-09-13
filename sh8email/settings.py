@@ -63,8 +63,12 @@ WSGI_APPLICATION = COMMON_WSGI_APPLICATION
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'dev_db.sqlite3')
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'sh8email',
+        'USER': 'sh8email',
+        'PASSWORD': os.getenv('SH8EMAIL_DB_PASSWORD', 'password'),
+        'HOST': 'localhost',
+        'POST': '5432'
     }
 }
 
