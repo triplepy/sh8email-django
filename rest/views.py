@@ -8,15 +8,18 @@ from rest_framework.response import Response
 from sh8core.checkin import CheckinManager
 from sh8core.models import Mail
 from sh8core.readauth import CannotReadReasons
-from sh8core.serializers import MailSerializer
+from sh8core.serializers import MailListSerializer
+from sh8core.serializers import MailDetailSerializer
 
 
 class MailList(APIView):
     """
     List all snippets, or create a new snippet.
     """
-    def post(self, request, format=None):
+    def post(self, request, nickname, format=None):
         recipient = request.data.get('recipient')
+        if nickname != recipient:
+            return HttpResponseForbidden
         checkin_manager = CheckinManager(request)
         Mail.delete_read(checkin_manager)
         checkin_manager.set_current_recipient(recipient)
@@ -28,8 +31,15 @@ class MailList(APIView):
             mail_list = []
 
         for mail in mail_list:
-            mail["is_secret"] = bool(mail["secret_code"])
-        serializer = MailSerializer(mail_list, many=True)
+            mail.isSecret = mail.is_secret()
+            mail.contents = mail.contents[:50]
+            if mail.isSecret:
+                mail.contents = None
+                mail.subject = None
+
+
+
+        serializer = MailListSerializer(mail_list, many=True)
         return Response(serializer.data)
 
 
@@ -41,16 +51,18 @@ class MailDetail(APIView):
         try:
             mail = get_object_or_404(Mail, pk=pk)
             can_read = mail.can_read(request)
+            if mail.recipient != nickname:
+                return None
             if can_read == (True, None):
                 mail.read()
                 return mail
             elif can_read == (False, {CannotReadReasons.secret_code}):
                 return None
-            return HttpResponseForbidden()
+            return None
         except Mail.DoesNotExist:
-            raise Http404
+            return None
 
     def get(self, request, pk, format=None):
         mail = self.get_object(request, pk)
-        serializer = MailSerializer(mail)
+        serializer = MailDetailSerializer(mail)
         return Response(serializer.data)
