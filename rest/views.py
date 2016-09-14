@@ -47,7 +47,7 @@ class MailDetail(APIView):
     """
     Retrieve, update or delete a snippet instance.
     """
-    def get_object(self, request, pk):
+    def get_object(self, request, nickname, pk):
         try:
             mail = get_object_or_404(Mail, pk=pk)
             can_read = mail.can_read(request)
