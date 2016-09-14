@@ -9,7 +9,8 @@ class ProcessCommand(BaseCommand):
 
     def __init__(self):
         super().__init__()
-        self.pid_file_path = os.path.join(settings.BASE_DIR, 'tmp', 'pids', self.pid_file_name)
+        self.pid_file_dir = os.path.join(settings.BASE_DIR, 'tmp', 'pids')
+        self.pid_file_path = os.path.join(self.pid_file_dir, self.pid_file_name)
 
     def add_arguments(self, parser):
         parser.add_argument('--stop', action='store_true', help='Stop the process.')
@@ -27,8 +28,13 @@ class ProcessCommand(BaseCommand):
         self.store_pid(p)
 
     def store_pid(self, p):
+        self._ensure_piddir_exists()
         with open(self.pid_file_path, 'w') as f:
             f.write(str(p.pid))
+
+    def _ensure_piddir_exists(self):
+        if not os.path.isdir(self.pid_file_dir):
+            os.makedirs(self.pid_file_dir)
 
     def stop_process(self):
         if not os.path.isfile(self.pid_file_path):
