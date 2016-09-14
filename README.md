@@ -51,6 +51,6 @@ hostnossl    all             all             127.0.0.1/32            md5
 hostnossl    all             all             ::1/128                 md5
 ```
 
-## Trouble Shootings
+## Trouble Shooting
 ### django.db.utils.OperationalError: SSL error: decryption failed or bad record mac
 See **item 8**(Edit pg_hba.conf to disable SSL connection in localhost connection) of 'Setting up development database'.
