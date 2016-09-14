@@ -31,7 +31,9 @@ install:
 
 before_script:
   # Set up postgresql database engine.
-  - cp ./serverconf/development/etc/postgresql/9.5/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
+  - sudo cp ./serverconf/development/etc/postgresql/9.5/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
+  - sudo service postgresql restart
+  - sleep 4 # give postgresql some time to restart
   - psql -c "CREATE USER sh8email WITH PASSWORD 'password';" -U postgres
   - psql -c "CREATE DATABASE sh8email;" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE sh8email to sh8email;" -U postgres
