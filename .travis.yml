@@ -1,20 +1,20 @@
+notifications:
+  slack: sh8email:qNoXMbOfcNQbYok7JqY1ptTn
+
 language: python
 python:
   - "3.4"
   - "3.5"
-# command to install dependencies
 
 services:
   - postgresql
-
-notifications:
-  slack: sh8email:qNoXMbOfcNQbYok7JqY1ptTn
 
 before_install:
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"
     - sleep 3 # give xvfb some time to start
 
+# command to install dependencies
 install:
   - pip install --upgrade setuptools
   - pip install --upgrade pip
