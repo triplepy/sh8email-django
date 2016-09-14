@@ -13,22 +13,22 @@ $ sudo su postgres
 $ psql
 ```
 3. Add a user named *sh8email*.
-```shell
+```sql
 postgres=# CREATE USER sh8email WITH PASSWORD 'password';
 CREATE ROLE
 ```
 4. Create a database named *sh8email*.
-```shell
+```sql
 postgres=# CREATE DATABASE sh8email;
 CREATE DATABASE
 ```
 5. Grant access to user.
-```shell
+```sql
 postgres=# GRANT ALL PRIVILEGES ON DATABASE sh8email to sh8email;
 GRANT
 ```
 6. Add a privilege to *create database* which used for creating test database.
-```shell
+```sql
 postgres=# ALTER USER sh8email CREATEDB;
 ALTER ROLE
 ```
