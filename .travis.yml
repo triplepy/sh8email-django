@@ -1,13 +1,21 @@
 notifications:
   slack: sh8email:qNoXMbOfcNQbYok7JqY1ptTn
 
+dist: trusty
+sudo: required
+env:
+  global:
+    - BUILD_ON_TRAVIS=true
+services:
+  - postgresql
+
 language: python
 python:
   - "3.4"
   - "3.5"
 
-services:
-  - postgresql
+addons:
+  firefox: "47.0.1"
 
 before_install:
   - "export DISPLAY=:99.0"
@@ -19,12 +27,6 @@ install:
   - pip install --upgrade setuptools
   - pip install --upgrade pip
   - pip install -r requirements.txt
-
-
-dist: trusty
-sudo: required
-addons:
-  firefox: "47.0.1"
 
 before_script:
   # Set up postgresql database engine.
@@ -39,15 +41,8 @@ before_script:
   - python manage.py runbatch &
   - python manage.py runserver &
 
-
 script:
   - python manage.py test sh8core -v 3
   - python manage.py test web -v 3
   - python manage.py test functional_tests -v 3
   - python manage.py test recvmail -v 3
-
-env:
-  global:
-    - BUILD_ON_TRAVIS=true
-
-
