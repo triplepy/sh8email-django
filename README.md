@@ -17,7 +17,7 @@ $ psql
 postgres=# CREATE USER sh8email WITH PASSWORD 'password';
 CREATE ROLE
 ```
-4. Create a database name *sh8email*.
+4. Create a database named *sh8email*.
 ```shell
 postgres=# CREATE DATABASE sh8email;
 CREATE DATABASE
