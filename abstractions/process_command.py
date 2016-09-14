@@ -28,11 +28,11 @@ class ProcessCommand(BaseCommand):
         self.store_pid(p)
 
     def store_pid(self, p):
-        self._ensure_piddir_exists()
+        self._ensure_pids_dir_exists()
         with open(self.pid_file_path, 'w') as f:
             f.write(str(p.pid))
 
-    def _ensure_piddir_exists(self):
+    def _ensure_pids_dir_exists(self):
         if not os.path.isdir(self.pid_file_dir):
             os.makedirs(self.pid_file_dir)
 
@@ -41,11 +41,12 @@ class ProcessCommand(BaseCommand):
             print("There is no running process to stop.")
             return
 
-        with open(self.pid_file_path) as f:
-            pid = f.read()
-        pid = int(pid)
-
-        os.kill(pid, signal.SIGTERM)
+        os.kill(self._read_pid(), signal.SIGTERM)
         print("{} IS STOPPED".format(self.process_class.__name__))
 
         os.remove(self.pid_file_path)
+
+    def _read_pid(self):
+        with open(self.pid_file_path) as f:
+            pid = f.read()
+        return int(pid)
