@@ -13,22 +13,22 @@ $ sudo su postgres
 $ psql
 ```
 3. Add a user named *sh8email*.
-```shell
+```sql
 postgres=# CREATE USER sh8email WITH PASSWORD 'password';
 CREATE ROLE
 ```
-4. Create a database name *sh8email*.
-```shell
+4. Create a database named *sh8email*.
+```sql
 postgres=# CREATE DATABASE sh8email;
 CREATE DATABASE
 ```
 5. Grant access to user.
-```shell
+```sql
 postgres=# GRANT ALL PRIVILEGES ON DATABASE sh8email to sh8email;
 GRANT
 ```
 6. Add a privilege to *create database* which used for creating test database.
-```shell
+```sql
 postgres=# ALTER USER sh8email CREATEDB;
 ALTER ROLE
 ```
@@ -51,6 +51,6 @@ hostnossl    all             all             127.0.0.1/32            md5
 hostnossl    all             all             ::1/128                 md5
 ```
 
-## Trouble Shootings
+## Trouble Shooting
 ### django.db.utils.OperationalError: SSL error: decryption failed or bad record mac
 See **item 8**(Edit pg_hba.conf to disable SSL connection in localhost connection) of 'Setting up development database'.

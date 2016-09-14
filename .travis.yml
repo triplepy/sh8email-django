@@ -1,33 +1,37 @@
+notifications:
+  slack: sh8email:qNoXMbOfcNQbYok7JqY1ptTn
+
+dist: trusty
+sudo: required
+env:
+  global:
+    - BUILD_ON_TRAVIS=true
+services:
+  - postgresql
+
 language: python
 python:
   - "3.4"
   - "3.5"
-# command to install dependencies
 
-services:
-  - postgresql
-
-notifications:
-  slack: sh8email:qNoXMbOfcNQbYok7JqY1ptTn
+addons:
+  postgresql: "9.5"
+  firefox: "47.0.1"
 
 before_install:
-    - "export DISPLAY=:99.0"
-    - "sh -e /etc/init.d/xvfb start"
-    - sleep 3 # give xvfb some time to start
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 
+# command to install dependencies
 install:
   - pip install --upgrade setuptools
   - pip install --upgrade pip
   - pip install -r requirements.txt
 
-
-dist: trusty
-sudo: required
-addons:
-  firefox: "47.0.1"
-
 before_script:
   # Set up postgresql database engine.
+  - cp ./serverconf/development/etc/postgresql/9.5/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
   - psql -c "CREATE USER sh8email WITH PASSWORD 'password';" -U postgres
   - psql -c "CREATE DATABASE sh8email;" -U postgres
   - psql -c "GRANT ALL PRIVILEGES ON DATABASE sh8email to sh8email;" -U postgres
@@ -39,15 +43,10 @@ before_script:
   - python manage.py runbatch &
   - python manage.py runserver &
 
-
 script:
   - python manage.py test sh8core -v 3
   - python manage.py test web -v 3
   - python manage.py test functional_tests -v 3
+  - python manage.py runrecv --stop
+  - python manage.py runbatch --stop
   - python manage.py test recvmail -v 3
-
-env:
-  global:
-    - BUILD_ON_TRAVIS=true
-
-

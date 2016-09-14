@@ -1,11 +1,8 @@
-from django.core.management import BaseCommand
-
 from batch.maildelete import MailDeleteBatch
+from abstractions.process_command import ProcessCommand
 
 
-class Command(BaseCommand):
-    def handle(self, *args, **options):
-        print("BATCH JOB SCHEDULE IS START")
-        p = MailDeleteBatch()
-        p.start()
-        print("BATCH JOB SCHEDULE IS STARTED")
+class Command(ProcessCommand):
+    help = 'Run mail delete batch server.'
+    process_class = MailDeleteBatch
+    pid_file_name = 'runbatch.pid'
