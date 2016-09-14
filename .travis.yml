@@ -15,6 +15,7 @@ python:
   - "3.5"
 
 addons:
+  postgresql: "9.5"
   firefox: "47.0.1"
 
 before_install:
