@@ -9,6 +9,7 @@ class MailListSerializer(serializers.Serializer):
     subject = serializers.CharField(max_length=400)
     contents = serializers.CharField(max_length=30)
     recip_date = serializers.DateTimeField()
+    isSecret = serializers.BooleanField(default=False)
     is_read = serializers.BooleanField(default=False)
 
 
