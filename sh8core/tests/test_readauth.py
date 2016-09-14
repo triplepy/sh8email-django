@@ -1,5 +1,6 @@
 from django.http import HttpRequest
 from django.test import TestCase
+
 from sh8core.models import Mail
 from sh8core.readauth import ReadAuthorityChecker, CannotReadReasons
 

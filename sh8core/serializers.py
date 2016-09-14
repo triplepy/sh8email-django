@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from sh8core.models import Mail
 
 
 class MailListSerializer(serializers.Serializer):

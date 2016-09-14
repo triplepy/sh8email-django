@@ -2,9 +2,10 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
-from sh8core.readauth import CannotReadReasons
+
 from sh8core.checkin import CheckinManager
 from sh8core.models import Mail
+from sh8core.readauth import CannotReadReasons
 
 
 def intro(request):

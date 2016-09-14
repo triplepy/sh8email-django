@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-import unittest
-import smtplib
 import email
-
+import smtplib
+import unittest
 from email.mime.text import MIMEText
 
 from django.conf import settings
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+
 
 # BDD 개발을 위한 클래스 주석으로 유저 스토리를 작성
 # 이후 테스트 코드를 작성한다.

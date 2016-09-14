@@ -1,5 +1,5 @@
-from batch.maildelete import MailDeleteBatch
 from abstractions.process_command import ProcessCommand
+from batch.maildelete import MailDeleteBatch
 
 
 class Command(ProcessCommand):

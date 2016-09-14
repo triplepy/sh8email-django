@@ -1,6 +1,6 @@
-import sys
 import os.path
 import smtplib
+import sys
 
 if len(sys.argv) <= 2:
     print('Usage:')

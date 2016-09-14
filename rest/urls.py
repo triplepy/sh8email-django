@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from . import views
 
+from . import views
 
 urlpatterns = [
     url(r'^mail/(?P<nickname>\w+)/list/$', views.MailList.as_view(), name='rest-mail-list'),

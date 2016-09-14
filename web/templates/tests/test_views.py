@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseForbidden
 from django.test import TestCase, Client
+
 from sh8core.models import Mail
 from sh8core.tests.utils import add_recip_to_session
 

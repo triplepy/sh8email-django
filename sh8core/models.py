@@ -1,6 +1,8 @@
 from datetime import timedelta
-from django.utils import timezone
+
 from django.db import models
+from django.utils import timezone
+
 from sh8core.readauth import ReadAuthorityChecker
 
 

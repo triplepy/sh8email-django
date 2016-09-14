@@ -1,15 +1,13 @@
-from django.http import Http404
 from django.http import HttpResponseForbidden
-
 from rest_framework.generics import get_object_or_404
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from sh8core.checkin import CheckinManager
 from sh8core.models import Mail
 from sh8core.readauth import CannotReadReasons
-from sh8core.serializers import MailListSerializer
 from sh8core.serializers import MailDetailSerializer
+from sh8core.serializers import MailListSerializer
 
 
 class MailList(APIView):

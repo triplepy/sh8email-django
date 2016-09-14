@@ -21,21 +21,20 @@ $ export DJANGO_SETTINGS_MODULE=sh8email.settings_prod
 import os
 
 from .settings_common import BASE_DIR as COMMON_BASE_DIR
-from .settings_common import ALLOWED_HOSTS as COMMON_ALLOWED_HOSTS
 from .settings_common import INSTALLED_APPS as COMMON_INSTALLED_APPS
+from .settings_common import LANGUAGE_CODE as COMMON_LANGUAGE_CODE
 from .settings_common import MIDDLEWARE_CLASSES as COMMON_MIDDLEWARE_CLASSES
 from .settings_common import ROOT_URLCONF as COMMON_ROOT_URLCONF
+from .settings_common import SANITIZER_ALLOWED_ATTRIBUTES as COMMON_SANITIZER_ALLOWED_ATTRIBUTES
+from .settings_common import SANITIZER_ALLOWED_STYLES as COMMON_SANITIZER_ALLOWED_STYLES
+from .settings_common import SANITIZER_ALLOWED_TAGS as COMMON_SANITIZER_ALLOWED_TAGS
+from .settings_common import STATIC_URL as COMMON_STATIC_URL
 from .settings_common import TEMPLATES as COMMON_TEMPLATES
-from .settings_common import WSGI_APPLICATION as COMMON_WSGI_APPLICATION
-from .settings_common import LANGUAGE_CODE as COMMON_LANGUAGE_CODE
 from .settings_common import TIME_ZONE as COMMON_TIME_ZONE
 from .settings_common import USE_I18N as COMMON_USE_I18N
 from .settings_common import USE_L10N as COMMON_USE_L10N
 from .settings_common import USE_TZ as COMMON_USE_TZ
-from .settings_common import STATIC_URL as COMMON_STATIC_URL
-from .settings_common import SANITIZER_ALLOWED_TAGS as COMMON_SANITIZER_ALLOWED_TAGS
-from .settings_common import SANITIZER_ALLOWED_ATTRIBUTES as COMMON_SANITIZER_ALLOWED_ATTRIBUTES
-from .settings_common import SANITIZER_ALLOWED_STYLES as COMMON_SANITIZER_ALLOWED_STYLES
+from .settings_common import WSGI_APPLICATION as COMMON_WSGI_APPLICATION
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = COMMON_BASE_DIR
