@@ -31,7 +31,6 @@ install:
 
 before_script:
   # Set up postgresql database engine.
-  - sudo cat /etc/postgresql/9.5/main/pg_hba.conf
   - sudo cp ./serverconf/development/etc/postgresql/9.5/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
   - sudo service postgresql restart
   - sleep 4 # give postgresql some time to restart
