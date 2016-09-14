@@ -12,6 +12,7 @@ class Mail(models.Model):
     contents = models.TextField()
     recip_date = models.DateTimeField(auto_now_add=True, editable=True)
     is_read = models.BooleanField(default=False)
+    is_secret = models.BooleanField(default=False)
 
     @classmethod
     def delete_read(cls, checkin_manager):
@@ -35,9 +36,6 @@ class Mail(models.Model):
     def can_read(self, request):
         checker = ReadAuthorityChecker(request, self)
         return checker.check()
-
-    def is_secret(self):
-        return bool(self.secret_code)
 
     def __repr__(self):
         return "Mail(recipient={}, secret_code={}, sender={}, subject={}, contents={}, recip_date={}, is_read={})".format(
