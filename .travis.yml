@@ -46,4 +46,6 @@ script:
   - python manage.py test sh8core -v 3
   - python manage.py test web -v 3
   - python manage.py test functional_tests -v 3
+  - python manage.py runrecv --stop
+  - python manage.py runbatch --stop
   - python manage.py test recvmail -v 3
