@@ -6,11 +6,13 @@ from django.conf import settings
 
 from recvmail.recv_server import Sh8MailProcess
 
-PID_FILE_PATH = os.path.join(settings.BASE_DIR, 'tmp', 'pids', 'runrecv.pid')
-
 
 class Command(BaseCommand):
     help = 'Run mail receiving server.'
+
+    def __init__(self):
+        super().__init__()
+        self.pid_file_path = os.path.join(settings.BASE_DIR, 'tmp', 'pids', 'runrecv.pid')
 
     def add_arguments(self, parser):
         parser.add_argument('--stop', action='store_true', help='Stop the mail receiving server.')
@@ -29,19 +31,19 @@ class Command(BaseCommand):
         self.store_pid(p)
 
     def store_pid(self, p):
-        with open(PID_FILE_PATH, 'w') as f:
+        with open(self.pid_file_path, 'w') as f:
             f.write(str(p.pid))
 
     def stop_process(self):
-        if not os.path.isfile(PID_FILE_PATH):
+        if not os.path.isfile(self.pid_file_path):
             print("There is no running process of mail receiving server to stop.")
             return
 
-        with open(PID_FILE_PATH) as f:
+        with open(self.pid_file_path) as f:
             pid = f.read()
         pid = int(pid)
 
         os.kill(pid, signal.SIGTERM)
         print("SH8EMAIL SMTP SERVER IS STOPPED")
 
-        os.remove(PID_FILE_PATH)
+        os.remove(self.pid_file_path)
