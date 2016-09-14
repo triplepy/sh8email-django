@@ -117,3 +117,6 @@ psycopg2-2.6.1-cp34-none-win_amd64.whl
 
 # sqlite
 *.sqlite3
+
+# pid files
+tmp/pids/*
