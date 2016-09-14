@@ -37,8 +37,6 @@ class MailList(APIView):
                 mail.contents = None
                 mail.subject = None
 
-
-
         serializer = MailListSerializer(mail_list, many=True)
         return Response(serializer.data)
 
