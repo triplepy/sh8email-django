@@ -10,10 +10,13 @@ class RestAPITest(APITestCase):
     fixtures = ['mails.yaml']
 
     def test_retrieve_a_mail(self):
+        # given
         mail_pk = 1
         mail = Mail.objects.get(pk=mail_pk)
         add_recip_to_session(self.client, mail.recipient)
+        # when
         response = self.client.get(reverse('rest:rest-mail-detail', args=[mail.recipient, mail.pk]))
+        # then
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['pk'], mail.pk)
         self.assertEqual(response.data['recipient'], mail.recipient)
@@ -25,5 +28,6 @@ class RestAPITest(APITestCase):
         self.assertEqual(response.data['is_read'], True)
         self.assertEqual(response.data['isSecret'], mail.is_secret)
 
+    # TODO move to mixin.
     def assertDatetimeEqual(self, datetime_str, datetime_obj):
         self.assertEqual(datetime_str, datetime_obj.strftime("%Y-%m-%dT%H:%M:%SZ"))
