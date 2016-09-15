@@ -24,9 +24,9 @@ class RestAPITest(APITestCase):
         self.assertEqual(response.data['sender'], mail.sender)
         self.assertEqual(response.data['subject'], mail.subject)
         self.assertEqual(response.data['contents'], mail.contents)
-        self.assertDatetimeEqual(response.data['recip_date'], mail.recip_date)
+        self.assertDatetimeEqual(response.data['recipDate'], mail.recip_date)
         # is_read should be True after the api response (the 'api response' means that someone read the mail.)
-        self.assertEqual(response.data['is_read'], True)
+        self.assertEqual(response.data['isRead'], True)
 
     def test_retrieve_mail_list(self):
         # given
@@ -47,9 +47,9 @@ class RestAPITest(APITestCase):
                 self.assertEqual(d['contents'], '')
             else:
                 self.assertEqual(d['contents'], mails[index].contents)
-            self.assertDatetimeEqual(d['recip_date'], mails[index].recip_date)
+            self.assertDatetimeEqual(d['recipDate'], mails[index].recip_date)
             self.assertEqual(d['isSecret'], mails[index].is_secret())
-            self.assertEqual(d['is_read'], mails[index].is_read)
+            self.assertEqual(d['isRead'], mails[index].is_read)
 
     # TODO move to mixin.
     def assertDatetimeEqual(self, datetime_str, datetime_obj):

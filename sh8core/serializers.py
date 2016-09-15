@@ -7,9 +7,9 @@ class MailListSerializer(serializers.Serializer):
     sender = serializers.CharField(max_length=200)
     subject = serializers.CharField(max_length=400)
     contents = serializers.CharField(max_length=30)
-    recip_date = serializers.DateTimeField()
+    recipDate = serializers.DateTimeField(source='recip_date')
     isSecret = serializers.BooleanField(source='is_secret')
-    is_read = serializers.BooleanField(default=False)
+    isRead = serializers.BooleanField(default=False, source='is_read')
 
 
 class MailDetailSerializer(serializers.Serializer):
@@ -18,5 +18,5 @@ class MailDetailSerializer(serializers.Serializer):
     sender = serializers.CharField(max_length=200)
     subject = serializers.CharField(max_length=400)
     contents = serializers.CharField()
-    recip_date = serializers.DateTimeField()
-    is_read = serializers.BooleanField(default=False)
+    recipDate = serializers.DateTimeField(source='recip_date')
+    isRead = serializers.BooleanField(default=False, source="is_read")
