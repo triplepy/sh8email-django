@@ -51,7 +51,9 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12">
-                    {{ mail.contents | striptags | truncatechars:200 }}
+                    {% if not mail.is_secret %}
+                        {{ mail.contents | striptags | truncatechars:200 }}
+                    {% endif %}
                   </div>
                 </div>
               </div>
