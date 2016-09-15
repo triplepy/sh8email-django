@@ -20,6 +20,41 @@ class WehavesecretViewTest(TestCase):
         self.assertContains(response, '순간 비밀번호 생성 기능')
 
 
+class ListViewTest(TestCase):
+    def test_list_is_shown(self):
+        self.mail1 = Mail.objects.create(recipient='ggone', sender='hagyoon@gmail.com',
+                                         subject='subject1', contents='contents1')
+        self.mail2 = Mail.objects.create(recipient='ggone', sender='silver@gmail.com',
+                                         subject='subject2', contents='contents2')
+        mails = [self.mail1, self.mail2]
+
+        client = Client()
+        add_recip_to_session(client, 'ggone')
+        response = client.get(reverse('web:list'))
+
+        for mail in mails:
+            self.assertContains(response, mail.sender)
+            self.assertContains(response, mail.subject[:50])
+            self.assertContains(response, mail.contents[:200])
+
+    def test_content_of_secretmail_should_not_be_shown(self):
+        self.mail1 = Mail.objects.create(recipient='ggone', sender='hagyoon@gmail.com',
+                                         subject='subject3', contents='contents3', secret_code='secret')
+        self.mail2 = Mail.objects.create(recipient='ggone', sender='silver@gmail.com',
+                                         subject='subject4', contents='contents4', secret_code='secret')
+
+        mails = [self.mail1, self.mail2]
+
+        client = Client()
+        add_recip_to_session(client, 'ggone')
+        response = client.get(reverse('web:list'))
+
+        for mail in mails:
+            self.assertContains(response, mail.sender)
+            self.assertContains(response, mail.subject[:50])
+            self.assertNotContains(response, mail.contents[:200])
+
+
 class DetailViewTest(TestCase):
     def setUp(self):
         self.recipient = 'ggone'
