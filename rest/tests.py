@@ -15,25 +15,15 @@ class RestAPITest(APITestCase):
         add_recip_to_session(self.client, mail.recipient)
         response = self.client.get(reverse('rest:rest-mail-detail', args=[mail.recipient, mail.pk]))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print(response.data)
-        print("++++++++++++++++++++++++++++")
-        print({
-                    'pk': mail.pk,
-                    'recipient': mail.recipient,
-                    'sender': mail.sender,
-                    'subject': mail.subject,
-                    'contents': mail.contents,
-                    'recip_date': mail.recip_date,
-                    'isSecret': mail.is_secret,
-                    'is_read': mail.is_read,
-                })
-        self.assertEqual(response.data, {
-            'pk': mail.pk,
-            'recipient': mail.recipient,
-            'sender': mail.sender,
-            'subject': mail.subject,
-            'contents': mail.contents,
-            'recip_date': mail.recip_date,
-            'isSecret': mail.is_secret,
-            'is_read': mail.is_read,
-        })
+        self.assertEqual(response.data['pk'], mail.pk)
+        self.assertEqual(response.data['recipient'], mail.recipient)
+        self.assertEqual(response.data['sender'], mail.sender)
+        self.assertEqual(response.data['subject'], mail.subject)
+        self.assertEqual(response.data['contents'], mail.contents)
+        self.assertDatetimeEqual(response.data['recip_date'], mail.recip_date)
+        # is_read should be True after the api response (the 'api response' means that someone read the mail.)
+        self.assertEqual(response.data['is_read'], True)
+        self.assertEqual(response.data['isSecret'], mail.is_secret)
+
+    def assertDatetimeEqual(self, datetime_str, datetime_obj):
+        self.assertEqual(datetime_str, datetime_obj.strftime("%Y-%m-%dT%H:%M:%SZ"))
