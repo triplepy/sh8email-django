@@ -58,7 +58,7 @@ class MailDetail(APIView):
         except Mail.DoesNotExist:
             return None
 
-    def get(self, request, pk, format=None):
-        mail = self.get_object(request, pk)
+    def get(self, request, nickname, pk, format=None):
+        mail = self.get_object(request, nickname, pk)
         serializer = MailDetailSerializer(mail)
         return Response(serializer.data)

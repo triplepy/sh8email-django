@@ -5,7 +5,7 @@
     sender: wonyoung@gmail.com
     subject: '안녕하세요. I am 원영.'
     contents: '안녕하세요. 테스트 내용입니다. Hello, this is the test content.'
-    recip_date: 2016-09-15 15:28:11
+    recip_date: 2016-09-15 15:22:01 +09
 - model: sh8core.mail
   pk: 2
   fields:
@@ -13,5 +13,5 @@
     sender: jelly@gmail.com
     subject: '안녕하세요. I am 젤리.'
     contents: '안녕하세요. 반갑습니다. Hi, nice to meet you.'
-    recip_date: 2016-09-15 15:22:01
+    recip_date: 2016-09-15 15:22:01 +09
     secret_code: secret
