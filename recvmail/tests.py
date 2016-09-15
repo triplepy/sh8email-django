@@ -246,8 +246,7 @@ class MsgParseTest(TestCase):
                 secret_code='silversuffer',
                 sender='" 주원영 " <getogrand@paran.com>',
                 subject='test',
-                contents='test',
-                is_secret=True
+                contents='test'
         )
 
         # when
@@ -259,7 +258,6 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.sender, expected.sender)
         self.assertEqual(mail.subject, expected.subject)
         self.assertEqual(mail.contents.strip(), expected.contents)
-        self.assertEqual(mail.is_secret, expected.is_secret)
 
     def test_reproduce_mail(self):
         # given
