@@ -50,6 +50,7 @@ class ListViewTest(TestCase):
         response = client.get(reverse('web:list'))
 
         for mail in mails:
+            self.assertTrue(mail.is_secret())
             self.assertContains(response, mail.sender)
             self.assertContains(response, mail.subject[:50])
             self.assertNotContains(response, mail.contents[:200])
