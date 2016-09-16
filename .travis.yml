@@ -46,6 +46,7 @@ script:
   # Unit tests.
   - python manage.py test sh8core -v 3
   - python manage.py test web -v 3
+  - python manage.py test rest -v 3
   - python manage.py test recvmail -v 3
   # Functional tests.
   ## setup
