@@ -40,7 +40,7 @@ class Mail(models.Model):
         return checker.check()
 
     def is_secret(self):
-        return self.secret_code and (len(self.secret_code) > 0)
+        return bool(self.secret_code)
 
     def __repr__(self):
         return "Mail(recipient={}, secret_code={}, sender={}, subject={}, contents={}, recip_date={}, is_read={})".format(
