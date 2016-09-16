@@ -41,14 +41,20 @@ before_script:
   - python manage.py makemigrations
   - python manage.py migrate -v 3
   - python manage.py collectstatic --noinput
+
+script:
+  # Unit tests.
+  - python manage.py test sh8core -v 3
+  - python manage.py test web -v 3
+  - python manage.py test recvmail -v 3
+  # Functional tests.
+  ## setup
   - python manage.py runrecv &
   - python manage.py runbatch &
   - python manage.py runserver &
-
-script:
-  - python manage.py test sh8core -v 3
-  - python manage.py test web -v 3
+  ## test
   - python manage.py test functional_tests -v 3
+  ## teardown
   - python manage.py runrecv --stop
   - python manage.py runbatch --stop
-  - python manage.py test recvmail -v 3
+
