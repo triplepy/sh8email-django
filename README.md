@@ -1,5 +1,23 @@
 # sh8email-django
 
+## Usage
+
+### Starting/stoping servers
+
+#### Starting
+- web application : `python manage.py runserver &`
+- mail receiver : `python manage.py runrecv &`
+- mail delete batch : `python manage.py runbatch &`
+
+#### Stopping
+- web application : `pkill -f "python manage.py runserver"`
+- mail receiver : `python manage.py runrecv --stop`
+- mail delete batch : `python manage.py runbatch --stop`
+ 
+### Running tests
+- Unit tests: `invoke test.unit`
+- Functional tests: `invoke test.func`
+
 ## Setting up development environment
 
 ### Setting up development database
