@@ -58,4 +58,4 @@ script:
   ## teardown
   - python manage.py runrecv --stop
   - python manage.py runbatch --stop
-
+  - pkill -f "python manage.py runserver"
