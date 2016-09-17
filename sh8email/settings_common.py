@@ -91,7 +91,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR) + 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
 
 # html_sanitizer settings
 SANITIZER_ALLOWED_TAGS = ['html', 'head', 'title', 'body', 'meta',

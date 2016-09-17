@@ -103,7 +103,7 @@ server {
 	ssl_prefer_server_ciphers on;
 
         location /static {
-            alias /home/sh8email/sh8.email/static;
+            alias /home/sh8email/static;
             expires -1;
         }
 
