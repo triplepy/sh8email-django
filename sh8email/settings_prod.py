@@ -71,7 +71,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sh8email',
         'USER': 'sh8email',
-        'PASSWORD': 'djangoUg0G!rls',
+        'PASSWORD': os.environ['SH8EMAIL_POSTGRES_PW'],
         'HOST': '127.0.0.1',
         'PORT': '5432'
     }
