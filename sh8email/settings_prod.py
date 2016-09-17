@@ -96,7 +96,6 @@ USE_TZ = COMMON_USE_TZ
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = COMMON_STATIC_URL
-STATIC_ROOT = 'static'
 
 
 # Mail receiving server settings
