@@ -2,17 +2,19 @@
 
 ## Usage
 
-### Starting/stoping servers
-
+### Starting/stoping servers in **development machine**
 #### Starting
-- web application : `python manage.py runserver &`
-- mail receiver : `python manage.py runrecv &`
-- mail delete batch : `python manage.py runbatch &`
+- web application: `python manage.py runserver`
+- mail receiver: `python manage.py runrecv`
+- mail delete batch: `python manage.py runbatch`
 
 #### Stopping
-- web application : `pkill -f "python manage.py runserver"`
-- mail receiver : `python manage.py runrecv --stop`
-- mail delete batch : `python manage.py runbatch --stop`
+- web application: Press `Ctrl+C`
+- mail receiver: `python manage.py runrecv --stop`
+- mail delete batch: `python manage.py runbatch --stop`
+
+### Deploying new code in **production machine**
+Enter python virtual environment and type `invoke deploy`.
  
 ### Running tests
 - Unit tests: `invoke test.unit`
