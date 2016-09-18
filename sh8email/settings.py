@@ -9,29 +9,8 @@ https://docs.djangoproject.com/en/1.8/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
-import os
-
-from .settings_common import ALLOWED_HOSTS as COMMON_ALLOWED_HOSTS
-from .settings_common import BASE_DIR as COMMON_BASE_DIR
-from .settings_common import INSTALLED_APPS as COMMON_INSTALLED_APPS
-from .settings_common import LANGUAGE_CODE as COMMON_LANGUAGE_CODE
-from .settings_common import MAIL_SERVER_PORT as COMMON_MAIL_SERVER_PORT
-from .settings_common import MIDDLEWARE_CLASSES as COMMON_MIDDLEWARE_CLASSES
-from .settings_common import ROOT_URLCONF as COMMON_ROOT_URLCONF
-from .settings_common import SANITIZER_ALLOWED_ATTRIBUTES as COMMON_SANITIZER_ALLOWED_ATTRIBUTES
-from .settings_common import SANITIZER_ALLOWED_STYLES as COMMON_SANITIZER_ALLOWED_STYLES
-from .settings_common import SANITIZER_ALLOWED_TAGS as COMMON_SANITIZER_ALLOWED_TAGS
-from .settings_common import STATIC_ROOT as COMMON_STATIC_ROOT
-from .settings_common import STATIC_URL as COMMON_STATIC_URL
-from .settings_common import TEMPLATES as COMMON_TEMPLATES
-from .settings_common import TIME_ZONE as COMMON_TIME_ZONE
-from .settings_common import USE_I18N as COMMON_USE_I18N
-from .settings_common import USE_L10N as COMMON_USE_L10N
-from .settings_common import USE_TZ as COMMON_USE_TZ
-from .settings_common import WSGI_APPLICATION as COMMON_WSGI_APPLICATION
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = COMMON_BASE_DIR
+import os
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -39,28 +18,105 @@ BASE_DIR = COMMON_BASE_DIR
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'q&xot8*fg$b4dd9c1$+fqqj4!t4e%jk_3=un#!g9*!q%(_t@zd'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
-INSTALLED_APPS = COMMON_INSTALLED_APPS
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
-MIDDLEWARE_CLASSES = COMMON_MIDDLEWARE_CLASSES
+    'sh8core',
 
-ROOT_URLCONF = COMMON_ROOT_URLCONF
+    'web',
+    'rest',
 
-TEMPLATES = COMMON_TEMPLATES
+    'recvmail',
+    'batch',
 
-WSGI_APPLICATION = COMMON_WSGI_APPLICATION
+    'rest_framework',
+    'sanitizer',
+)
 
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+)
+
+ROOT_URLCONF = 'sh8email.urls'
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, '../../templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'sh8email.wsgi.application'
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.8/topics/i18n/
+
+LANGUAGE_CODE = 'ko'
+
+TIME_ZONE = 'Asia/Seoul'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.8/howto/static-files/
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'static')
+
+# html_sanitizer settings
+SANITIZER_ALLOWED_TAGS = ['html', 'head', 'title', 'body', 'meta',
+                          'a', 'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                          'footer', 'header', 'hgroup', 'nav',
+                          'dd', 'div', 'dl', 'dt', 'figcaption', 'figure',
+                          'hr', 'li', 'main', 'ol', 'p', 'pre', 'ul',
+                          'abbr', 'b', 'br', 'cite', 'code', 'em',
+                          'i', 'mark', 'q', 's', 'small', 'span', 'strong',
+                          'sub', 'sup', 'u', 'area', 'caption', 'col', 'colgroup',
+                          'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr',
+                          'button']
+SANITIZER_ALLOWED_ATTRIBUTES = ['href', 'http-equiv', 'content', 'name', 'charset', 'yahoo', 'src', 'class', 'id', ]
+SANITIZER_ALLOWED_STYLES = []
+
+# Mail receiving server settings
+MAIL_SERVER_PORT = 2525
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -71,34 +127,4 @@ DATABASES = {
         'POST': '5432'
     }
 }
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
-
-LANGUAGE_CODE = COMMON_LANGUAGE_CODE
-
-TIME_ZONE = COMMON_TIME_ZONE
-
-USE_I18N = COMMON_USE_I18N
-
-USE_L10N = COMMON_USE_L10N
-
-USE_TZ = COMMON_USE_TZ
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/ls
-
-STATIC_URL = COMMON_STATIC_URL
-STATIC_ROOT = COMMON_STATIC_ROOT
-
-# Mail receiving server settings
-MAIL_SERVER_PORT = COMMON_MAIL_SERVER_PORT
-
-# html_sanitizer settings
-SANITIZER_ALLOWED_TAGS = COMMON_SANITIZER_ALLOWED_TAGS
-SANITIZER_ALLOWED_ATTRIBUTES = COMMON_SANITIZER_ALLOWED_ATTRIBUTES
-SANITIZER_ALLOWED_STYLES = COMMON_SANITIZER_ALLOWED_STYLES
-
 
