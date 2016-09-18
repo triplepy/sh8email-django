@@ -2,6 +2,12 @@ from rest_framework import serializers
 
 
 class MailListSerializer(serializers.Serializer):
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
+
     pk = serializers.IntegerField(read_only=True)
     recipient = serializers.CharField(max_length=50)
     sender = serializers.CharField(max_length=200)
@@ -13,6 +19,12 @@ class MailListSerializer(serializers.Serializer):
 
 
 class MailDetailSerializer(serializers.Serializer):
+    def update(self, instance, validated_data):
+        pass
+
+    def create(self, validated_data):
+        pass
+
     pk = serializers.IntegerField(read_only=True)
     recipient = serializers.CharField(max_length=50)
     sender = serializers.CharField(max_length=200)

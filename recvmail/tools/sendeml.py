@@ -5,13 +5,13 @@ import sys
 if len(sys.argv) <= 2:
     print('Usage:')
     print('  $ python ' + sys.argv[0] + ' mailfrom rcptto <emlfile>')
-    print
+    print()
     print('Parameter:')
     print('  mailfrom: MAIL FROM address.')
     print('  rcptto:   RCPT TO address.')
     print('  emlfile:  Message file in eml format. When emlfile is not specified, an empty message will be send.')
     print('  port:     Port of SMTP server that would recieve the email. Optional. Default is 25.')
-    print
+    print()
     print('Example:')
     print('  $ python ' + sys.argv[0] + ' mailfrom@example.com rcptto@example.com mail.eml 2525')
     sys.exit(0)

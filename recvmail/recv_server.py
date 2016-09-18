@@ -9,7 +9,7 @@ from recvmail.msgparse import raw_to_mail, reproduce_mail
 
 
 class CustomSMTPServer(smtpd.SMTPServer):
-    def process_message(self, peer, mailfrom, rcpttos, data):
+    def process_message(self, peer, mailfrom, rcpttos, data, **kwargs):
         mail = raw_to_mail(data)
         mails = reproduce_mail(mail, rcpttos)
 
@@ -20,7 +20,5 @@ class CustomSMTPServer(smtpd.SMTPServer):
 class Sh8MailProcess(multiprocessing.Process):
     def run(self):
         mail_server_port = settings.MAIL_SERVER_PORT
-        self.server = CustomSMTPServer(('0.0.0.0', mail_server_port), None)
+        CustomSMTPServer(('0.0.0.0', mail_server_port), None)
         asyncore.loop()
-
-
