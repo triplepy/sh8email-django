@@ -66,13 +66,13 @@ class DetailViewTest(TestCase):
     def test_simplest_success_case(self):
         add_recip_to_session(self.client, self.recipient)
         self.response = self.client.get(
-                reverse('web:detail', args=(self.mail.pk,)))
+            reverse('web:detail', args=(self.mail.pk,)))
 
         self.assertContains(self.response, self.mail.subject)
 
     def test_not_checkin(self):
         self.response = self.client.get(
-                reverse('web:detail', args=(self.mail.pk,)))
+            reverse('web:detail', args=(self.mail.pk,)))
         self.assertEqual(self.response.status_code,
                          HttpResponseForbidden.status_code)
 
@@ -81,7 +81,7 @@ class DetailViewTest(TestCase):
         add_recip_to_session(self.client, checkin_recipient)
 
         self.response = self.client.get(
-                reverse('web:detail', args=(self.mail.pk,)))
+            reverse('web:detail', args=(self.mail.pk,)))
 
         self.assertEqual(self.response.status_code,
                          HttpResponseForbidden.status_code)
@@ -94,7 +94,7 @@ class DetailViewTest(TestCase):
         add_recip_to_session(self.client, self.recipient)
 
         self.response = self.client.get(
-                reverse('web:detail', args=(notexistsmail_pk,)))
+            reverse('web:detail', args=(notexistsmail_pk,)))
 
         self.assertEqual(self.response.status_code, 404)
 
@@ -123,10 +123,13 @@ class DetailViewTest(TestCase):
 
         # then
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "<img src=\"https://www.amazon.com/gp/0.jpg\">", msg_prefix="Response was " + str(response.content))
+        self.assertContains(response, "<img src=\"https://www.amazon.com/gp/0.jpg\">",
+                            msg_prefix="Response was " + str(response.content))
         self.assertContains(response, "alert&#40;'shit!'&#41;", msg_prefix="Response was " + str(response.content))
-        self.assertNotContains(response, "onerror=\"alert('shit!')\"", msg_prefix="Response was " + str(response.content))
-        self.assertNotContains(response, "<script>alert('shit!')</script>", msg_prefix="Response was " + str(response.content))
+        self.assertNotContains(response, "onerror=\"alert('shit!')\"",
+                               msg_prefix="Response was " + str(response.content))
+        self.assertNotContains(response, "<script>alert('shit!')</script>",
+                               msg_prefix="Response was " + str(response.content))
 
 
 class DetailViewWithSecretcodeTest(TestCase):

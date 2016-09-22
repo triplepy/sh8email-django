@@ -193,11 +193,11 @@ class MsgParseTest(TestCase):
         # given
         rawemail = open('recvmail/tools/aws_simple.eml').read()
         expected = Mail.objects.create(
-                recipient='getogrand',
-                secret_code=None,
-                sender='Amazon Web Services <aws-marketing-email-replies@amazon.com>',
-                subject='AWS의 출시 공지',
-                contents="""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+            recipient='getogrand',
+            secret_code=None,
+            sender='Amazon Web Services <aws-marketing-email-replies@amazon.com>',
+            subject='AWS의 출시 공지',
+            contents="""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -222,11 +222,11 @@ class MsgParseTest(TestCase):
         # given
         rawemail = open('recvmail/tools/unicode_sender.eml').read()
         expected = Mail.objects.create(
-                recipient='getogrand1',
-                secret_code=None,
-                sender='" 주원영 " <getogrand@paran.com>',
-                subject='test',
-                contents='test'
+            recipient='getogrand1',
+            secret_code=None,
+            sender='" 주원영 " <getogrand@paran.com>',
+            subject='test',
+            contents='test'
         )
 
         # when
@@ -242,11 +242,11 @@ class MsgParseTest(TestCase):
         # given
         rawemail = open('recvmail/tools/secret.eml').read()
         expected = Mail.objects.create(
-                recipient='getogrand1',
-                secret_code='silversuffer',
-                sender='" 주원영 " <getogrand@paran.com>',
-                subject='test',
-                contents='test'
+            recipient='getogrand1',
+            secret_code='silversuffer',
+            sender='" 주원영 " <getogrand@paran.com>',
+            subject='test',
+            contents='test'
         )
 
         # when
@@ -264,11 +264,11 @@ class MsgParseTest(TestCase):
         rcpttos = ['getogrand <getogrand1@sh8.email>', 'getogrand <getogrand2@sh8.email>']
         expected_recipients = ['getogrand1', 'getogrand2']
         orgin_mail = Mail(
-                recipient='getogrand1',
-                secret_code=None,
-                sender='" 주원영 " <getogrand@paran.com>',
-                subject='test',
-                contents='test'
+            recipient='getogrand1',
+            secret_code=None,
+            sender='" 주원영 " <getogrand@paran.com>',
+            subject='test',
+            contents='test'
         )
 
         # when

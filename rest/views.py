@@ -14,7 +14,8 @@ class MailList(APIView):
     """
     List all snippets, or create a new snippet.
     """
-    def post(self, request, nickname, format=None):
+    @staticmethod
+    def post(request, nickname, format=None):
         recipient = request.data.get('recipient')
         if nickname != recipient:
             return HttpResponseForbidden
@@ -41,7 +42,8 @@ class MailDetail(APIView):
     """
     Retrieve, update or delete a snippet instance.
     """
-    def get_object(self, request, nickname, pk):
+    @staticmethod
+    def get_object(request, nickname, pk):
         try:
             mail = get_object_or_404(Mail, pk=pk)
             can_read = mail.can_read(request)
