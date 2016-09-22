@@ -7,7 +7,7 @@ from sh8core.readauth import ReadAuthorityChecker
 
 
 class Mail(models.Model):
-    recipient = models.CharField(max_length=50)
+    recipient = models.CharField(max_length=50, db_index=True)
     # TODO change default null -> blank
     secret_code = models.CharField(max_length=16, null=True, blank=True)
     sender = models.CharField(max_length=200)
