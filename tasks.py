@@ -12,10 +12,19 @@ def print_banner(command):
 def deploy(ctx):
     print_banner("git pull")
     ctx.run("git pull")
+
     print_banner("pip install -r requirements.txt")
     ctx.run("pip install -r requirements.txt")
+
+    print_banner("python manage.py makemigrations")
+    ctx.run("python manage.py makemigrations")
+
+    print_banner("python manage.py migrate")
+    ctx.run("python manage.py migrate")
+
     print_banner("python manage.py collectstatic --noinput")
     ctx.run("python manage.py collectstatic --noinput")
+
     print_banner("touch ../reload")
     ctx.run("touch ../reload")
 
