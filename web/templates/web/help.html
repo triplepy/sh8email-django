@@ -1,18 +1,11 @@
 {% extends 'web/base.html' %}
 {% load staticfiles %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'web/css/help.css' %}">
+{% endblock %}
+
 {% block content %}
-
-<style>
-.help--item {
-  padding-top: 1em;
-  padding-bottom: 2em;
-}
-
-.help--button {
-    margin-bottom:1em;
-}
-</style>
 
 <div class="row help--item">
 	<div class="col-md-8">
