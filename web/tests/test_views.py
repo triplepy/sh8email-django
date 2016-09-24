@@ -10,14 +10,7 @@ class IntroViewTest(TestCase):
     def test_page_visible(self):
         client = Client()
         response = client.get(reverse('web:intro'))
-        self.assertContains(response, '쉿 메일?')
-
-
-class WehavesecretViewTest(TestCase):
-    def test_page_visible(self):
-        client = Client()
-        response = client.get(reverse('web:wehavesecret'))
-        self.assertContains(response, '순간 비밀번호 생성 기능')
+        self.assertContains(response, '세상에서 가장 조용한 이메일')
 
 
 class ListViewTest(TestCase):
