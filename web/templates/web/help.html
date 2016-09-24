@@ -8,6 +8,10 @@
   padding-top: 1em;
   padding-bottom: 2em;
 }
+
+.help--button {
+    margin-bottom:1em;
+}
 </style>
 
 <div class="row help--item">
@@ -63,5 +67,8 @@
     </ul>
   </div>
 </div>
+
+<a type="button" role="button" class="btn btn-primary btn-lg btn-block help--button"
+     href="{% url 'web:intro' %}">인트로 화면으로 이동하기</a>
 
 {% endblock %}
