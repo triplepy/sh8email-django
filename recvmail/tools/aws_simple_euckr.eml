@@ -1,0 +1,93 @@
+X-DAUM-WEB-MAILER-FIRST-LINE: From 20151217234419d334a9568b2d409d817098335f60p0na-CGZ6IX7AY7ESK@bounces.amazon.com; Fri Dec 18 08:44:23 2015
+X-DAUM-INTERNAL-HOST: received by 10.27.12.55
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=2uvkuueiefyaargm6tgkndh3xdf5ejpl; d=amazon.com; t=1450395859;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type;
+	bh=vkgqVtJhPVJhY7SzExB7rWqlvDRVFcMrehBJeBIxaNQ=;
+	b=RhLXMxJSaBw2RrU/rFA5kJDbQQPaXcpfDF/3YGlF4u5ce8BfGaXQ4XY6x0Km+KNG
+	fAAubGVWF24pW8pKJq3CGqeV/zJm2StDJaUZM0H/S9JoYF5FG318mEDGU8zT4+fjd8Y
+	8gtNPbzlnBZWjgo9AnEYDvbG+tLzbiTUqGwE66JM=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=ug7nbtf4gccmlpwj322ax3p6ow6yfsug; d=amazonses.com; t=1450395859;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type:Feedback-ID;
+	bh=vkgqVtJhPVJhY7SzExB7rWqlvDRVFcMrehBJeBIxaNQ=;
+	b=NInnrS0UyGujbDUCsk1YvJLGaOe55trYQDlnoh2QvSeIhwwt2mLP/nB1BMD13QOD
+	cB93LIb0lQ4WJxl8kNxAMCQD/Do6hyjB/2gQ3Edj2rP29eNCEQHaMjtSVM1gDgAdG5D
+	5YXPcgJDRSdqKbkkpCGtq+4VLbePKMUd2pZHNLk8=
+Date: Thu, 17 Dec 2015 23:44:19 +0000
+From: Amazon Web Services <aws-marketing-email-replies@amazon.com>
+To: "Wonyoung Ju" <getogrand@sh8.email>
+Message-ID: <00000151b2547b3b-d4d897ce-022b-4b31-a046-663253659221-000000@email.amazonses.com>
+Subject: =?euc-kr?B?QVdT7J2YIOy2nOyLnCDqs7Xsp4A=?=
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_Part_3155349_497823457.1450395859741"
+X-AMAZON-RTE-VERSION: 2.0
+X-AMAZON-METADATA: CA=CGZ6IX7AY7ESK-CU=ATH0D0POWGW7H-RI=A1W83B1T1U4Z7U
+Bounces-to: 20151217234419d334a9568b2d409d817098335f60p0na-CGZ6IX7AY7ESK@bounces.amazon.com
+X-AMAZON-MAIL-RELAY-TYPE: merchandizing
+X-Original-MessageID: <urn.correios.msg.20151217234419d334a9568b2d409d817098335f60p0na@1450395859749.massmail-sender-na-1e-i-c261c26b.us-east-1.amazon.com>
+X-SES-Outgoing: 2015.12.17-54.240.15.174
+Feedback-ID: 1.us-east-1.+gzE1S+MWTFXXYmwxo7wkk651GMxMPAUFYiyN/09X40=:AmazonSES
+Received: from a15-174.smtp-out.amazonses.com ([54.240.15.174]) by hermes of mail-kairos-vmrmail5.dakao.io (10.27.12.55) with ESMTP id jBI8iM91E125598240 for <getogrand@paran.com>; Fri, 18 Dec 2015 08:44:22 +0900 (KST)
+X-Hermes-Message-Id: jBI8iM91E125598240
+X-Hanmail-Peer-IP: 54.240.15.174
+X-Hanmail-Env-From: 20151217234419d334a9568b2d409d817098335f60p0na-CGZ6IX7AY7ESK@bounces.amazon.com
+X-Hanmail-Class: B
+
+------=_Part_3155349_497823457.1450395859741
+Content-Type: multipart/alternative;
+	boundary="----=_Part_3155350_358850940.1450395859741"
+
+------=_Part_3155350_358850940.1450395859741
+Content-Type: text/plain; charset=euc-kr
+Content-Transfer-Encoding: quoted-printable
+
+t2.nano: =EC=B5=9C=EC=86=8C =EA=B7=9C=EB=AA=A8, =EC=B5=9C=EC=A0=80 =EB=B9=
+=84=EC=9A=A9=EC=9D=98 Amazon EC2 =EC=9D=B8=EC=8A=A4=ED=84=B4=EC=8A=A4
+=EC=9D=B4=EC=A0=9C =EC=B5=9C=EC=8B=A0 Amazon EC2 =EC=9D=B8=EC=8A=A4=ED=84=
+=B4=EC=8A=A4=EC=9D=B8 t2.nano=EB=A5=BC =EC=82=AC=EC=9A=A9=ED=95=98=EC=8B=A4=
+ =EC=88=98 =EC=9E=88=EC=8A=B5=EB=8B=88=EB=8B=A4. CPU =EB=B2=84=EC=8A=A4=ED=
+=8C=85 =EA=B8=B0=EB=8A=A5=EC=9D=84 =EC=A0=9C=EA=B3=B5=ED=95=98=EB=A9=B0 =EC=
+=9B=94 $4.75(=EC=8B=9C=EA=B0=84=EB=8B=B9 $0.0065)=EB=B6=80=ED=84=B0 =EC=8B=
+=9C=EC=9E=91=ED=95=98=EB=8A=94 =EC=B5=9C=EC=A0=80 =EB=B9=84=EC=9A=A9=EC=9D=
+=98 Amazon EC2 =EC=9D=B8=EC=8A=A4=ED=84=B4=EC=8A=A4=EC=9D=B8 t2.nano=EB=8A=
+=94 512MiB =EB=A9=94=EB=AA=A8=EB=A6=AC=EC=99=80 vCPU 1=EA=B0=9C=EB=A5=BC =
+=EC=A0=9C=EA=B3=B5=ED=95=98=EB=AF=80=EB=A1=9C =EB=B2=84=EC=8A=A4=ED=8A=B8 =
+=EA=B8=B0=EB=8A=A5=EC=9D=84 =EA=B0=96=EC=B6=98 =EC=9D=BC=EA=B4=80=EC=A0=81=
+=EC=9D=B8 =EA=B8=B0=EB=B3=B8 =EC=84=B1=EB=8A=A5=EC=9D=84 =ED=95=84=EC=9A=94=
+=EB=A1=9C =ED=95=98=EB=8A=94 =EC=9B=8C=ED=81=AC=EB=A1=9C=EB=93=9C=EC=97=90 =
+=EB=A7=A4=EC=9A=B0 =EC=A0=81=ED=95=A9=ED=95=A9=EB=8B=88=EB=8B=A4.  T2 =EC=
+=9D=B8=EC=8A=A4=ED=84=B4=EC=8A=A4=EB=8A=94 =EC=B5=9C=EB=8C=80 3.3GHz=EC=9D=
+=98 =ED=81=B4=EB=9F=AD =EC=86=8D=EB=8F=84=EB=A1=9C =EC=8B=A4=ED=96=89=EB=90=
+=98=EB=8A=94 =EC=B5=9C=EC=8B=A0 Intel Xeon =ED=94=84=EB=A1=9C=EC=84=B8=EC=
+=84=9C=EB=A5=BC =EA=B8=B0=EB=B0=98=EC=9C=BC=EB=A1=9C =ED=95=A9=EB=8B=88=EB=
+=8B=A4.
+
+------=_Part_3155350_358850940.1450395859741
+Content-Type: text/html; charset=euc-kr
+Content-Transfer-Encoding: quoted-printable
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.=
+w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Deuc-kr=
+">
+    <meta name=3D"viewport" content=3D"width=3Ddevice-width">
+</head>
+<body yahoo=3D'fix' style=3D'margin-top:0;margin-bottom:0;margin-left:0;mar=
+gin-right:0;'><img src=3D"https://www.amazon.com/gp/r.html?C=3D1JF1R0SY4HT0=
+H&R=3DH3QBGNBIQ749&T=3DO&U=3Dhttp%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F=
+01%2Fnav%2Ftransp.gif&A=3DONQSC50VFP3FZWOPY8YS4AQEEDCA&H=3DSNDTUUGDMOBHOQ6I=
+TQESCNEFGX0A&ref_=3Dpe_612980_160090880" />
+<img src=3D"https://www.amazon.com/gp/r.html?C=3D1JF1R0SY4HT0H&R=3DH3QBGNBI=
+Q749&T=3DE&U=3Dhttp%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftra=
+nsp.gif&A=3DSOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=3DN7JT3YAVYRAXQTERCCBJLV5NXMMA" =
+/></body>
+</html>
+
+------=_Part_3155350_358850940.1450395859741--
+
+------=_Part_3155349_497823457.1450395859741--

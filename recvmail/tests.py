@@ -218,6 +218,37 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.subject, expected.subject)
         self.assertHTMLEqual(mail.contents, expected.contents)
 
+    def test_raw_to_mail__euckr_subject(self):
+        self.maxDiff = None
+
+        # given
+        rawemail = open('recvmail/tools/aws_simple_euckr.eml').read()
+        expected = Mail.objects.create(
+            recipient='getogrand',
+            secret_code=None,
+            sender='Amazon Web Services <aws-marketing-email-replies@amazon.com>',
+            subject='AWS의 출시 공지',
+            contents="""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+    <meta name="viewport" content="width=device-width">
+</head>
+<body yahoo='fix' style='margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;'>
+<img src="https://www.amazon.com/gp/r.html?C=1JF1R0SY4HT0H&R=H3QBGNBIQ749&T=O&U=http%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&A=ONQSC50VFP3FZWOPY8YS4AQEEDCA&H=SNDTUUGDMOBHOQ6ITQESCNEFGX0A&ref_=pe_612980_160090880" />
+<img src="https://www.amazon.com/gp/r.html?C=1JF1R0SY4HT0H&R=H3QBGNBIQ749&T=E&U=http%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&A=SOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=N7JT3YAVYRAXQTERCCBJLV5NXMMA" /></body>
+</html>"""
+        )
+
+        # when
+        mail = raw_to_mail(rawemail)
+
+        # then
+        self.assertEqual(mail.recipient, expected.recipient)
+        self.assertEqual(mail.sender, expected.sender)
+        self.assertEqual(mail.subject, expected.subject)
+        self.assertHTMLEqual(mail.contents, expected.contents)
+
     def test_raw_to_mail__unicode_sender(self):
         # given
         rawemail = open('recvmail/tools/unicode_sender.eml').read()
