@@ -1,3 +1,4 @@
+import re
 from email.header import decode_header, make_header
 from email.message import EmailMessage
 from email.parser import Parser
@@ -5,6 +6,8 @@ from email.utils import parseaddr, formataddr
 
 from sh8core.models import Mail
 
+
+CHARSET_IN_CONTENTTYPE_REGEX = re.compile("charset=(.+)$")
 
 def raw_to_mail(rawtext):
     msg = Parser(_class=EmailMessage).parsestr(rawtext)
@@ -14,9 +17,11 @@ def raw_to_mail(rawtext):
 
     address = Address(header_to=msg.get('To'))
 
-    contents = str(msg.get_body(preferencelist=('html', 'plain'))
-                      .get_payload(decode=True),
-                   encoding='utf-8')
+    body = msg.get_body(preferencelist=('html', 'plain'))
+    _try_set_charset_smarter(body)
+
+    contents = str(body.get_payload(decode=True),
+                   encoding=str(body.get_charset()))
 
     mail = Mail(recipient=address.recipient,
                 secret_code=address.secret_code,
@@ -25,6 +30,13 @@ def raw_to_mail(rawtext):
                 contents=contents,)
 
     return mail
+
+
+def _try_set_charset_smarter(body):
+    if body.get_charset() is None:
+        content_type = body['Content-Type']
+        charset = CHARSET_IN_CONTENTTYPE_REGEX.search(content_type).group(1)
+        body.set_charset(charset)
 
 
 def readablize_header(header):
