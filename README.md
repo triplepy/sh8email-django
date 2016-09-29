@@ -19,6 +19,20 @@ Enter python virtual environment and type `invoke deploy`.
 ### Running tests
 - Unit tests: `invoke test.unit`
 - Functional tests: `invoke test.func`
+#### Note
+For running tests in development environment, **port 25 should be forwarding to 2525**.
+It can be performed using [rinetd](https://boutell.com/rinetd/) in Linux system.
+```
+# /etc/rinetd.conf
+#
+# forwarding rules come here
+#
+# you may specify allow and deny rules after a specific forwarding rule
+# to apply to only that forwarding rule
+#
+# bindadress    bindport  connectaddress  connectport
+0.0.0.0 25 127.0.0.1 2525
+```
 
 ## Setting up development environment
 
