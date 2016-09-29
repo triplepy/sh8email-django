@@ -218,26 +218,28 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.subject, expected.subject)
         self.assertHTMLEqual(mail.contents, expected.contents)
 
-    def test_raw_to_mail__euckr_subject(self):
+    def test_raw_to_mail__euckr_html(self):
         self.maxDiff = None
 
         # given
-        rawemail = open('recvmail/tools/aws_simple_euckr.eml').read()
+        rawemail = open('recvmail/tools/iphone_mail_euckr_html.eml').read()
         expected = Mail.objects.create(
             recipient='getogrand',
             secret_code=None,
-            sender='Amazon Web Services <aws-marketing-email-replies@amazon.com>',
-            subject='AWS의 출시 공지',
-            contents="""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+            sender='"주원영" <getogrand@gmail.com>',
+            subject='아이폰한글메일테스트',
+            contents="""\
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
-    <meta name="viewport" content="width=device-width">
-</head>
-<body yahoo='fix' style='margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;'>
-<img src="https://www.amazon.com/gp/r.html?C=1JF1R0SY4HT0H&R=H3QBGNBIQ749&T=O&U=http%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&A=ONQSC50VFP3FZWOPY8YS4AQEEDCA&H=SNDTUUGDMOBHOQ6ITQESCNEFGX0A&ref_=pe_612980_160090880" />
-<img src="https://www.amazon.com/gp/r.html?C=1JF1R0SY4HT0H&R=H3QBGNBIQ749&T=E&U=http%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&A=SOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=N7JT3YAVYRAXQTERCCBJLV5NXMMA" /></body>
-</html>"""
+   <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+   </head>
+   <body dir="auto">
+      <div>
+        <h1 class="page-title" style="margin: 25px 0px 40px; padding: 0px; border: 0px; line-height: 20px; vertical-align: baseline; min-height: 30px;"><font size="3"><span style="background-color: rgba(255, 255, 255, 0);">K-INDIE CHART&nbsp;</span></font><small style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; line-height: inherit; vertical-align: baseline; display: block;"><font size="3"><span style="background-color: rgba(255, 255, 255, 0);">BIWEEKLY INDIE ALBUM CHART</span></font></small></h1>테스트<br>나의 iPhone에서 보냄
+      </div>
+   </body>
+</html>
+"""
         )
 
         # when
@@ -248,6 +250,31 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.sender, expected.sender)
         self.assertEqual(mail.subject, expected.subject)
         self.assertHTMLEqual(mail.contents, expected.contents)
+
+    def test_raw_to_mail__euckr_plain(self):
+        self.maxDiff = None
+
+        # given
+        rawemail = open('recvmail/tools/iphone_mail_euckr_plain.eml').read()
+        expected = Mail.objects.create(
+            recipient='getogrand',
+            secret_code=None,
+            sender='"주원영" <getogrand@gmail.com>',
+            subject='한글',
+            contents="""\
+한글
+
+나의 iPhone에서 보냄"""
+        )
+
+        # when
+        mail = raw_to_mail(rawemail)
+
+        # then
+        self.assertEqual(mail.recipient, expected.recipient)
+        self.assertEqual(mail.sender, expected.sender)
+        self.assertEqual(mail.subject, expected.subject)
+        self.assertEqualExceptCarriageReturn(mail.contents.strip(), expected.contents)
 
     def test_raw_to_mail__unicode_sender(self):
         # given
@@ -267,7 +294,7 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.sender, expected.sender)
         self.assertEqual(mail.recipient, expected.recipient)
         self.assertEqual(mail.subject, expected.subject)
-        self.assertEqual(mail.contents.strip(), expected.contents)
+        self.assertEqualExceptCarriageReturn(mail.contents.strip(), expected.contents)
 
     def test_raw_to_mail__secretcode(self):
         # given
@@ -322,3 +349,8 @@ class MsgParseTest(TestCase):
 
         # then
         self.assertEqual(expected_readable_header, readable_header)
+
+    def assertEqualExceptCarriageReturn(self, expected, actual):
+        expected_no_cr = expected.replace("\r", "")
+        actual_no_cr = actual.replace("\r", "")
+        self.assertMultiLineEqual(expected_no_cr, actual_no_cr)
