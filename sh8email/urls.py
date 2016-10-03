@@ -19,10 +19,12 @@ from django.contrib import admin
 from rest import urls as rest_urls
 from web import urls as web_urls
 from web import views as web_views
+from backdoor import urls as backdoor_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^checkin/$', web_views.checkin, name='checkin'),
     url(r'', include(web_urls, namespace='web')),
+    url(r'^backdoor/', include(backdoor_urls, namespace='backdoor')),
     url(r'^rest/', include(rest_urls, namespace='rest')),
 ]

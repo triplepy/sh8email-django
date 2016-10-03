@@ -7,6 +7,7 @@ def unit(ctx):
     ctx.run("python manage.py test web")
     ctx.run("python manage.py test rest")
     ctx.run("python manage.py test recvmail")
+    ctx.run("python manage.py test backdoor")
 
 
 @task

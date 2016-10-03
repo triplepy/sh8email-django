@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'recvmail',
     'batch',
 
+    'backdoor',
+
     'rest_framework',
     'sanitizer',
 )
@@ -128,3 +130,5 @@ DATABASES = {
     }
 }
 
+# Backdoor
+BACKDOOR_KEY = 'goback'
