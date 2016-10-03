@@ -124,7 +124,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'sh8email',
         'USER': 'sh8email',
-        'PASSWORD': os.getenv('SH8EMAIL_DB_PASSWORD', 'password'),
+        'PASSWORD': os.getenv('SH8EMAIL_POSTGRES_PW', 'password'),
         'HOST': 'localhost',
         'POST': '5432'
     }
