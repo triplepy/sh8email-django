@@ -6,3 +6,4 @@ django-html_sanitizer
 djangorestframework>=3.3.3
 PyYAML
 invoke
+django-slack

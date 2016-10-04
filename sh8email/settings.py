@@ -36,17 +36,15 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 
     'sh8core',
-
     'web',
     'rest',
-
     'recvmail',
     'batch',
-
     'backdoor',
 
     'rest_framework',
     'sanitizer',
+    'django_slack',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -83,23 +83,33 @@ LOGGING = {
         'null': {
             'class': 'logging.NullHandler',
         },
+        'slack_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django_slack.log.SlackExceptionHandler',
+        },
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'console_error']
+            'handlers': ['console', 'console_error', 'slack_admins'],
         },
         'django.request': {
-            'handlers': ['console', 'console_error'],
+            'handlers': ['console', 'console_error', 'slack_admins'],
             'level': 'ERROR',
             'propagate': False
         },
         'django.security': {
-            'handlers': ['console', 'console_error'],
+            'handlers': ['console', 'console_error', 'slack_admins'],
             'level': 'ERROR',
             'propagate': False,
         },
     }
 }
 
+# django-slack
+# https://django-slack.readthedocs.io/
+SLACK_TOKEN = os.environ['SH8EMAIL_SLACK_TOKEN']
+SLACK_CHANNEL = '#sh8email-server'
+
 # Backdoor
-BACKDOOR_KEY = os.getenv('SH8EMAIL_BACKDOOR_KEY')
+BACKDOOR_KEY = os.environ['SH8EMAIL_BACKDOOR_KEY']
