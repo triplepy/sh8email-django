@@ -83,41 +83,23 @@ LOGGING = {
         'null': {
             'class': 'logging.NullHandler',
         },
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'console_error', 'mail_admins']
+            'handlers': ['console', 'console_error']
         },
         'django.request': {
-            'handlers': ['console', 'console_error', 'mail_admins'],
+            'handlers': ['console', 'console_error'],
             'level': 'ERROR',
             'propagate': False
         },
         'django.security': {
-            'handlers': ['console', 'console_error', 'mail_admins'],
+            'handlers': ['console', 'console_error'],
             'level': 'ERROR',
             'propagate': False,
         },
     }
 }
-
-# Error reporting via Email
-# https://docs.djangoproject.com/en/1.8/howto/error-reporting/
-ADMINS = (
-    ('Wonyoung Ju', 'getogrand@gmail.com'),
-    ('Hyeon-mook Jerry Choi', 'chm073@gmail.com'),
-)
-EMAIL_HOST = os.getenv('SH8EMAIL_EMAIL_HOST')
-EMAIL_PORT = int(os.getenv('SH8EMAIL_EMAIL_PORT'))
-EMAIL_HOST_USER = os.getenv('SH8EMAIL_EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('SH8EMAIL_EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True
-SERVER_EMAIL = 'eightsh8@gmail.com'
 
 # Backdoor
 BACKDOOR_KEY = os.getenv('SH8EMAIL_BACKDOOR_KEY')
