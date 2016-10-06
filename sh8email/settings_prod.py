@@ -50,62 +50,6 @@ DATABASES = {
 # Mail receiving server settings
 MAIL_SERVER_PORT = 25
 
-# Logging
-# https://docs.djangoproject.com/en/1.8/topics/logging/
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'with_time': {
-            'format': '[%(levelname)s] [%(asctime)s] [Logger: %(name)s]\n%(message)s'
-        },
-    },
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse',
-        },
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'INFO',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-        },
-        'console_error': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'logging.StreamHandler',
-            'formatter': 'with_time',
-        },
-        'null': {
-            'class': 'logging.NullHandler',
-        },
-        'slack_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django_slack.log.SlackExceptionHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'console_error', 'slack_admins'],
-        },
-        'django.request': {
-            'handlers': ['console', 'console_error', 'slack_admins'],
-            'level': 'ERROR',
-            'propagate': False
-        },
-        'django.security': {
-            'handlers': ['console', 'console_error', 'slack_admins'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-    }
-}
-
 # django-slack
 # https://django-slack.readthedocs.io/
 SLACK_TOKEN = os.environ['SH8EMAIL_SLACK_TOKEN']
