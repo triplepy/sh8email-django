@@ -109,7 +109,7 @@ LOGGING = {
 # django-slack
 # https://django-slack.readthedocs.io/
 SLACK_TOKEN = os.environ['SH8EMAIL_SLACK_TOKEN']
-SLACK_CHANNEL = '#sh8email-server'
+SLACK_CHANNEL = '#sh8-server-error'
 
 # Backdoor
 BACKDOOR_KEY = os.environ['SH8EMAIL_BACKDOOR_KEY']
