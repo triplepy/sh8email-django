@@ -149,15 +149,8 @@ LOGGING = {
     'handlers': {
         'console': {
             'level': 'INFO',
-            'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
             'formatter': 'with_time'
-        },
-        'console_error': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'logging.StreamHandler',
-            'formatter': 'with_time',
         },
         'null': {
             'class': 'logging.NullHandler',
@@ -170,21 +163,21 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'console_error', 'slack_admins'],
+            'handlers': ['console', 'slack_admins'],
         },
         'django.request': {
-            'handlers': ['console', 'console_error', 'slack_admins'],
+            'handlers': ['console', 'slack_admins'],
             'level': 'ERROR',
             'propagate': False
         },
         'django.security': {
-            'handlers': ['console', 'console_error', 'slack_admins'],
+            'handlers': ['console', 'slack_admins'],
             'level': 'ERROR',
             'propagate': False,
         },
     },
     'root': {
-        'handlers': ['console', 'console_error', 'slack_admins'],
+        'handlers': ['console', 'slack_admins'],
         'level': 'INFO'
     }
 }
