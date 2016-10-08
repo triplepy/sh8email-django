@@ -1,5 +1,6 @@
 # sh8email-django
 [sh8email](https://sh8.email) is an anonymous, silent and lockable email service.
+
 This is a django-implementation of [sh8email](https://sh8.email).
 
 # Usage
@@ -93,6 +94,7 @@ ALTER ROLE
 
 #### 7. Edit pg_hba.conf to disable SSL connection in localhost connection.
 In Ubuntu, edit `/etc/postgresql/9.5/main/pg_hba.conf`.
+
 In OS X or macOS, edit `/usr/local/var/postgres/pg_hba.conf`.
 
 From
