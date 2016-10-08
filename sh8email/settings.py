@@ -60,7 +60,6 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'sh8email.urls'
 
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -181,6 +180,12 @@ LOGGING = {
         'level': 'INFO'
     }
 }
+
+# django-slack
+# https://django-slack.readthedocs.io/
+# This is required to just for a placeholder.
+# Otherwise, "ValueError: token parameter is required if custom endpoint URL is not specified" is occurred.
+SLACK_TOKEN = 'dev_slack_token_LOL'
 
 # Backdoor
 BACKDOOR_KEY = 'goback'
