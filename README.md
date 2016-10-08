@@ -4,7 +4,7 @@ This is a django-implementation of [sh8email](https://sh8.email).
 
 # Usage
 
-## Starting/stopping servers in **development machine**
+## Starting/stopping server in **development machine**
 
 ### Starting
 - web application: `python manage.py runserver`
