@@ -1,12 +1,8 @@
-import logging
 import os
 import signal
 
 from django.conf import settings
 from django.core.management import BaseCommand
-
-
-logger = logging.getLogger(__name__)
 
 
 class ProcessCommand(BaseCommand):
@@ -28,7 +24,7 @@ class ProcessCommand(BaseCommand):
     def start_process(self):
         p = self.process_class()
         p.start()
-        logger.info("{} IS STARTED".format(self.process_class.__name__))
+        print("{} IS STARTED".format(self.process_class.__name__))
         self.store_pid(p)
 
     def store_pid(self, p):
@@ -42,11 +38,11 @@ class ProcessCommand(BaseCommand):
 
     def stop_process(self):
         if not os.path.isfile(self.pid_file_path):
-            logger.info("There is no running process to stop.")
+            print("There is no running process to stop.")
             return
 
         os.kill(self._read_pid(), signal.SIGTERM)
-        logger.info("{} IS STOPPED".format(self.process_class.__name__))
+        print("{} IS STOPPED".format(self.process_class.__name__))
 
         os.remove(self.pid_file_path)
 
