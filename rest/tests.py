@@ -15,7 +15,7 @@ class RestAPITest(APITestCase):
         mail = Mail.objects.get(pk=mail_pk)
         add_recip_to_session(self.client, mail.recipient)
         # when
-        response = self.client.get(reverse('rest:rest-mail-detail', args=[mail.recipient, mail.pk]))
+        response = self.client.get(reverse('rest:mail_detail', args=[mail.recipient, mail.pk]))
         # then
         self.assertEqual(response.status_code, status.HTTP_200_OK,
                          "response.content was {}".format(response.content.decode()))
@@ -34,7 +34,7 @@ class RestAPITest(APITestCase):
         mails = Mail.objects.filter(recipient=recipient)
         # add_recip_to_session(self.client, recipient)
         # when
-        response = self.client.post(reverse('rest:rest-mail-list', args=[recipient]), data={'recipient': recipient})
+        response = self.client.post(reverse('rest:mail_list', args=[recipient]), data={'recipient': recipient})
         # then
         self.assertEqual(response.status_code, status.HTTP_200_OK,
                          "response.content was {}".format(response.content.decode()))
