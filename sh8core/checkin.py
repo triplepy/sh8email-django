@@ -5,7 +5,7 @@ class CheckinManager(object):
     def current_recipient(self):
         return self.request.session.get('recipient')
 
-    def set_current_recipient(self, recipient):
+    def checkin(self, recipient):
         self.request.session['recipient'] = recipient
 
 
@@ -16,5 +16,5 @@ class MockCheckinManager(CheckinManager):
     def current_recipient(self):
         return self.recipient
 
-    def set_current_recipient(self, recipient):
+    def checkin(self, recipient):
         self.recipient = recipient

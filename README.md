@@ -110,6 +110,14 @@ hostnossl    all             all             127.0.0.1/32            md5
 hostnossl    all             all             ::1/128                 md5
 ```
 
+# Structures
+
+## Design of REST-API
+- Retrieve the mail list of an user.
+    - GET rest/mail/{nickname}/list/
+- Retrieve a mail content.
+    - GET rest/mail/{nickname}/{mail_pk}/
+
 # Trouble Shooting
 
 ## django.db.utils.OperationalError: SSL error: decryption failed or bad record mac

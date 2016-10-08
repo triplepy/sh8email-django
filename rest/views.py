@@ -1,4 +1,3 @@
-from django.http import HttpResponseForbidden
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,24 +10,14 @@ from sh8core.serializers import MailListSerializer
 
 
 class MailList(APIView):
-    """
-    List all snippets, or create a new snippet.
-    """
-    @staticmethod
-    def post(request, nickname, format=None):
-        recipient = request.data.get('recipient')
-        if nickname != recipient:
-            return HttpResponseForbidden
+    def get(self, request, nickname, format=None):
         checkin_manager = CheckinManager(request)
+        checkin_manager.checkin(nickname)
+
         Mail.delete_read(checkin_manager)
-        checkin_manager.set_current_recipient(recipient)
-        recipient = checkin_manager.current_recipient()
 
-        if recipient:
-            mail_list = Mail.objects.filter(recipient=recipient).order_by('-recip_date')
-        else:
-            mail_list = []
-
+        mail_list = Mail.objects.filter(recipient=nickname).order_by('-recip_date')
+        # TODO I think this logic should be moved to MailListSerializer.
         for mail in mail_list:
             mail.contents = mail.contents[:50]
             if mail.is_secret():
@@ -39,11 +28,9 @@ class MailList(APIView):
 
 
 class MailDetail(APIView):
-    """
-    Retrieve, update or delete a snippet instance.
-    """
     @staticmethod
-    def get_object(request, nickname, pk):
+    def _get_object(request, nickname, pk):
+        # TODO DUP CODE. Must refactor this.
         try:
             mail = get_object_or_404(Mail, pk=pk)
             can_read = mail.can_read(request)
@@ -59,6 +46,6 @@ class MailDetail(APIView):
             return None
 
     def get(self, request, nickname, pk, format=None):
-        mail = self.get_object(request, nickname, pk)
+        mail = self._get_object(request, nickname, pk)
         serializer = MailDetailSerializer(mail)
         return Response(serializer.data)
