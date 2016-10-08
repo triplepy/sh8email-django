@@ -7,14 +7,14 @@ This is a django-implementation of [sh8email](https://sh8.email).
 ## Starting/stopping server in **development machine**
 
 ### Starting
-- web application: `python manage.py runserver`
-- mail receiver: `python manage.py runrecv`
-- mail delete batch: `python manage.py runbatch`
+- Web application: `python manage.py runserver`
+- Mail receiver: `python manage.py runrecv`
+- Mail delete batch: `python manage.py runbatch`
 
 ### Stopping
-- web application: Press `Ctrl+C`
-- mail receiver: `python manage.py runrecv --stop`
-- mail delete batch: `python manage.py runbatch --stop`
+- Web application: Press `Ctrl+C`
+- Mail receiver: `python manage.py runrecv --stop`
+- Mail delete batch: `python manage.py runbatch --stop`
 
 ## Deploying new code in **production machine**
 Enter python virtual environment and type `invoke deploy`.
