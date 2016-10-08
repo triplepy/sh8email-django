@@ -38,11 +38,11 @@ It can be performed using [rinetd](https://boutell.com/rinetd/) in Linux system.
 0.0.0.0 25 127.0.0.1 2525
 ```
 
-# Setting up development environment
+## Setting up development environment
 
-## Setting up development database
+### Setting up development database
 
-### 1. Install postgresql.
+#### 1. Install postgresql.
 
 In Ubuntu, 
 ```shell
@@ -54,44 +54,44 @@ In OSX (brew required),
 $ brew install postgresql
 ```
 
-### 2. Login as postgres, and enter the psql which is command line tool for postgresql.
+#### 2. Login as postgres, and enter the psql which is command line tool for postgresql.
 
-#### In ubuntu
+##### In ubuntu
 ```shell
 $ sudo su postgres
 $ psql
 ```
 
-#### In OSX
+##### In OSX
 ```shell
 $ psql postgres
 ```
 
-### 3. Add a user named *sh8email*.
+#### 3. Add a user named *sh8email*.
 ```sql
 postgres=# CREATE USER sh8email WITH PASSWORD 'password';
 CREATE ROLE
 ```
 
-### 4. Create a database named *sh8email*.
+#### 4. Create a database named *sh8email*.
 ```sql
 postgres=# CREATE DATABASE sh8email;
 CREATE DATABASE
 ```
 
-### 5. Grant access to user.
+#### 5. Grant access to user.
 ```sql
 postgres=# GRANT ALL PRIVILEGES ON DATABASE sh8email to sh8email;
 GRANT
 ```
 
-### 6. Add a privilege to *create database* which used for creating test database.
+#### 6. Add a privilege to *create database* which used for creating test database.
 ```sql
 postgres=# ALTER USER sh8email CREATEDB;
 ALTER ROLE
 ```
 
-### 7. Edit pg_hba.conf to disable SSL connection in localhost connection.
+#### 7. Edit pg_hba.conf to disable SSL connection in localhost connection.
 In Ubuntu, edit `/etc/postgresql/9.5/main/pg_hba.conf`.
 In OS X or macOS, edit `/usr/local/var/postgres/pg_hba.conf`.
 
