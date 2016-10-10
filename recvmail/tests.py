@@ -74,10 +74,10 @@ Content-Transfer-Encoding: base64
 
 dGVzdAo=""")
         cls.frommail = 'author@example.com'
-        cls.recipients = ['recipient@example.com',
-                          'recp2@example.com',
-                          'recp3@example.com',
-                          'secret__secsec@example.com']
+        cls.recipients = ['recipient@sh8.email',
+                          'recp2@sh8.email',
+                          'recp3@sh8.email',
+                          'secret__secsec@sh8.email']
         recipients_name = ['recipient',
                            'recp2',
                            'recp3',
@@ -360,6 +360,26 @@ class MsgParseTest(TestCase):
             self.assertEqual(m.sender, orgin_mail.sender)
             self.assertEqual(m.subject, orgin_mail.subject)
             self.assertEqual(m.contents, orgin_mail.contents)
+
+    def test_reproduce_mail__filter(self):
+        # given
+        rcpttos = ['getogrand <getogrand1@sh8.email>', 'getogrand <getogrand2@bad.com>']
+        expected_recipients = ['getogrand1']
+        orgin_mail = Mail(
+            recipient='getogrand1',
+            secret_code=None,
+            sender='" 주원영 " <getogrand@paran.com>',
+            subject='test',
+            contents='test'
+        )
+        # when
+        mails = reproduce_mail(orgin_mail, rcpttos)
+        # then
+        self.assertEqual(len(expected_recipients), len(mails))
+        for m, rcpt in zip(mails, expected_recipients):
+            self.assertEqual(m.recipient, rcpt)
+            self.assertEqual(m.sender, orgin_mail.sender)
+            self.assertEqual(m.subject, orgin_mail.subject)
 
     def test_readablize_header(self):
         # given
