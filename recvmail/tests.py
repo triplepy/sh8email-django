@@ -296,6 +296,28 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.subject, expected.subject)
         self.assertEqualExceptCarriageReturn(mail.contents.strip(), expected.contents)
 
+    def test_raw_to_mail__without_content_type_header(self):
+        # This is a test case of '#20 Exception occurred when the 'Content-Type' header not exists.'.
+
+        # given
+        rawemail = open('recvmail/tools/no_content_type_header.eml').read()
+        expected = Mail.objects.create(
+            recipient='getogrand1',
+            sender='"Wonyoung" <getogrand@paran.com>',
+            subject='This is subject.',
+            contents='This is test content.'
+        )
+
+        # when
+        mail = raw_to_mail(rawemail)
+
+        # then
+        self.assertEqual(mail.recipient, expected.recipient)
+        self.assertEqual(mail.secret_code, expected.secret_code)
+        self.assertEqual(mail.sender, expected.sender)
+        self.assertEqual(mail.subject, expected.subject)
+        self.assertEqual(mail.contents.strip(), expected.contents)
+
     def test_raw_to_mail__secretcode(self):
         # given
         rawemail = open('recvmail/tools/secret.eml').read()
