@@ -65,6 +65,18 @@ def reproduce_mail(origin, rcpttos):
 
 
 class Address(object):
+    """
+    Address consist of local, domain, name.
+
+    When we have a mail account "mike@home.com", and it's presented as "Miky <mike@home.com>" on 'To' message header,
+      - local is 'mike',
+      - domain is 'home.com',
+      - name is 'Miky'.
+    **Summarize - an address form**
+      - name <local@domain>
+    The local consist of recipient and secret_code.
+      - name <recipient__secret_code@domain>
+    """
     secret_code_sep = '__'
 
     def __init__(self, local=None, domain=None, name='Name', header_to=None):
