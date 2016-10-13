@@ -1,0 +1,23 @@
+Content-Type: multipart/alternative;
+	boundary="----=_Part_399822_750742711.1457150967169"
+Content-Transfer-Encoding: base64
+X-Originating-IP: [218.51.1.226]
+From: author <author@example.com>
+Organization:
+To: recipient <recipient@sh8.email>, recp2 <recp2@sh8.email>, recp3 <recp3@sh8.email>, secret__secsec <secret__secsec@sh8.email>
+Subject: test
+X-Mailer: Daum Web Mailer 1.2
+Date: Sat, 23 Jan 2016 23:49:52 +0900 (KST)
+Message-Id: <20160123234952.HM.C000000000FV3pd@dnjsdud1111.wwl1746.hanmail.net>
+Errors-To: <dnjsdud1111@daum.net>
+X-HM-UT: i0Yy1lQLTQ+AcyobeCye+inQzLKz6VHelNJrvZDCttk=
+X-HM-FIGURE: i0Yy1lQLTQ/7FlCfj3oLn+xD9XCyy4Cl
+MIME-Version: 1.0
+X-Hanmail-Attr: fc=1
+
+------=_Part_399822_750742711.1457150967169
+Content-Type: text/plain;
+	charset=UTF-8
+Content-Transfer-Encoding: base64
+
+dGVzdAo=

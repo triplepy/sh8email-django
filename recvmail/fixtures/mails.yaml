@@ -1,0 +1,80 @@
+- model: sh8core.mail
+  pk: 1
+  fields:
+    recipient: getogrand
+    sender: 'Amazon Web Services <aws-marketing-email-replies@amazon.com>'
+    subject: 'AWS의 출시 공지'
+    recip_date: "2016-09-15T15:22:01+09:00"
+    contents: |
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html>
+      <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+          <meta name="viewport" content="width=device-width">
+      </head>
+      <body yahoo='fix' style='margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;'>
+      <img src="https://www.amazon.com/gp/r.html?C=1JF1R0SY4HT0H&R=H3QBGNBIQ749&T=O&U=http%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&A=ONQSC50VFP3FZWOPY8YS4AQEEDCA&H=SNDTUUGDMOBHOQ6ITQESCNEFGX0A&ref_=pe_612980_160090880" />
+      <img src="https://www.amazon.com/gp/r.html?C=1JF1R0SY4HT0H&R=H3QBGNBIQ749&T=E&U=http%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&A=SOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=N7JT3YAVYRAXQTERCCBJLV5NXMMA" /></body>
+      </html>
+- model: sh8core.mail
+  pk: 2
+  fields:
+    recipient: getogrand
+    sender: '"주원영" <getogrand@gmail.com>'
+    subject: '아이폰한글메일테스트'
+    recip_date: "2016-09-15T15:22:01+09:00"
+    contents: |
+      <html>
+         <head>
+            <meta http-equiv="content-type" content="text/html; charset=utf-8">
+         </head>
+         <body dir="auto">
+            <div>
+              <h1 class="page-title" style="margin: 25px 0px 40px; padding: 0px; border: 0px; line-height: 20px; vertical-align: baseline; min-height: 30px;"><font size="3"><span style="background-color: rgba(255, 255, 255, 0);">K-INDIE CHART&nbsp;</span></font><small style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; line-height: inherit; vertical-align: baseline; display: block;"><font size="3"><span style="background-color: rgba(255, 255, 255, 0);">BIWEEKLY INDIE ALBUM CHART</span></font></small></h1>테스트<br>나의 iPhone에서 보냄
+            </div>
+         </body>
+      </html>
+- model: sh8core.mail
+  pk: 3
+  fields:
+    recipient: getogrand
+    sender: '"주원영" <getogrand@gmail.com>'
+    subject: '아이폰한글메일테스트'
+    recip_date: "2016-09-15T15:22:01+09:00"
+    contents: |
+      한글
+
+      나의 iPhone에서 보냄
+- model: sh8core.mail
+  pk: 4
+  fields:
+    recipient: getogrand1
+    sender: '" 주원영 " <getogrand@paran.com>'
+    subject: 'test'
+    recip_date: "2016-09-15T15:22:01+09:00"
+    contents: 'test'
+- model: sh8core.mail
+  pk: 5
+  fields:
+    recipient: getogrand1
+    sender: '"Wonyoung" <getogrand@paran.com>'
+    subject: 'This is subject.'
+    recip_date: "2016-09-15T15:22:01+09:00"
+    contents: 'This is test content.'
+- model: sh8core.mail
+  pk: 6
+  fields:
+    recipient: getogrand1
+    secret_code: silversuffer
+    sender: '" 주원영 " <getogrand@paran.com>'
+    subject: test
+    recip_date: "2016-09-15T15:22:01+09:00"
+    contents: test
+- model: sh8core.mail
+  pk: 7
+  fields:
+    recipient: getogrand1
+    sender: '" 주원영 " <getogrand@paran.com>'
+    subject: test
+    recip_date: "2016-09-15T15:22:01+09:00"
+    contents: test

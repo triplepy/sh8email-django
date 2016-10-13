@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import platform
+import re
 import smtplib
 import time
 import unittest
 from email.parser import Parser
-from email.utils import formataddr
 
 from django.conf import settings
 from django.test import TestCase
@@ -50,42 +50,12 @@ class RecvMailTest(TestCase):
 
     @classmethod
     def set_self_msg(cls):
-        cls.msg = Parser().parsestr("""Content-Type: multipart/alternative;
-	boundary="----=_Part_399822_750742711.1457150967169"
-Content-Transfer-Encoding: base64
-X-Originating-IP: [218.51.1.226]
-From: "=?utf-8?B?7KO87JuQ7JiB?=" <getogrand@paran.com>
-Organization:
-To: "getogrand" <getogrand1__silversuffer@sh8.email>
-Subject: test
-X-Mailer: Daum Web Mailer 1.2
-Date: Sat, 23 Jan 2016 23:49:52 +0900 (KST)
-Message-Id: <20160123234952.HM.C000000000FV3pd@dnjsdud1111.wwl1746.hanmail.net>
-Errors-To: <dnjsdud1111@daum.net>
-X-HM-UT: i0Yy1lQLTQ+AcyobeCye+inQzLKz6VHelNJrvZDCttk=
-X-HM-FIGURE: i0Yy1lQLTQ/7FlCfj3oLn+xD9XCyy4Cl
-MIME-Version: 1.0
-X-Hanmail-Attr: fc=1
-
-------=_Part_399822_750742711.1457150967169
-Content-Type: text/plain;
-	charset=UTF-8
-Content-Transfer-Encoding: base64
-
-dGVzdAo=""")
+        cls.msg = Parser().parsestr(open('recvmail/fixtures/daum_base64_multipart.eml').read())
         cls.frommail = 'author@example.com'
         cls.recipients = ['recipient@sh8.email',
                           'recp2@sh8.email',
                           'recp3@sh8.email',
                           'secret__secsec@sh8.email']
-        recipients_name = ['recipient',
-                           'recp2',
-                           'recp3',
-                           'secret__secsec']
-
-        header_to = ', '.join(map(formataddr, zip(recipients_name, cls.recipients)))
-        cls.msg.replace_header('To', header_to)
-        cls.msg.replace_header('From', formataddr(('author', cls.frommail)))
 
     @classmethod
     def start_mail_server(cls):
@@ -187,27 +157,14 @@ class AddressTest(TestCase):
 
 
 class MsgParseTest(TestCase):
+    fixtures = ['mails.yaml']
+
     def test_raw_to_mail(self):
         self.maxDiff = None
 
         # given
-        rawemail = open('recvmail/tools/aws_simple.eml').read()
-        expected = Mail.objects.create(
-            recipient='getogrand',
-            secret_code=None,
-            sender='Amazon Web Services <aws-marketing-email-replies@amazon.com>',
-            subject='AWS의 출시 공지',
-            contents="""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width">
-</head>
-<body yahoo='fix' style='margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;'>
-<img src="https://www.amazon.com/gp/r.html?C=1JF1R0SY4HT0H&R=H3QBGNBIQ749&T=O&U=http%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&A=ONQSC50VFP3FZWOPY8YS4AQEEDCA&H=SNDTUUGDMOBHOQ6ITQESCNEFGX0A&ref_=pe_612980_160090880" />
-<img src="https://www.amazon.com/gp/r.html?C=1JF1R0SY4HT0H&R=H3QBGNBIQ749&T=E&U=http%3A%2F%2Fimages.amazon.com%2Fimages%2FG%2F01%2Fnav%2Ftransp.gif&A=SOQ8AZTCEHCYSDHRU7LCLA6J4LEA&H=N7JT3YAVYRAXQTERCCBJLV5NXMMA" /></body>
-</html>"""
-        )
+        rawemail = open('recvmail/fixtures/aws_quoted_multipart_html_plain.eml').read()
+        expected = Mail.objects.get(pk=1)
 
         # when
         mail = raw_to_mail(rawemail)
@@ -222,25 +179,8 @@ class MsgParseTest(TestCase):
         self.maxDiff = None
 
         # given
-        rawemail = open('recvmail/tools/iphone_mail_euckr_html.eml').read()
-        expected = Mail.objects.create(
-            recipient='getogrand',
-            secret_code=None,
-            sender='"주원영" <getogrand@gmail.com>',
-            subject='아이폰한글메일테스트',
-            contents="""\
-<html>
-   <head>
-      <meta http-equiv="content-type" content="text/html; charset=utf-8">
-   </head>
-   <body dir="auto">
-      <div>
-        <h1 class="page-title" style="margin: 25px 0px 40px; padding: 0px; border: 0px; line-height: 20px; vertical-align: baseline; min-height: 30px;"><font size="3"><span style="background-color: rgba(255, 255, 255, 0);">K-INDIE CHART&nbsp;</span></font><small style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; line-height: inherit; vertical-align: baseline; display: block;"><font size="3"><span style="background-color: rgba(255, 255, 255, 0);">BIWEEKLY INDIE ALBUM CHART</span></font></small></h1>테스트<br>나의 iPhone에서 보냄
-      </div>
-   </body>
-</html>
-"""
-        )
+        rawemail = open('recvmail/fixtures/iphone_mail_euckr_html.eml').read()
+        expected = Mail.objects.get(pk=2)
 
         # when
         mail = raw_to_mail(rawemail)
@@ -255,17 +195,8 @@ class MsgParseTest(TestCase):
         self.maxDiff = None
 
         # given
-        rawemail = open('recvmail/tools/iphone_mail_euckr_plain.eml').read()
-        expected = Mail.objects.create(
-            recipient='getogrand',
-            secret_code=None,
-            sender='"주원영" <getogrand@gmail.com>',
-            subject='한글',
-            contents="""\
-한글
-
-나의 iPhone에서 보냄"""
-        )
+        rawemail = open('recvmail/fixtures/iphone_mail_euckr_plain.eml').read()
+        expected = Mail.objects.get(pk=3)
 
         # when
         mail = raw_to_mail(rawemail)
@@ -274,18 +205,12 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.recipient, expected.recipient)
         self.assertEqual(mail.sender, expected.sender)
         self.assertEqual(mail.subject, expected.subject)
-        self.assertEqualExceptCarriageReturn(mail.contents.strip(), expected.contents)
+        self.assertEqualExceptCarriageReturnEndNewLine(mail.contents, expected.contents)
 
     def test_raw_to_mail__unicode_sender(self):
         # given
-        rawemail = open('recvmail/tools/unicode_sender.eml').read()
-        expected = Mail.objects.create(
-            recipient='getogrand1',
-            secret_code=None,
-            sender='" 주원영 " <getogrand@paran.com>',
-            subject='test',
-            contents='test'
-        )
+        rawemail = open('recvmail/fixtures/unicode_sender.eml').read()
+        expected = Mail.objects.get(pk=4)
 
         # when
         mail = raw_to_mail(rawemail)
@@ -294,20 +219,14 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.sender, expected.sender)
         self.assertEqual(mail.recipient, expected.recipient)
         self.assertEqual(mail.subject, expected.subject)
-        self.assertEqualExceptCarriageReturn(mail.contents.strip(), expected.contents)
+        self.assertEqualExceptCarriageReturnEndNewLine(mail.contents.strip(), expected.contents)
 
     def test_raw_to_mail__without_content_type_header(self):
-        # This is a test case of '#20 Exception occurred when the 'Content-Type' header not exists.'.
+        """This is a test case of '#20 Exception occurred when the 'Content-Type' header not exists.'."""
 
         # given
-        rawemail = open('recvmail/tools/no_content_type_header.eml').read()
-        expected = Mail.objects.create(
-            recipient='getogrand1',
-            sender='"Wonyoung" <getogrand@paran.com>',
-            subject='This is subject.',
-            contents='This is test content.'
-        )
-
+        rawemail = open('recvmail/fixtures/no_content_type_header.eml').read()
+        expected = Mail.objects.get(pk=5)
         # when
         mail = raw_to_mail(rawemail)
 
@@ -316,19 +235,12 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.secret_code, expected.secret_code)
         self.assertEqual(mail.sender, expected.sender)
         self.assertEqual(mail.subject, expected.subject)
-        self.assertEqual(mail.contents.strip(), expected.contents)
+        self.assertEqual(mail.contents, expected.contents)
 
     def test_raw_to_mail__secretcode(self):
         # given
-        rawemail = open('recvmail/tools/secret.eml').read()
-        expected = Mail.objects.create(
-            recipient='getogrand1',
-            secret_code='silversuffer',
-            sender='" 주원영 " <getogrand@paran.com>',
-            subject='test',
-            contents='test'
-        )
-
+        rawemail = open('recvmail/fixtures/secret.eml').read()
+        expected = Mail.objects.get(pk=6)
         # when
         mail = raw_to_mail(rawemail)
 
@@ -343,13 +255,7 @@ class MsgParseTest(TestCase):
         # given
         rcpttos = ['getogrand <getogrand1@sh8.email>', 'getogrand <getogrand2@sh8.email>']
         expected_recipients = ['getogrand1', 'getogrand2']
-        orgin_mail = Mail(
-            recipient='getogrand1',
-            secret_code=None,
-            sender='" 주원영 " <getogrand@paran.com>',
-            subject='test',
-            contents='test'
-        )
+        orgin_mail = Mail.objects.get(pk=7)
 
         # when
         mails = reproduce_mail(orgin_mail, rcpttos)
@@ -365,13 +271,7 @@ class MsgParseTest(TestCase):
         # given
         rcpttos = ['getogrand <getogrand1@sh8.email>', 'getogrand <getogrand2@bad.com>']
         expected_recipients = ['getogrand1']
-        orgin_mail = Mail(
-            recipient='getogrand1',
-            secret_code=None,
-            sender='" 주원영 " <getogrand@paran.com>',
-            subject='test',
-            contents='test'
-        )
+        orgin_mail = Mail.objects.get(pk=7)
         # when
         mails = reproduce_mail(orgin_mail, rcpttos)
         # then
@@ -392,7 +292,10 @@ class MsgParseTest(TestCase):
         # then
         self.assertEqual(expected_readable_header, readable_header)
 
-    def assertEqualExceptCarriageReturn(self, expected, actual):
+    def assertEqualExceptCarriageReturnEndNewLine(self, expected, actual):
+        end_newline_regex = r'\n$'
         expected_no_cr = expected.replace("\r", "")
+        expected_no_cr_nl = re.sub(end_newline_regex, '', expected_no_cr)
         actual_no_cr = actual.replace("\r", "")
-        self.assertMultiLineEqual(expected_no_cr, actual_no_cr)
+        actual_no_cr_nl = re.sub(end_newline_regex, '', actual_no_cr)
+        self.assertMultiLineEqual(expected_no_cr_nl, actual_no_cr_nl)
