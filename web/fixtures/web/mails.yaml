@@ -1,0 +1,53 @@
+- model: sh8core.mail
+  pk: 1
+  fields:
+    recipient: ggone
+    sender: hagyoon@gmail.com
+    subject: subject1
+    contents: contents1
+    recip_date: "2016-09-15T15:22:01+09:00"
+- model: sh8core.mail
+  pk: 2
+  fields:
+    recipient: ggone
+    sender: silver@gmail.com
+    subject: subject2
+    contents: contents2
+    recip_date: "2016-09-15T15:22:01+09:00"
+- model: sh8core.mail
+  pk: 3
+  fields:
+    recipient: ggone
+    secret_code: secret
+    sender: hagyoon@gmail.com
+    subject: subject3
+    contents: contents3
+    recip_date: "2016-09-15T15:22:01+09:00"
+- model: sh8core.mail
+  pk: 4
+  fields:
+    recipient: ggone
+    secret_code: secret
+    sender: silver@gmail.com
+    subject: subject4
+    contents: content4
+    recip_date: "2016-09-15T15:22:01+09:00"
+- model: sh8core.mail
+  pk: 5
+  fields:
+    recipient: ggone
+    sender: jong@gmail.com
+    subject: 'This is subject.'
+    recip_date: "2016-09-15T15:22:01+09:00"
+    contents: |
+      <html>
+      <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+          <meta name="viewport" content="width=device-width">
+      </head>
+      <body yahoo='fix' style='margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;'>
+        <img src="https://www.amazon.com/gp/0.jpg">
+        <img src="https://www.amazon.com/gp/1.jpg" onerror="alert('shit!')">
+        <script>alert('shit!')</script>
+      </body>
+      </html>

@@ -50,7 +50,7 @@ class RecvMailTest(TestCase):
 
     @classmethod
     def set_self_msg(cls):
-        cls.msg = Parser().parsestr(open('recvmail/fixtures/daum_base64_multipart.eml').read())
+        cls.msg = Parser().parsestr(open('recvmail/fixtures/recvmail/daum_base64_multipart.eml').read())
         cls.frommail = 'author@example.com'
         cls.recipients = ['recipient@sh8.email',
                           'recp2@sh8.email',
@@ -157,13 +157,13 @@ class AddressTest(TestCase):
 
 
 class MsgParseTest(TestCase):
-    fixtures = ['mails.yaml']
+    fixtures = ['recvmail/mails.yaml']
 
     def test_raw_to_mail(self):
         self.maxDiff = None
 
         # given
-        rawemail = open('recvmail/fixtures/aws_quoted_multipart_html_plain.eml').read()
+        rawemail = open('recvmail/fixtures/recvmail/aws_quoted_multipart_html_plain.eml').read()
         expected = Mail.objects.get(pk=1)
 
         # when
@@ -179,7 +179,7 @@ class MsgParseTest(TestCase):
         self.maxDiff = None
 
         # given
-        rawemail = open('recvmail/fixtures/iphone_mail_euckr_html.eml').read()
+        rawemail = open('recvmail/fixtures/recvmail/iphone_mail_euckr_html.eml').read()
         expected = Mail.objects.get(pk=2)
 
         # when
@@ -195,7 +195,7 @@ class MsgParseTest(TestCase):
         self.maxDiff = None
 
         # given
-        rawemail = open('recvmail/fixtures/iphone_mail_euckr_plain.eml').read()
+        rawemail = open('recvmail/fixtures/recvmail/iphone_mail_euckr_plain.eml').read()
         expected = Mail.objects.get(pk=3)
 
         # when
@@ -209,7 +209,7 @@ class MsgParseTest(TestCase):
 
     def test_raw_to_mail__unicode_sender(self):
         # given
-        rawemail = open('recvmail/fixtures/unicode_sender.eml').read()
+        rawemail = open('recvmail/fixtures/recvmail/unicode_sender.eml').read()
         expected = Mail.objects.get(pk=4)
 
         # when
@@ -225,7 +225,7 @@ class MsgParseTest(TestCase):
         """This is a test case of '#20 Exception occurred when the 'Content-Type' header not exists.'."""
 
         # given
-        rawemail = open('recvmail/fixtures/no_content_type_header.eml').read()
+        rawemail = open('recvmail/fixtures/recvmail/no_content_type_header.eml').read()
         expected = Mail.objects.get(pk=5)
         # when
         mail = raw_to_mail(rawemail)
@@ -239,7 +239,7 @@ class MsgParseTest(TestCase):
 
     def test_raw_to_mail__secretcode(self):
         # given
-        rawemail = open('recvmail/fixtures/secret.eml').read()
+        rawemail = open('recvmail/fixtures/recvmail/secret.eml').read()
         expected = Mail.objects.get(pk=6)
         # when
         mail = raw_to_mail(rawemail)

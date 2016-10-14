@@ -14,15 +14,15 @@ class IntroViewTest(TestCase):
 
 
 class ListViewTest(TestCase):
+    fixtures = ['web/mails.yaml']
+
     def test_list_is_shown(self):
-        self.mail1 = Mail.objects.create(recipient='ggone', sender='hagyoon@gmail.com',
-                                         subject='subject1', contents='contents1')
-        self.mail2 = Mail.objects.create(recipient='ggone', sender='silver@gmail.com',
-                                         subject='subject2', contents='contents2')
-        mails = [self.mail1, self.mail2]
+        mail1 = Mail.objects.get(pk=1)
+        mail2 = Mail.objects.get(pk=2)
+        mails = [mail1, mail2]
 
         client = Client()
-        add_recip_to_session(client, 'ggone')
+        add_recip_to_session(client, mail1.recipient)
         response = client.get(reverse('web:list'))
 
         for mail in mails:
@@ -31,12 +31,10 @@ class ListViewTest(TestCase):
             self.assertContains(response, mail.contents[:200])
 
     def test_content_of_secretmail_should_not_be_shown(self):
-        self.mail1 = Mail.objects.create(recipient='ggone', sender='hagyoon@gmail.com',
-                                         subject='subject3', contents='contents3', secret_code='secret')
-        self.mail2 = Mail.objects.create(recipient='ggone', sender='silver@gmail.com',
-                                         subject='subject4', contents='contents4', secret_code='secret')
+        mail1 = Mail.objects.get(pk=3)
+        mail2 = Mail.objects.get(pk=4)
 
-        mails = [self.mail1, self.mail2]
+        mails = [mail1, mail2]
 
         client = Client()
         add_recip_to_session(client, 'ggone')
@@ -50,11 +48,12 @@ class ListViewTest(TestCase):
 
 
 class DetailViewTest(TestCase):
+    fixtures = ['web/mails.yaml']
+
     def setUp(self):
-        self.recipient = 'ggone'
         self.client = Client()
-        self.mail = Mail.objects.create(recipient=self.recipient, sender='sender1',
-                                        subject='subject1', contents='contents1')
+        self.mail = Mail.objects.get(pk=1)
+        self.recipient = self.mail.recipient
 
     def test_simplest_success_case(self):
         add_recip_to_session(self.client, self.recipient)
@@ -70,7 +69,7 @@ class DetailViewTest(TestCase):
                          HttpResponseForbidden.status_code)
 
     def test_checkin_other_recipient(self):
-        checkin_recipient = 'wonyoung'
+        checkin_recipient = "I am not" + self.recipient
         add_recip_to_session(self.client, checkin_recipient)
 
         self.response = self.client.get(
@@ -94,24 +93,9 @@ class DetailViewTest(TestCase):
     def test_html_sanitized_striphtml(self):
         # given
         client = Client()
-        recipient = 'ggone'
-        original_html = '''
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width">
-</head>
-<body yahoo='fix' style='margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;'>
-  <img src="https://www.amazon.com/gp/0.jpg">
-  <img src="https://www.amazon.com/gp/1.jpg" onerror="alert('shit!')">
-  <script>alert('shit!')</script>
-</body>
-</html>
-'''
         # when
-        mail = Mail.objects.create(recipient=recipient, sender='jong@google.com',
-                                   subject='secret mail.', contents=original_html)
-        add_recip_to_session(client, recipient)
+        mail = Mail.objects.get(pk=5)
+        add_recip_to_session(client, mail.recipient)
         response = client.get(reverse('web:detail', args=(mail.pk,)))
 
         # then
@@ -126,19 +110,17 @@ class DetailViewTest(TestCase):
 
 
 class DetailViewWithSecretcodeTest(TestCase):
+    fixtures = ['web/mails.yaml']
+
     def test_success_case(self):
         # given
         client = Client()
-        recipient = 'ggone'
-        secret_code = 'christmas_dream'
 
         # when
-        mail = Mail.objects.create(recipient=recipient, sender='jong@google.com',
-                                   subject='secret mail.', contents='iloveyou',
-                                   secret_code=secret_code)
-        add_recip_to_session(client, recipient)
+        mail = Mail.objects.get(pk=3)
+        add_recip_to_session(client, mail.recipient)
         response = client.post(reverse('web:detail', args=(mail.pk,)),
-                               data={'secret_code': secret_code})
+                               data={'secret_code': mail.secret_code})
 
         # then
         self.assertContains(response, mail.contents)
@@ -146,14 +128,10 @@ class DetailViewWithSecretcodeTest(TestCase):
     def test_secretcode_notmatch(self):
         # given
         client = Client()
-        recipient = 'ggone'
-        secret_code = 'christmas_dream'
 
         # when
-        mail = Mail.objects.create(recipient=recipient, sender='jong@google.com',
-                                   subject='secret mail.', contents='iloveyou',
-                                   secret_code=secret_code)
-        add_recip_to_session(client, recipient)
+        mail = Mail.objects.get(pk=3)
+        add_recip_to_session(client, mail.recipient)
         response = client.post(reverse('web:detail', args=(mail.pk,)),
                                data={'secret_code': 'wrong_secretcode'})
 

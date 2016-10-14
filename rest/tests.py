@@ -7,7 +7,7 @@ from sh8core.tests.utils import add_recip_to_session
 
 
 class RestAPITest(APITestCase):
-    fixtures = ['mails.yaml']
+    fixtures = ['rest/mails.yaml']
 
     def test_retrieve_a_mail(self):
         # given
