@@ -1,42 +1,35 @@
 {% extends 'web/base.html' %}
 {% load staticfiles %}
 
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'web/css/intro.css' %}" media="screen" charset="utf-8">
+{% endblock %}
+
 {% block navbar %}
 {% endblock %}
 
 {% block content-without-container %}
 
-<!-- 부트스트랩 커버 css -->
-<link rel="stylesheet" href="https://getbootstrap.com/examples/cover/cover.css" media="screen" title="no title" charset="utf-8">
-<style media="screen">
-  .input-group {
-    text-align: center;
-    width: 100%;
-  }
-  .btn.mailcheck{
-    width: 100%;
-  }
-</style>
 <div class="site-wrapper">
       <div class="site-wrapper-inner">
         <div class="cover-container">
           <div class="inner cover">
             <h1 class="cover-heading" style="color: #FFFFFF">sh8.email</h1>
             <p class="lead">
-                <label for="" style="color: #999999">세상에서 가장 조용한 이메일</label>
-                <div class="row">
-                  <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-                    <div class="input-group">
-                     <form id="login" action="{% url 'checkin' %}" method="post" class="js-forms-submitform">
-                       <div class="input-group input-group-lg">
-                         <input type="text"  name="recipient" id="recipient" class="form-control" placeholder="닉네임" required="required">
-                         <span class="input-group-addon" id="basic-addon2">@sh8.email</span>
-                       </div>
-                       {% csrf_token %}
-                     </form>
-                   </div>
+              <label for="" style="color: #999999">세상에서 가장 조용한 이메일</label>
+              <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+                  <div class="input-group">
+                   <form id="login" action="{% url 'checkin' %}" method="post" class="js-forms-submitform">
+                     <div class="input-group input-group-lg">
+                       <input type="text"  name="recipient" id="recipient" class="form-control" placeholder="닉네임" required="required">
+                       <span class="input-group-addon" id="basic-addon2">@sh8.email</span>
+                     </div>
+                     {% csrf_token %}
+                   </form>
                  </div>
                </div>
+             </div>
             </p>
             <p class="lead"><!-- 공백을 위함 --></p>
             <p class="lead">
