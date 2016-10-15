@@ -9,15 +9,3 @@ html, body {
   display: inline;
   margin-right: 0.3em;
 }
-
-.top-margin-10em {
-  margin-top: 10em
-}
-
-.panel-top-margin {
-  margin-top: 3em;
-}
-
-.deco-right-arrow {
-  font-size: 4em;
-}

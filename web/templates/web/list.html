@@ -10,6 +10,10 @@
   {% endif %}
 {% endblock %}
 
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'web/css/list.css' %}">
+{% endblock %}
+
 {% block content %}
   <div class="maillist-content-wrapper">
     {% if not recipient %}
