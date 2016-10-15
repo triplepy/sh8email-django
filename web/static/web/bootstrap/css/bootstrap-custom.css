@@ -5,6 +5,11 @@ html, body {
   word-break: keep-all; /* 한글 띄어쓰기를 경계로 줄바꿈. */
 }
 
+.navbar-brand > img {
+  display: inline;
+  margin-right: 0.3em;
+}
+
 .top-margin-10em {
   margin-top: 10em
 }
