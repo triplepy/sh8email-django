@@ -9,46 +9,45 @@
 {% endblock %}
 
 {% block content-without-container %}
-
-<div class="site-wrapper">
-  <div class="site-wrapper-inner">
-    <div class="cover-container">
-      <div class="inner cover">
-        <h1 class="cover-heading intro-cover-title">sh8.email</h1>
-        <p class="lead">
-          <label class="intro-cover-subtitle" for="">세상에서 가장 조용한 이메일</label>
-          <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-              <div class="input-group">
-               <form id="login" action="{% url 'checkin' %}" method="post" class="js-forms-submitform">
-                 <div class="input-group input-group-lg">
-                   <input type="text"  name="recipient" id="recipient" class="form-control" placeholder="닉네임" required="required">
-                   <span class="input-group-addon" id="basic-addon2">@sh8.email</span>
-                 </div>
-                 {% csrf_token %}
-               </form>
-             </div>
-           </div>
-         </div>
-        </p>
-        <p class="lead"><!-- 공백을 위함 --></p>
-        <p class="lead">
-          <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-              <button onclick="$('#login').submit()" class="btn btn-lg btn-primary mailcheck">메일 확인</button>
+  <div class="site-wrapper">
+    <div class="site-wrapper-inner">
+      <form id="login" action="{% url 'checkin' %}" method="post" class="js-forms-submitform">
+        <div class="cover-container">
+          <div class="inner cover">
+            <h1 class="cover-heading intro-cover-title">sh8.email</h1>
+            <p class="lead">
+              <label class="intro-cover-subtitle" for="">세상에서 가장 조용한 이메일</label>
+            <div class="row">
+              <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+                <div class="input-group">
+                  <div class="input-group input-group-lg">
+                    <input type="text" name="recipient" id="recipient" class="form-control" placeholder="닉네임"
+                           required="required">
+                    <span class="input-group-addon" id="basic-addon2">@sh8.email</span>
+                  </div>
+                  {% csrf_token %}
+                </div>
+              </div>
             </div>
-          </div>
-        </p>
-        <p class="lead">
-          <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
-              <a href="{% url 'web:help' %}" class="btn btn-lg btn-default mailcheck">이게 뭐고, 어떻게 쓰는거죠?</a>
+            </p>
+            <p class="lead"><!-- 공백을 위함 --></p>
+            <p class="lead">
+            <div class="row">
+              <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+                <button class="btn btn-lg btn-primary mailcheck js-forms-submitbutton">메일 확인</button>
+              </div>
             </div>
+            </p>
+            <p class="lead">
+            <div class="row">
+              <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
+                <a href="{% url 'web:help' %}" class="btn btn-lg btn-default mailcheck">이게 뭐고, 어떻게 쓰는거죠?</a>
+              </div>
+            </div>
+            </p>
           </div>
-        </p>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
-</div>
-
 {% endblock %}
