@@ -1,7 +1,12 @@
 {% extends "web/base.html" %}
 
-{% load sanitizer %}\
+{% load staticfiles %}
+{% load sanitizer %}
 {% load entitify %}
+
+{% block extra_css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'web/css/detail.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="title">
@@ -22,8 +27,10 @@
               {% autoescape off %}{{ mail.contents | escape_html | entitify_paren }}{% endautoescape %}
             </p>
     </fieldset>
-    <div class="padding"></div>
-    <a class="btn back-btn" href="{% url 'web:list' %}" role="button">← 뒤로</a>
+</div>
+
+<div class="container detail-toolbar">
+  <a class="btn back-btn" href="{% url 'web:list' %}" role="button">← 뒤로</a>
 </div>
 
 {% endblock %}
