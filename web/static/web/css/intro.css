@@ -177,3 +177,11 @@ body {
 .btn.mailcheck{
   width: 100%;
 }
+
+.intro-cover-subtitle {
+  color: #999999;
+}
+
+.intro-cover-title {
+  color: #FFFFFF;
+}
