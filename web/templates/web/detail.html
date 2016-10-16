@@ -12,9 +12,6 @@
   <div class="title">
     <div class="container">
       <h1 class="text-primary">{{ mail.subject }}</h1>
-      <div style="text-align: center">
-        {{ mail.date | date:'Y/m/d P' }}
-      </div>
     </div>
   </div>
 
@@ -25,9 +22,9 @@
           <small>{{ mail.sender }}</small>
         </h4>
       </legend>
-      <p style="align-items: center">
+      <div>
         {% autoescape off %}{{ mail.contents | escape_html | entitify_paren }}{% endautoescape %}
-      </p>
+      </div>
     </fieldset>
   </div>
 
