@@ -1,0 +1,33 @@
+/*
+ * Nanum Gothic (Korean) http://www.google.com/fonts/earlyaccess
+ */
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/static/web/webfonts/NanumGothic-Regular.eot);
+  src: url(/static/web/webfonts/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'),
+       url(/static/web/webfonts/NanumGothic-Regular.woff2) format('woff2'),
+       url(/static/web/webfonts/NanumGothic-Regular.woff) format('woff'),
+       url(/static/web/webfonts/NanumGothic-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 700;
+  src: url(/static/web/webfonts/NanumGothic-Bold.eot);
+  src: url(/static/web/webfonts/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'),
+       url(/static/web/webfonts/NanumGothic-Bold.woff2) format('woff2'),
+       url(/static/web/webfonts/NanumGothic-Bold.woff) format('woff'),
+       url(/static/web/webfonts/NanumGothic-Bold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Nanum Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url(/static/web/webfonts/NanumGothic-ExtraBold.eot);
+  src: url(/static/web/webfonts/NanumGothic-ExtraBold.eot?#iefix) format('embedded-opentype'),
+       url(/static/web/webfonts/NanumGothic-ExtraBold.woff2) format('woff2'),
+       url(/static/web/webfonts/NanumGothic-ExtraBold.woff) format('woff'),
+       url(/static/web/webfonts/NanumGothic-ExtraBold.ttf) format('truetype');
+}
