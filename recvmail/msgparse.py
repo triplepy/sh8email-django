@@ -6,8 +6,7 @@ from email.utils import parseaddr, formataddr
 
 from sh8core.models import Mail
 
-# TODO REGEX 보완 필요
-CHARSET_IN_CONTENTTYPE_REGEX = re.compile("charset=(.+)$")
+CHARSET_IN_CONTENTTYPE_REGEX = re.compile(r'charset="*([\w-]+)"*')
 
 
 def raw_to_mail(rawtext):

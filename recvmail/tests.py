@@ -237,6 +237,19 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.subject, expected.subject)
         self.assertEqual(mail.contents, expected.contents)
 
+    def test_raw_to_mail__complex_content_type_header(self):
+        # given
+        rawemail = open('recvmail/fixtures/recvmail/complex_content_type_header.eml').read()
+        expected = Mail.objects.get(pk=5)
+        # when
+        mail = raw_to_mail(rawemail)
+        # then
+        self.assertEqual(mail.recipient, expected.recipient)
+        self.assertEqual(mail.secret_code, expected.secret_code)
+        self.assertEqual(mail.sender, expected.sender)
+        self.assertEqual(mail.subject, expected.subject)
+        self.assertEqual(mail.contents, expected.contents)
+
     def test_raw_to_mail__secretcode(self):
         # given
         rawemail = open('recvmail/fixtures/recvmail/secret.eml').read()
