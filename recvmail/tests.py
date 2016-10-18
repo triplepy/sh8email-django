@@ -251,6 +251,19 @@ class MsgParseTest(TestCase):
         self.assertEqual(mail.subject, expected.subject)
         self.assertEqual(mail.contents.strip(), expected.contents)
 
+    def test_raw_to_mail__content_disposition_inline(self):
+        # given
+        rawemail = open('recvmail/fixtures/recvmail/content_disposition_inline.eml').read()
+        expected = Mail.objects.get(pk=5)
+        # when
+        mail = raw_to_mail(rawemail)
+        # then
+        self.assertEqual(mail.recipient, expected.recipient)
+        self.assertEqual(mail.secret_code, expected.secret_code)
+        self.assertEqual(mail.sender, expected.sender)
+        self.assertEqual(mail.subject, expected.subject)
+        self.assertEqual(mail.contents, expected.contents)
+
     def test_reproduce_mail(self):
         # given
         rcpttos = ['getogrand <getogrand1@sh8.email>', 'getogrand <getogrand2@sh8.email>']
