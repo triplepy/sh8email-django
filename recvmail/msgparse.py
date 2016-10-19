@@ -35,7 +35,7 @@ def raw_to_mail(rawtext):
 def _try_set_charset_smarter(body):
     if body.get_charset() is None:
         content_type = body['Content-Type']
-        if content_type:
+        if content_type and 'charset=' in content_type:
             charset = CHARSET_IN_CONTENTTYPE_REGEX.search(content_type).group(1)
         else:
             charset = 'utf-8'  # Use default charset.
