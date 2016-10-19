@@ -120,3 +120,6 @@ psycopg2-2.6.1-cp34-none-win_amd64.whl
 
 # pid files
 tmp/pids/*
+
+# log files
+log/*
