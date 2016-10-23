@@ -48,7 +48,7 @@ def readablize_header(header):
 
 def reproduce_mail(origin, rcpttos):
     mails = []
-    for rcptto in rcpttos_filtered:
+    for rcptto in rcpttos:
         address = Address(header_to=rcptto)
         m = Mail(
                 recipient=address.recipient,
