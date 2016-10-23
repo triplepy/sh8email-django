@@ -47,7 +47,6 @@ def readablize_header(header):
 
 
 def reproduce_mail(origin, rcpttos):
-    rcpttos_filtered = [r for r in rcpttos if '@sh8.email' in r]
     mails = []
     for rcptto in rcpttos_filtered:
         address = Address(header_to=rcptto)
