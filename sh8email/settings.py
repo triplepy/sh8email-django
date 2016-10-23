@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'backdoor',
 
     'rest_framework',
-    'sanitizer',
     'django_slack',
 )
 
