@@ -293,20 +293,6 @@ class MsgParseTest(TestCase):
             self.assertEqual(m.subject, orgin_mail.subject)
             self.assertEqual(m.contents, orgin_mail.contents)
 
-    def test_reproduce_mail__filter(self):
-        # given
-        rcpttos = ['getogrand <getogrand1@sh8.email>', 'getogrand <getogrand2@bad.com>']
-        expected_recipients = ['getogrand1']
-        orgin_mail = Mail.objects.get(pk=7)
-        # when
-        mails = reproduce_mail(orgin_mail, rcpttos)
-        # then
-        self.assertEqual(len(expected_recipients), len(mails))
-        for m, rcpt in zip(mails, expected_recipients):
-            self.assertEqual(m.recipient, rcpt)
-            self.assertEqual(m.sender, orgin_mail.sender)
-            self.assertEqual(m.subject, orgin_mail.subject)
-
     def test_readablize_header(self):
         # given
         header = '=?UTF-8?B?QVdT7J2YIOy2nOyLnCDqs7Xsp4A=?='
