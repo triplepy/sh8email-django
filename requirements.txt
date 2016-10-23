@@ -2,7 +2,7 @@ Django>=1.8.7, <1.9
 selenium==2.53.6
 psycopg2>=2.6.1
 schedule>=0.3.2
-django-html_sanitizer
+lxml
 djangorestframework>=3.3.3
 PyYAML
 invoke

@@ -90,7 +90,7 @@ class DetailViewTest(TestCase):
 
         self.assertEqual(self.response.status_code, 404)
 
-    def test_html_sanitized_striphtml(self):
+    def test_html_sanitized_clean_html(self):
         # given
         client = Client()
         # when
@@ -102,10 +102,11 @@ class DetailViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "<img src=\"https://www.amazon.com/gp/0.jpg\">",
                             msg_prefix="Response was " + str(response.content))
-        self.assertContains(response, "alert&#40;'shit!'&#41;", msg_prefix="Response was " + str(response.content))
         self.assertNotContains(response, "onerror=\"alert('shit!')\"",
                                msg_prefix="Response was " + str(response.content))
         self.assertNotContains(response, "<script>alert('shit!')</script>",
+                               msg_prefix="Response was " + str(response.content))
+        self.assertContains(response, "margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;",
                                msg_prefix="Response was " + str(response.content))
 
 
