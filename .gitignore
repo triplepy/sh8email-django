@@ -123,3 +123,6 @@ tmp/pids/*
 
 # log files
 log/*
+
+# vscode settings
+.vscode/
