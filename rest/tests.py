@@ -17,16 +17,16 @@ class RestAPITest(APITestCase):
         # when
         response = self.client.get(reverse('rest:mail_detail', args=[mail.recipient, mail.pk]))
         # then
-        self.assertEqual(response.status_code, status.HTTP_200_OK,
+        self.assertEqual(status.HTTP_200_OK, response.status_code,
                          "response.content was {}".format(response.content.decode()))
-        self.assertEqual(response.data['pk'], mail.pk)
-        self.assertEqual(response.data['recipient'], mail.recipient)
-        self.assertEqual(response.data['sender'], mail.sender)
-        self.assertEqual(response.data['subject'], mail.subject)
-        self.assertEqual(response.data['contents'], mail.contents)
-        self.assertDatetimeEqual(response.data['recipDate'], mail.recip_date)
+        self.assertEqual(mail.pk, response.data['pk'])
+        self.assertEqual(mail.recipient, response.data['recipient'])
+        self.assertEqual(mail.sender, response.data['sender'])
+        self.assertEqual(mail.subject, response.data['subject'])
+        self.assertEqual(mail.contents, response.data['contents'])
+        self.assertDatetimeEqual(mail.recip_date, response.data['recipDate'])
         # is_read should be True after the api response (the 'api response' means that someone read the mail.)
-        self.assertEqual(response.data['isRead'], True)
+        self.assertEqual(True, response.data['isRead'])
 
     def test_retrieve_mail_list(self):
         # given
@@ -35,21 +35,21 @@ class RestAPITest(APITestCase):
         # when
         response = self.client.get(reverse('rest:mail_list', args=[recipient]))
         # then
-        self.assertEqual(response.status_code, status.HTTP_200_OK,
+        self.assertEqual(status.HTTP_200_OK, response.status_code,
                          "response.content was {}".format(response.content.decode()))
         for index, d in enumerate(response.data):
-            self.assertEqual(d['pk'], mails[index].pk)
-            self.assertEqual(d['recipient'], mails[index].recipient)
-            self.assertEqual(d['sender'], mails[index].sender)
-            self.assertEqual(d['subject'], mails[index].subject)
+            self.assertEqual(mails[index].pk, d['pk'])
+            self.assertEqual(mails[index].recipient, d['recipient'])
+            self.assertEqual(mails[index].sender, d['sender'])
+            self.assertEqual(mails[index].subject, d['subject'])
             if mails[index].is_secret():
-                self.assertEqual(d['contents'], '')
+                self.assertEqual('', d['contents'])
             else:
-                self.assertEqual(d['contents'], mails[index].contents)
-            self.assertDatetimeEqual(d['recipDate'], mails[index].recip_date)
-            self.assertEqual(d['isSecret'], mails[index].is_secret())
-            self.assertEqual(d['isRead'], mails[index].is_read)
+                self.assertEqual(mails[index].contents, d['contents'])
+            self.assertDatetimeEqual(mails[index].recip_date, d['recipDate'])
+            self.assertEqual(mails[index].is_secret(), d['isSecret'])
+            self.assertEqual(mails[index].is_read, d['isRead'])
 
     # TODO move to mixin.
-    def assertDatetimeEqual(self, datetime_str, datetime_obj):
-        self.assertEqual(datetime_str, datetime_obj.strftime("%Y-%m-%dT%H:%M:%SZ"))
+    def assertDatetimeEqual(self, datetime_obj, datetime_str):
+        self.assertEqual(datetime_obj.strftime("%Y-%m-%dT%H:%M:%SZ"), datetime_str)

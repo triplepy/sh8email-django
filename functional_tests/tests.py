@@ -51,8 +51,8 @@ class FunctionalTest(unittest.TestCase):
         # 근래 본 사이트중에 가장 미려함에 반해 10초간 멍하니 바라보다가
         nick_form = self.browser.find_element_by_id('recipient')
         self.assertEqual(
-            nick_form.get_attribute('placeholder'),
-            '닉네임'
+            '닉네임',
+            nick_form.get_attribute('placeholder')
         )
         # 로그인 창에 downy를 입력한다.
         nick_form.send_keys('downy')

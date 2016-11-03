@@ -27,7 +27,7 @@ class MailTest(TestCase):
         read_mail_count = 2
         expected_mail_count = total_mail_count - read_mail_count
 
-        self.assertEqual(Mail.objects.all().count(), expected_mail_count)
+        self.assertEqual(expected_mail_count, Mail.objects.all().count())
 
     def test_is_own(self):
         # given
@@ -72,7 +72,7 @@ class MailTest(TestCase):
         }
         request.POST['secret_code'] = secret_code
 
-        self.assertEqual(mail.can_read(request), (True, None))
+        self.assertEqual((True, None), mail.can_read(request))
 
     def test_can_read__cannot(self):
         recipient = 'ggone'
@@ -87,8 +87,8 @@ class MailTest(TestCase):
         }
         request.POST['secret_code'] = 'wrong_secret_code'
 
-        self.assertEqual(mail.can_read(request),
-                         (False, {CannotReadReasons.secret_code}))
+        self.assertEqual((False, {CannotReadReasons.secret_code}),
+                         mail.can_read(request))
 
     def _create_mail(self, recipient="recp1", sender="sender1", subject="subject1",
                      contents="contents1", is_read=False):

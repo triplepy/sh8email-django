@@ -65,8 +65,8 @@ class DetailViewTest(TestCase):
     def test_not_checkin(self):
         self.response = self.client.get(
             reverse('web:detail', args=(self.mail.pk,)))
-        self.assertEqual(self.response.status_code,
-                         HttpResponseForbidden.status_code)
+        self.assertEqual(HttpResponseForbidden.status_code,
+                         self.response.status_code)
 
     def test_checkin_other_recipient(self):
         checkin_recipient = "I am not" + self.recipient
@@ -75,8 +75,8 @@ class DetailViewTest(TestCase):
         self.response = self.client.get(
             reverse('web:detail', args=(self.mail.pk,)))
 
-        self.assertEqual(self.response.status_code,
-                         HttpResponseForbidden.status_code)
+        self.assertEqual(HttpResponseForbidden.status_code,
+                         self.response.status_code)
 
     def test_not_exists_mail(self):
         notexistsmail_pk = self.mail.pk
@@ -88,7 +88,7 @@ class DetailViewTest(TestCase):
         self.response = self.client.get(
             reverse('web:detail', args=(notexistsmail_pk,)))
 
-        self.assertEqual(self.response.status_code, 404)
+        self.assertEqual(404, self.response.status_code)
 
     def test_html_sanitized_clean_html(self):
         # given
@@ -99,7 +99,7 @@ class DetailViewTest(TestCase):
         response = client.get(reverse('web:detail', args=(mail.pk,)))
 
         # then
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(200, response.status_code)
         self.assertContains(response, "<img src=\"https://www.amazon.com/gp/0.jpg\">",
                             msg_prefix="Response was " + str(response.content))
         self.assertNotContains(response, "onerror=\"alert('shit!')\"",

@@ -65,7 +65,7 @@ class RecvMailTest(TestCase):
 
     def test_count_mails(self):
         mails = Mail.objects.all()
-        self.assertEquals(len(mails), len(self.recipients))
+        self.assertEquals(len(self.recipients), len(mails))
 
     def test_multi_recip(self):
         self._check_mail_is_exist_with_recipient("recipient")
@@ -83,6 +83,7 @@ class RecvMailTest(TestCase):
 
 
 class AddressTest(TestCase):
+    # TODO 메서드 일반화 시키기.
     def _assert_local_domain(self, address, local, domain):
         self.assertEqual(local, address.local)
         self.assertEqual(domain, address.domain)
@@ -170,10 +171,10 @@ class MsgParseTest(TestCase):
         mail = raw_to_mail(rawemail)
 
         # then
-        self.assertEqual(mail.recipient, expected.recipient)
-        self.assertEqual(mail.sender, expected.sender)
-        self.assertEqual(mail.subject, expected.subject)
-        self.assertHTMLEqual(mail.contents, expected.contents)
+        self.assertEqual(expected.recipient, mail.recipient)
+        self.assertEqual(expected.sender, mail.sender)
+        self.assertEqual(expected.subject, mail.subject)
+        self.assertHTMLEqual(expected.contents, mail.contents)
 
     def test_raw_to_mail__euckr_html(self):
         self.maxDiff = None
@@ -186,10 +187,10 @@ class MsgParseTest(TestCase):
         mail = raw_to_mail(rawemail)
 
         # then
-        self.assertEqual(mail.recipient, expected.recipient)
-        self.assertEqual(mail.sender, expected.sender)
-        self.assertEqual(mail.subject, expected.subject)
-        self.assertHTMLEqual(mail.contents, expected.contents)
+        self.assertEqual(expected.recipient, mail.recipient)
+        self.assertEqual(expected.sender, mail.sender)
+        self.assertEqual(expected.subject, mail.subject)
+        self.assertHTMLEqual(expected.contents, mail.contents)
 
     def test_raw_to_mail__euckr_plain(self):
         self.maxDiff = None
@@ -202,10 +203,10 @@ class MsgParseTest(TestCase):
         mail = raw_to_mail(rawemail)
 
         # then
-        self.assertEqual(mail.recipient, expected.recipient)
-        self.assertEqual(mail.sender, expected.sender)
-        self.assertEqual(mail.subject, expected.subject)
-        self.assertEqualExceptCarriageReturnEndNewLine(mail.contents, expected.contents)
+        self.assertEqual(expected.recipient, mail.recipient)
+        self.assertEqual(expected.sender, mail.sender)
+        self.assertEqual(expected.subject, mail.subject)
+        self.assertEqualExceptCarriageReturnEndNewLine(expected.contents, mail.contents)
 
     def test_raw_to_mail__unicode_sender(self):
         # given
@@ -216,10 +217,10 @@ class MsgParseTest(TestCase):
         mail = raw_to_mail(rawemail)
 
         # then
-        self.assertEqual(mail.sender, expected.sender)
-        self.assertEqual(mail.recipient, expected.recipient)
-        self.assertEqual(mail.subject, expected.subject)
-        self.assertEqualExceptCarriageReturnEndNewLine(mail.contents.strip(), expected.contents)
+        self.assertEqual(expected.recipient, mail.recipient)
+        self.assertEqual(expected.sender, mail.sender)
+        self.assertEqual(expected.subject, mail.subject)
+        self.assertEqualExceptCarriageReturnEndNewLine(expected.contents, mail.contents)
 
     def test_raw_to_mail__without_content_type_header(self):
         """This is a test case of '#20 Exception occurred when the 'Content-Type' header not exists.'."""
@@ -231,11 +232,11 @@ class MsgParseTest(TestCase):
         mail = raw_to_mail(rawemail)
 
         # then
-        self.assertEqual(mail.recipient, expected.recipient)
-        self.assertEqual(mail.secret_code, expected.secret_code)
-        self.assertEqual(mail.sender, expected.sender)
-        self.assertEqual(mail.subject, expected.subject)
-        self.assertEqual(mail.contents, expected.contents)
+        self.assertEqual(expected.recipient, mail.recipient)
+        self.assertEqual(expected.secret_code, mail.secret_code)
+        self.assertEqual(expected.sender, mail.sender)
+        self.assertEqual(expected.subject, mail.subject)
+        self.assertEqualExceptCarriageReturnEndNewLine(expected.contents, mail.contents)
 
     def test_raw_to_mail__complex_content_type_header(self):
         # given
@@ -244,11 +245,11 @@ class MsgParseTest(TestCase):
         # when
         mail = raw_to_mail(rawemail)
         # then
-        self.assertEqual(mail.recipient, expected.recipient)
-        self.assertEqual(mail.secret_code, expected.secret_code)
-        self.assertEqual(mail.sender, expected.sender)
-        self.assertEqual(mail.subject, expected.subject)
-        self.assertEqual(mail.contents, expected.contents)
+        self.assertEqual(expected.recipient, mail.recipient)
+        self.assertEqual(expected.secret_code, mail.secret_code)
+        self.assertEqual(expected.sender, mail.sender)
+        self.assertEqual(expected.subject, mail.subject)
+        self.assertEqualExceptCarriageReturnEndNewLine(expected.contents, mail.contents)
 
     def test_raw_to_mail__secretcode(self):
         # given
@@ -258,11 +259,11 @@ class MsgParseTest(TestCase):
         mail = raw_to_mail(rawemail)
 
         # then
-        self.assertEqual(mail.recipient, expected.recipient)
-        self.assertEqual(mail.secret_code, expected.secret_code)
-        self.assertEqual(mail.sender, expected.sender)
-        self.assertEqual(mail.subject, expected.subject)
-        self.assertEqual(mail.contents.strip(), expected.contents)
+        self.assertEqual(expected.recipient, mail.recipient)
+        self.assertEqual(expected.secret_code, mail.secret_code)
+        self.assertEqual(expected.sender, mail.sender)
+        self.assertEqual(expected.subject, mail.subject)
+        self.assertEqualExceptCarriageReturnEndNewLine(expected.contents, mail.contents)
 
     def test_raw_to_mail__content_disposition_inline(self):
         # given
@@ -271,27 +272,27 @@ class MsgParseTest(TestCase):
         # when
         mail = raw_to_mail(rawemail)
         # then
-        self.assertEqual(mail.recipient, expected.recipient)
-        self.assertEqual(mail.secret_code, expected.secret_code)
-        self.assertEqual(mail.sender, expected.sender)
-        self.assertEqual(mail.subject, expected.subject)
-        self.assertEqual(mail.contents, expected.contents)
+        self.assertEqual(expected.recipient, mail.recipient)
+        self.assertEqual(expected.secret_code, mail.secret_code)
+        self.assertEqual(expected.sender, mail.sender)
+        self.assertEqual(expected.subject, mail.subject)
+        self.assertEqualExceptCarriageReturnEndNewLine(expected.contents, mail.contents)
 
     def test_reproduce_mail(self):
         # given
         rcpttos = ['getogrand <getogrand1@sh8.email>', 'getogrand <getogrand2@sh8.email>']
         expected_recipients = ['getogrand1', 'getogrand2']
-        orgin_mail = Mail.objects.get(pk=7)
+        origin_mail = Mail.objects.get(pk=7)
 
         # when
-        mails = reproduce_mail(orgin_mail, rcpttos)
+        mails = reproduce_mail(origin_mail, rcpttos)
 
         # then
         for m, rcpt in zip(mails, expected_recipients):
-            self.assertEqual(m.recipient, rcpt)
-            self.assertEqual(m.sender, orgin_mail.sender)
-            self.assertEqual(m.subject, orgin_mail.subject)
-            self.assertEqual(m.contents, orgin_mail.contents)
+            self.assertEqual(rcpt, m.recipient)
+            self.assertEqual(origin_mail.sender, m.sender)
+            self.assertEqual(origin_mail.subject, m.subject)
+            self.assertEqualExceptCarriageReturnEndNewLine(origin_mail.contents, m.contents)
 
     def test_readablize_header(self):
         # given
