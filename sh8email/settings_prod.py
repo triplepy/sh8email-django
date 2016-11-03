@@ -17,6 +17,8 @@ using below command.
 $ export DJANGO_SETTINGS_MODULE=sh8email.settings_prod
     - by Wonyoung Ju
 """
+import ipgetter
+
 from .settings import *
 
 
@@ -31,7 +33,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '.sh8.email',
-    '104.155.224.62',  # Our server IP address.
+    ipgetter.myip(),  # Our server IP address.
 ]
 
 
