@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/paper/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
   <link rel="stylesheet" href="{% static 'web/bootstrap/css/bootstrap-custom.css' %}">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'web/css/_footer.css' %}">
 
   {% block extra_css %}{% endblock %}
 
@@ -39,6 +40,12 @@
   {% block content %}{% endblock %}
 </div>
 {% block content-without-container %}{% endblock %}
+
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">© 2016 <a href="http://triplepy.github.io/">triplepy</a></p>
+  </div>
+</footer>
 </body>
 
 </html>
