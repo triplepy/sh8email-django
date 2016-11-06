@@ -1,0 +1,15 @@
+{% extends 'web/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+  <p>
+    <img class="center-block" src="{% static 'web/image/server_error.png' %}" alt="Error page">
+  </p>
+  <p class="text-center">뭔가 잘못 되었군요. 침착하세요. 그리고 나서는 새로고침 해보세요.</p>
+  <p class="text-center">
+    <a href="{% url 'web:intro' %}">인트로 화면으로</a>
+    /
+    <a href="{% url 'web:list' %}">메일 목록 화면으로</a>
+  </p>
+{% endblock %}

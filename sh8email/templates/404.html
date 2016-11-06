@@ -1,0 +1,15 @@
+{% extends 'web/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+  <p>
+    <img class="center-block" src="{% static 'web/image/not_found.png' %}" alt="Page not found">
+  </p>
+  <p class="text-center">없는 페이지에 접속하셨습니다. 주소를 다시 확인해주세요.</p>
+  <p class="text-center">
+    <a href="{% url 'web:intro' %}">인트로 화면으로</a>
+    /
+    <a href="{% url 'web:list' %}">메일 목록 화면으로</a>
+  </p>
+{% endblock %}

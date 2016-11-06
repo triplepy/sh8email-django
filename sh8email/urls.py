@@ -13,6 +13,8 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from django.views.defaults import page_not_found
+from django.views.defaults import server_error
 from django.conf.urls import include, url
 from django.contrib import admin
 
@@ -29,5 +31,7 @@ urlpatterns = [
     url(r'', include(web_urls, namespace='web')),
     url(r'^backdoor/', include(backdoor_urls, namespace='backdoor')),
     url(r'^rest/', include(rest_urls, namespace='rest')),
-    url(r'^create-dummies/$', core_views.create_dummies, name='create_dummies')
+    url(r'^create-dummies/$', core_views.create_dummies, name='create_dummies'),
+    url(r'^404_preview/$', page_not_found, name='404_preview'),
+    url(r'^500_preview/$', server_error, name='500_preview'),
 ]
