@@ -173,6 +173,10 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
+        'django.security.DisallowedHost': {
+            'handlers': ['null'],
+            'propagate': False,
+        }
     },
     'root': {
         'handlers': ['console', 'slack_admins'],
