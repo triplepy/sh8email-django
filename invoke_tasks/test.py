@@ -22,3 +22,13 @@ def func(ctx):
     ctx.run("python manage.py runrecv --stop")
     ctx.run("python manage.py runbatch --stop")
     ctx.run("pkill -f \"python manage.py runserver\"")
+
+
+@task
+def task_helpers(ctx):
+    ctx.run("python -m unittest invoke_tasks/test_helpers.py")
+
+
+@task(unit, func, task_helpers)
+def all(ctx):
+    pass
