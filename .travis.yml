@@ -43,20 +43,5 @@ before_script:
   - python manage.py collectstatic --noinput
 
 script:
-  # Unit tests.
-  - python manage.py test sh8core -v 3
-  - python manage.py test web -v 3
-  - python manage.py test rest -v 3
-  - python manage.py test recvmail -v 3
-  - python manage.py test backdoor -v 3
-  # Functional tests.
-  ## setup
-  - python manage.py runrecv &
-  - python manage.py runbatch &
-  - python manage.py runserver &
-  ## test
-  - python manage.py test functional_tests -v 3
-  ## teardown
-  - python manage.py runrecv --stop
-  - python manage.py runbatch --stop
-  - pkill -f "python manage.py runserver"
+  # Test
+  - invoke test.all
