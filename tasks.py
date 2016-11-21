@@ -1,4 +1,7 @@
 import sys
+import time
+from urllib.request import urlopen
+import http
 from invoke import Collection
 from invoke import task
 
@@ -16,6 +19,14 @@ def deploy(ctx):
     ctx.run("python manage.py migrate")
     ctx.run("python manage.py collectstatic --noinput")
     ctx.run("touch ../reload")
+
+    time.sleep(1)
+
+    with urlopen("https://sh8.email") as response:
+        if not response.getcode() == http.HTTPStatus.OK:
+            sys.exit("CRITICAL: The site respond CODE " + response.getcode())
+
+    print("Deploy succeded.")
 
 
 namespace = Collection(deploy, test)
