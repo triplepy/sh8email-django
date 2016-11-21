@@ -1,7 +1,6 @@
 import sys
 import time
 from urllib.request import urlopen
-import http
 from invoke import Collection
 from invoke import task
 
@@ -23,7 +22,7 @@ def deploy(ctx):
     time.sleep(1)
 
     with urlopen("https://sh8.email") as response:
-        if not response.getcode() == http.HTTPStatus.OK:
+        if not response.getcode() == 200:
             sys.exit("CRITICAL: The site respond CODE " + response.getcode())
 
     print("Deploy succeded.")
