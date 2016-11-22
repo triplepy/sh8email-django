@@ -18,7 +18,8 @@ def deploy(ctx):
     ctx.run("python manage.py migrate")
     ctx.run("python manage.py collectstatic --noinput")
     ctx.run("touch ../reload")
-
+    ctx.run("sudo restart sh8recv", pty=True)
+    ctx.run("sudo restart sh8batch", pty=True)
     time.sleep(1)
 
     with urlopen("https://sh8.email") as response:
