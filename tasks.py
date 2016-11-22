@@ -26,7 +26,7 @@ def deploy(ctx):
         if not response.getcode() == 200:
             sys.exit("CRITICAL: The site respond CODE " + response.getcode())
 
-    print("Deploy succeded.")
+    print("Deploy succeeded.")
 
 
 namespace = Collection(deploy, test)
