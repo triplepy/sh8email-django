@@ -43,6 +43,7 @@ class Mail(models.Model):
         return bool(self.secret_code)
 
     def __repr__(self):
+        # TODO sync with current attributes.
         return "Mail(recipient={}, secret_code={}, sender={}, subject={}, contents={}, recip_date={}, is_read={})".format(
             self.recipient, self.secret_code, self.sender, self.subject, self.contents, self.recip_date, self.is_read)
 
