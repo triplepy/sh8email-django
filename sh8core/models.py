@@ -13,6 +13,7 @@ class Mail(models.Model):
     sender = models.CharField(max_length=200)
     subject = models.CharField(max_length=400)
     contents = models.TextField()
+    content_type = models.CharField(max_length=50)
     recip_date = models.DateTimeField(auto_now_add=True, editable=True)
     is_read = models.BooleanField(default=False)
 
@@ -44,8 +45,8 @@ class Mail(models.Model):
 
     def __repr__(self):
         # TODO sync with current attributes.
-        return "Mail(recipient={}, secret_code={}, sender={}, subject={}, contents={}, recip_date={}, is_read={})".format(
-            self.recipient, self.secret_code, self.sender, self.subject, self.contents, self.recip_date, self.is_read)
+        return "Mail(recipient={}, secret_code={}, sender={}, subject={}, contents={}, content_type={}, recip_date={}, is_read={})".format(
+            self.recipient, self.secret_code, self.sender, self.subject, self.contents, self.content_type, self.recip_date, self.is_read)
 
     def __str__(self):
         return self.__repr__()
