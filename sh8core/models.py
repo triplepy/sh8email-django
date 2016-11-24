@@ -32,6 +32,9 @@ class Mail(models.Model):
     def is_own(self, checkin_manager):
         return checkin_manager.current_recipient() == self.recipient
 
+    def is_html(self):
+        return self.content_type == "text/html"
+        
     def read(self):
         self.is_read = True
         self.save()
