@@ -57,7 +57,7 @@ class MailTest(TestCase):
         Mail.delete_one_day_ago()
 
         # then
-        self.assertEquals(1, Mail.objects.all().count())
+        self.assertEqual(1, Mail.objects.all().count())
 
     def test_can_read__can(self):
         recipient = 'ggone'

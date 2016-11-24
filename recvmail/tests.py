@@ -65,7 +65,7 @@ class RecvMailTest(TestCase):
 
     def test_count_mails(self):
         mails = Mail.objects.all()
-        self.assertEquals(len(self.recipients), len(mails))
+        self.assertEqual(len(self.recipients), len(mails))
 
     def test_multi_recip(self):
         self._check_mail_is_exist_with_recipient("recipient")
@@ -75,7 +75,7 @@ class RecvMailTest(TestCase):
     def test_secret_mail(self):
         self._check_mail_is_exist_with_recipient("secret")
         sec_mail = Mail.objects.get(recipient="secret")
-        self.assertEquals('secsec', sec_mail.secret_code)
+        self.assertEqual('secsec', sec_mail.secret_code)
 
     def _check_mail_is_exist_with_recipient(self, recipient):
         mail = Mail.objects.get(recipient=recipient)
