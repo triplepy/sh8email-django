@@ -22,12 +22,14 @@ def raw_to_mail(rawtext):
 
     contents = str(body.get_payload(decode=True),
                    encoding=str(body.get_charset()))
+    content_type = body.get_content_type()
 
     mail = Mail(recipient=address.recipient,
                 secret_code=address.secret_code,
                 sender=sender,
                 subject=subject,
-                contents=contents,)
+                contents=contents,
+                content_type=content_type,)
 
     return mail
 
