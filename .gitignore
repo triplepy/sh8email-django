@@ -126,3 +126,6 @@ log/*
 
 # vscode settings
 .vscode/
+
+# ctags files
+tags
