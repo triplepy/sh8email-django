@@ -56,3 +56,23 @@
         <script>alert('shit!')</script>
       </body>
       </html>
+- model: sh8core.mail
+  pk: 6
+  fields:
+    recipient: ggone
+    sender: jong@gmail.com
+    subject: 'This is subject.'
+    recip_date: "2016-09-15T15:22:01+09:00"
+    content_type: text/html
+    contents: |
+      <html>
+      <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+          <meta name="viewport" content="width=device-width">
+      </head>
+      <body yahoo='fix' style='margin-top:0;margin-bottom:0;margin-left:0;margin-right:0;'>
+        <img src="https://www.amazon.com/gp/0.jpg">
+        <img src="https://www.amazon.com/gp/1.jpg" onerror="alert('shit!')">
+        <script>alert('shit!')</script>
+      </body>
+      </html>

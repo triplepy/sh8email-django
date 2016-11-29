@@ -16,19 +16,33 @@ class IntroViewTest(TestCase):
 class ListViewTest(TestCase):
     fixtures = ['web/mails.yaml']
 
-    def test_list_is_shown(self):
-        mail1 = Mail.objects.get(pk=1)
-        mail2 = Mail.objects.get(pk=2)
-        mails = [mail1, mail2]
+    def test_list_is_shown_when_plain_mail(self):
+        plain_mail1 = Mail.objects.get(pk=1)
+        plain_mail2 = Mail.objects.get(pk=2)
+        mails = [plain_mail1, plain_mail2]
 
         client = Client()
-        add_recip_to_session(client, mail1.recipient)
+        add_recip_to_session(client, plain_mail1.recipient)
         response = client.get(reverse('web:list'))
 
         for mail in mails:
             self.assertContains(response, mail.sender)
             self.assertContains(response, mail.subject[:50])
             self.assertContains(response, mail.contents[:200])
+
+    def test_list_should_not_be_shown_when_html_mail(self):
+        html_mail1 = Mail.objects.get(pk=5)
+        html_mail2 = Mail.objects.get(pk=6)
+        mails = [html_mail1, html_mail2]
+
+        client = Client()
+        add_recip_to_session(client, html_mail1.recipient)
+        response = client.get(reverse('web:list'))
+
+        for mail in mails:
+            self.assertContains(response, mail.sender)
+            self.assertContains(response, mail.subject[:50])
+            self.assertNotContains(response, mail.contents[:200])
 
     def test_content_of_secretmail_should_not_be_shown(self):
         mail1 = Mail.objects.get(pk=3)
