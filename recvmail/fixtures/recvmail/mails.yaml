@@ -5,6 +5,7 @@
     sender: 'Amazon Web Services <aws-marketing-email-replies@amazon.com>'
     subject: 'AWS의 출시 공지'
     recip_date: "2016-09-15T15:22:01+09:00"
+    content_type: text/html
     contents: |
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html>
@@ -23,6 +24,7 @@
     sender: '주원영 <getogrand@gmail.com>'
     subject: '아이폰한글메일테스트'
     recip_date: "2016-09-15T15:22:01+09:00"
+    content_type: text/html
     contents: |
       <html>
          <head>
@@ -41,6 +43,7 @@
     sender: '주원영 <getogrand@gmail.com>'
     subject: '아이폰한글메일테스트'
     recip_date: "2016-09-15T15:22:01+09:00"
+    content_type: text/plain
     contents: |
       한글
 
@@ -53,6 +56,7 @@
     subject: 'test'
     recip_date: "2016-09-15T15:22:01+09:00"
     contents: 'test'
+    content_type: text/plain
 - model: sh8core.mail
   pk: 5
   fields:
@@ -61,6 +65,7 @@
     subject: 'This is subject.'
     recip_date: "2016-09-15T15:22:01+09:00"
     contents: 'This is test content.'
+    content_type: text/plain
 - model: sh8core.mail
   pk: 6
   fields:
@@ -70,6 +75,7 @@
     subject: test
     recip_date: "2016-09-15T15:22:01+09:00"
     contents: test
+    content_type: text/plain
 - model: sh8core.mail
   pk: 7
   fields:
@@ -78,3 +84,4 @@
     subject: test
     recip_date: "2016-09-15T15:22:01+09:00"
     contents: test
+    content_type: text/plain
