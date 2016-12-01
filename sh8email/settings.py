@@ -122,7 +122,8 @@ DATABASES = {
         'USER': 'sh8email',
         'PASSWORD': os.getenv('SH8EMAIL_POSTGRES_PW', 'password'),
         'HOST': 'localhost',
-        'POST': '5432'
+        'POST': '5432',
+        'ATOMIC_REQUESTS': True,
     }
 }
 
