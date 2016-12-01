@@ -33,9 +33,9 @@ def checkin(request):
 
     checkin_manager = CheckinManager(request)
 
-    Mail.delete_read(checkin_manager)
-
     checkin_manager.checkin(recipient)
+
+    Mail.delete_read(checkin_manager)
 
     return HttpResponseRedirect(reverse('web:list'))
 
