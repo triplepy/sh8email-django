@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:image" content="{% static 'web/image/logo.png' %}">
+    {% block extra_meta %}{% endblock %}
   <title>{% block title_text %}sh8.email{% endblock %}</title>
   <!-- favicon.ico -->
   <link rel="shortcut icon" type="image/png" href="{% static 'web/image/favicon.ico' %}"/>
