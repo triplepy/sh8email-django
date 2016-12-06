@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/triplepy/sh8email-django.svg?branch=master)](https://travis-ci.org/triplepy/sh8email-django)
+
 # sh8email-django
 [sh8email](https://sh8.email) is an anonymous, silent and lockable email service.
 
