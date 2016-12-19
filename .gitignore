@@ -129,3 +129,6 @@ log/*
 
 # ctags files
 tags
+
+# .env file
+.env
