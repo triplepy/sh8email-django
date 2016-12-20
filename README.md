@@ -29,6 +29,7 @@ Enter python virtual environment and type `invoke deploy`.
 ### Note
 For running tests in development environment, **port 25 should be forwarded to 2525**.
 It can be performed using [rinetd](https://boutell.com/rinetd/) in Linux system.
+
 ```
 # /etc/rinetd.conf
 #
@@ -48,11 +49,13 @@ It can be performed using [rinetd](https://boutell.com/rinetd/) in Linux system.
 #### 1. Install postgresql.
 
 In Ubuntu, 
+
 ```shell
 $ sudo apt install postgresql
 ```
 
 In OSX (brew required),
+
 ```shell
 $ brew install postgresql
 ```
@@ -100,13 +103,16 @@ In Ubuntu, edit `/etc/postgresql/9.5/main/pg_hba.conf`.
 In OS X or macOS, edit `/usr/local/var/postgres/pg_hba.conf`.
 
 From
+
 ```
 # IPv4 local connections:
 host    all             all             127.0.0.1/32            md5
 # IPv6 local connections:
 host    all             all             ::1/128                 md5
 ```
+
 to
+
 ```
 # IPv4 local connections:
 hostnossl    all             all             127.0.0.1/32            md5
