@@ -12,13 +12,16 @@ class Command(BaseCommand):
     initial_msg = "Replace this message with the raw email message."
 
     def handle(self, *args, **options):
-        with tempfile.NamedTemporaryFile(suffix=".tmp") as f:
-            f.write(bytes(self.initial_msg, encoding='utf-8'))
+        with tempfile.NamedTemporaryFile(suffix=".tmp", encoding="utf-8", mode="w+") as f:
+            f.write(self.initial_msg)
             f.flush()
-            call([self.EDITOR, f.name])
-            f.seek(0)
 
-            raw = str(f.read(), encoding='utf-8')
+            editor_args = self.EDITOR.split() + [f.name]
+            call(editor_args)
+
+            f.seek(0)
+            raw = f.read()
+            
             mail = raw_to_mail(raw)
             mail.save()
 
