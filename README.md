@@ -60,6 +60,12 @@ In OSX (brew required),
 $ brew install postgresql
 ```
 
+If you want to start up postgresql server automatically after your macOS boots,
+
+```shell
+$ brew services start postgresql
+```
+
 #### 2. Login as postgres, and enter the psql which is command line tool for postgresql.
 
 ##### In ubuntu
