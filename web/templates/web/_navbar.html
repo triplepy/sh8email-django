@@ -1,5 +1,9 @@
 {% load staticfiles %}
-
+<style>
+input.form-control {
+       margin-right: 10px;
+}
+</style>
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
@@ -19,7 +23,7 @@
           <div class="form-group">
             <div class="input-group">
               <input type="text" class="form-control" name="recipient"
-                     placeholder="{{ recipient | default:'닉네임을 입력하세요'}}" required="required">&nbsp;
+                     placeholder="{{ recipient | default:'닉네임을 입력하세요'}}" required="required">
               <span class="input-group-btn">
                 <button class="btn btn-default js-forms-submitbutton" type="button">메일 확인</button>
               </span>
