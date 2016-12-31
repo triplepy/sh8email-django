@@ -9,3 +9,7 @@ html, body {
   display: inline;
   margin-right: 0.3em;
 }
+
+.btn.btn-default.js-forms-submitbutton {
+  margin-left: 10px;
+}
