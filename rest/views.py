@@ -49,3 +49,8 @@ class MailDetail(APIView):
         mail = self._get_object(request, nickname, pk)
         serializer = MailDetailSerializer(mail)
         return Response(serializer.data)
+
+    def post(self, request, nickname, pk):
+        mail = self._get_object(request, nickname, pk)
+        serializer = MailDetailSerializer(mail)
+        return Response(serializer.data)
