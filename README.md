@@ -133,7 +133,7 @@ hostnossl    all             all             ::1/128                 md5
     - GET rest/mail/{nickname}/list/
 - Retrieve a mail content.
     - GET rest/mail/{nickname}/{mail_pk}/
-    - POST rest/mail/{nickname}/mail_pk}/ (for secret_email)
+    - POST rest/mail/{nickname}/{mail_pk}/ (for secret_email)
        - It needs "secret_code" parameter    
 
 # Trouble Shooting
