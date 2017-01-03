@@ -54,7 +54,7 @@ class RestAPITest(APITestCase):
         # given
         recipient = 'silver'
         all_mails = Mail.objects.filter(recipient=recipient)
-        secret_mails = list(filter(lambda x: x.is_secret() == True, all_mails))
+        secret_mails = list(filter(lambda x: x.is_secret() is True, all_mails))
         secret_mail = secret_mails[0]
         self.client.get(reverse('rest:mail_list', args=[recipient]))
         data = {'secret_code': 'wrong_password'}
