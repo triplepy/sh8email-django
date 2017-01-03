@@ -59,7 +59,7 @@ class RestAPITest(APITestCase):
         data = {'secret_code': 'wrong_password'}
         # when
         url = reverse('rest:mail_detail', args=[recipient, secret_mail.pk])
-        response = self.client.post(reverse(url), data=data)
+        response = self.client.post(url, data=data)
         # then
         self.assertEquals(401, response.status_code)
 
@@ -72,7 +72,7 @@ class RestAPITest(APITestCase):
         data = {'secret_code': 'secret'}
         # when
         url = reverse('rest:mail_detail', args=[recipient, secret_mail.pk])
-        response = self.client.post(reverse(url), data=data)
+        response = self.client.post(url, data=data)
         # then
         self.assertEquals(200, response.status_code)
         self.assertEquals(secret_mail.title, response.data['title'])
