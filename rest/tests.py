@@ -50,6 +50,38 @@ class RestAPITest(APITestCase):
             self.assertEqual(mails[index].is_secret(), d['isSecret'])
             self.assertEqual(mails[index].is_read, d['isRead'])
 
+    def test_secret_mail_detail_with_wrong_password(self):
+        # given
+        recipient = 'silver'
+        all_mails = Mail.objects.filter(recipient=recipient)
+        secret_mails = list(filter(lambda x: x.is_secret() == True, all_mails))
+        secret_mail = secret_mails[0]
+        self.client.get(reverse('rest:mail_list', args=[recipient]))
+        data = {'secret_code': 'wrong_password'}
+        # when
+        url = reverse('rest:mail_detail', args=[recipient, secret_mail.pk])
+        response = self.client.post(reverse(url), data=data)
+        # then
+        self.assertEquals(401, response.status_code)
+
+    def test_secret_mail_detail_with_correct_password(self):
+        # given
+        recipient = 'silver'
+        all_mails = Mail.objects.filter(recipient=recipient)
+        secret_mails = list(filter(lambda x: x.is_secret() == True, all_mails))
+        secret_mail = secret_mails[0]
+        self.client.get(reverse('rest:mail_list', args=[recipient]))
+        data = {'secret_code': 'secret'}
+        # when
+        url = reverse('rest:mail_detail', args=[recipient, secret_mail.pk])
+        response = self.client.post(reverse(url), data=data)
+        # then
+        self.assertEquals(200, response.status_code)
+        self.assertEquals(secret_mail.title, response.data['title'])
+        self.assertEquals(secret_mail.sender, response.data['sender'])
+        self.assertEquals(secret_mail.subject, response.data['subject'])
+        self.assertEquals(secret_mail.contents, response.data['contents'])
+
     # TODO move to mixin.
     def assertDatetimeEqual(self, datetime_obj, datetime_str):
         self.assertEqual(datetime_obj.strftime("%Y-%m-%dT%H:%M:%SZ"), datetime_str)

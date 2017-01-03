@@ -1,5 +1,6 @@
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
+from rest_framework.status import HTTP_401_UNAUTHORIZED
 from rest_framework.views import APIView
 
 from sh8core.checkin import CheckinManager
@@ -47,10 +48,14 @@ class MailDetail(APIView):
 
     def get(self, request, nickname, pk, format=None):
         mail = self._get_object(request, nickname, pk)
+        if mail is None:
+            return Response(mail, status=HTTP_401_UNAUTHORIZED)
         serializer = MailDetailSerializer(mail)
         return Response(serializer.data)
 
     def post(self, request, nickname, pk):
         mail = self._get_object(request, nickname, pk)
+        if mail is None:
+            return Response(mail, status=HTTP_401_UNAUTHORIZED)
         serializer = MailDetailSerializer(mail)
         return Response(serializer.data)
