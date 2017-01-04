@@ -56,6 +56,7 @@ class RestAPITest(APITestCase):
         all_mails = Mail.objects.filter(recipient=recipient)
         secret_mails = list(filter(lambda x: x.is_secret() is True, all_mails))
         secret_mail = secret_mails[0]
+        add_recip_to_session(self.client, secret_mail.recipient)
         data = {'secret_code': 'wrong_password'}
         # when
         url = reverse('rest:mail_detail', args=[recipient, secret_mail.pk])
@@ -69,13 +70,13 @@ class RestAPITest(APITestCase):
         all_mails = Mail.objects.filter(recipient=recipient)
         secret_mails = list(filter(lambda x: x.is_secret() is True, all_mails))
         secret_mail = secret_mails[0]
-        data = {'secret_code': 'secret'}
+        add_recip_to_session(self.client, secret_mail.recipient)
+        data = {'secret_code': secret_mail.secret_code}
         # when
         url = reverse('rest:mail_detail', args=[recipient, secret_mail.pk])
         response = self.client.post(url, data=data)
         # then
         self.assertEquals(200, response.status_code)
-        self.assertEquals(secret_mail.title, response.data['title'])
         self.assertEquals(secret_mail.sender, response.data['sender'])
         self.assertEquals(secret_mail.subject, response.data['subject'])
         self.assertEquals(secret_mail.contents, response.data['contents'])
