@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 class CustomSMTPServer(smtpd.SMTPServer):
     def process_message(self, peer, mailfrom, rcpttos, data, **kwargs):
-        rcpttos_filtered = [r for r in rcpttos if '@sh8.email' in r]
+        rcpttos_filtered = [r for r in rcpttos if '@sh8.email' in r.lower()]
         if len(rcpttos_filtered) == 0: return
         
         # TODO Redesign this logic, and write tests code of exception logic.
